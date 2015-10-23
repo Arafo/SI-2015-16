@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"> 
+<title>Formulario de registro de usuarios</title>
+</head>
+<body>
+	<h1>Formulario de registro de usuarios</h1>
+	<form action="http://localhost:8080/MiAplicacion/Registro.html" method="post">
+		<label for="IdNombre">Nombre*:</label><input id="IdNombre" type="text" name="name"/><br/>
+		<label for="IdApellidos">Apellidos*:</label><input id="IdApellidos" type="text" name="surName"/><br/>
+		
+		<label for="IdEmail"> Email*:</label><input type="email" name="email" id="IdEmail"/><br/>
+		<label for="IdNacimiento">Fecha de nacimiento:</label><input type="date" name="bday" step="1" min="1900-01-01" max="2020-01-01" id="IdNacimiento"><br/>
+		<label for="IdDireccion">Dirección:</label><input type="text" name="Direccion" id="IdDireccion"/> <br/>
+		<label for="IdTel">Teléfono:</label><input type="tel" name="tel" id="IdTel"/> <br/>
+
+		<fieldset style="border: 0px; padding: 0em;"><legend style="padding:0px; border-radius:0px; margin-left:0px">Sexo:</legend> 
+			<input id="IdHombre" type="radio" name="sex" value="H"/><label for="IdHombre">Hombre</label>
+			<input id="IdMujer" type="radio" name="sex" value="M"/><label for="IdMujer">Mujer</label><br/>
+		</fieldset>
+
+		<label for="IdClave">Clave de acceso*:</label><input id="IdClave" type="text" name="password"><br/>
+		<label for="IdReClave">Repetir clave de acceso*:</label><input id="IdReClave" type="text" name="rePassword"><br/>
+
+		<label>Nota: Los campos marcados con un asterisco deben rellenarse de forma obligatoria.</label><br/>
+
+		<input type="submit"> <input type="reset"><br/>
+
+	</form>
+	
+</body>
+</html>
