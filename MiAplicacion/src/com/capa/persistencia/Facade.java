@@ -7,10 +7,10 @@ import com.capa.modelo.Usuario;
 
 public interface Facade {
 
-	public void insertUser(Usuario user);
-	public Usuario loginUser(String name, String password);
+	public void insertUser(Usuario user) throws EmailAlreadyExistsException;
+	public Usuario loginUser(String email, String password);
 	
-	public String insertComment(String comment);
+	public int insertComment(String comment, int id_obra, int id_accion);
 	public void modifyComment(int id, String text);
 	public void deleteComment(int id);
 
@@ -23,7 +23,7 @@ public interface Facade {
 	/**
 	 * @return devuelve una lista de Strings de una pelicula
 	 */
-	public ArrayList<String> filmComments(int filmId);
+	public ArrayList<String> ObraComments(int filmId);
 	
 	/**
 	 * @return devuelve una lista de Strings de un usuario
@@ -33,7 +33,7 @@ public interface Facade {
 	/**
 	 * @return devuelve los datos de una pelicula en concreto
 	 */
-	public ArrayList<Obra> filmData(int ObraId);
+	public ArrayList<Obra> ObraData(int ObraId);
 	
 	public int numObras();
 	

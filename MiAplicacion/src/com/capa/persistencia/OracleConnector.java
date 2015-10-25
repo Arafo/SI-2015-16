@@ -3,6 +3,7 @@ package com.capa.persistencia;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 
 import com.capa.modelo.Obra;
@@ -134,56 +135,144 @@ public class OracleConnector implements Facade {
 	}
 
 	@Override
-	public void insertUser(Usuario user) {
-		// TODO Auto-generated method stub
+	public void insertUser(Usuario user) throws EmailAlreadyExistsException {
+		String sql = String.format("SELECT * FROM USUARIO WHERE EMAIL='%s'",
+				user.getEmail());
+		ResultSet rs = executeQuery(sql);
+		try {
+			if (!rs.next()) {
+				sql = String.format("INSERT INTO USUARIO"
+						+ "(id, nombre, sexo, telefono, email, pass, nacimiento) "
+						+ "VALUES (%d, '%s', '%s', %d, '%s', '%s', TO_DATE('%s', 'YYYY-MM-DD'))",
+						0, user.getNombre(), user.getSexo(), user.getTelefono(),
+						user.getEmail(), user.getPass(), user.getNacimiento());				
+			} else {
+				throw new EmailAlreadyExistsException("Error al insertar usuario,"
+						+ " email '" + user.getEmail() + 
+						"' ya existe en la base de datos.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
+		executeQuery(sql);
 	}
 
 	@Override
-	public Usuario loginUser(String name, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String insertComment(String comment) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void modifyComment(int id, String text) {
-		// TODO Auto-generated method stub
+	public Usuario loginUser(String email, String password) {
+		String sql = String.format("SELECT * FROM USUARIO WHERE EMAIL='%s'", email);
+		ResultSet rs = null;
+		Usuario user = null;
 		
+		try {
+			rs = executeQuery(sql);
+			if (rs.next() && rs.getString("pass").equals(password)) {
+				user = new Usuario(
+						rs.getInt("id"),
+						rs.getString("nombre"),
+						rs.getString("sexo"),
+						rs.getInt("telefono"),
+						rs.getString("email"),
+						rs.getString("pass"),
+						rs.getDate("nacimiento"));	
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
+
+	@Override
+	public int insertComment(String comment, int id_obra, int id_accion) {
+		String sql = String.format("INSERT INTO accion_obra"
+				+ "(id, id_obra, id_accion, puntuacion, ) VALUES"
+				+ "(0,'%d','%s','%s')", id_obra, id_accion, comment);
+		ResultSet rs = null;
+		int comment_id = -1;
+		
+		try {
+			rs = executeQuery(sql);
+			if (rs.next()) {
+				comment_id = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return comment_id;
+	}
+
+	@Override
+	public void modifyComment(int id, String new_comment) {
+		String sql = String.format("UPDATE accion_obra SET comentario = '%s' "
+				+ "WHERE id=%d", new_comment, id);
+		executeQuery(sql);		
 	}
 
 	@Override
 	public void deleteComment(int id) {
-		// TODO Auto-generated method stub
-		
+		String sql = String.format("DELETE FROM accion_obra WHERE id=%d", id);
+		executeQuery(sql);
 	}
 
 	@Override
 	public String getComment(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = String.format("SELECT * FROM accion_obra WHERE id=('%d')", id);
+		String comment = null;
+		ResultSet rs = null;
+		
+		try {		
+			rs = executeQuery(sql);
+			if (rs.next()) {
+				comment = rs.getString("comentario");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return comment;
 	}
 
 	@Override
-	public ArrayList<String> filmComments(int filmId) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<String> ObraComments(int ObraId) {
+		ArrayList<String> comments = new ArrayList<>(); 
+		String sql = String.format("SELECT * FROM accion_obra WHERE id_obra="
+				+ "('%d')", ObraId);
+		ResultSet rs = null;
+		
+		try {		
+			rs = executeQuery(sql);
+			while (rs.next()) {
+				comments.add(rs.getString("comentario"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return comments;
 	}
 
 	@Override
 	public ArrayList<String> userComments(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<String> comments = new ArrayList<>(); 
+		String sql= String.format("SELECT * FROM accion_obra WHERE id="
+				+ "('%s')", email);
+		ResultSet rs = null;
+		
+		try {		
+			rs = executeQuery(sql);
+			while (rs.next()) {
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return comments;
 	}
 
 	@Override
-	public ArrayList<Obra> filmData(int ObraId) {
-		// TODO Auto-generated method stub
+	public ArrayList<Obra> ObraData(int ObraId) {
 		return null;
 	}
 
@@ -228,5 +317,28 @@ public class OracleConnector implements Facade {
 		disconnect();
 		
 		return user;
+	}
+	
+	public ArrayList<Obra> getObras(String nombre)  {
+		String sql = String.format("SELECT * FROM OBRA WHERE nombre LIKE '%s'", nombre);
+		ArrayList<Obra> data = new ArrayList<Obra>();
+
+		ResultSet rs = executeQuery(sql);
+		
+		try {
+			while (rs.next()) {
+        	  data.add(new Obra(rs.getInt("id"),
+        			  rs.getString("nombre"),
+        			  rs.getDate("fecha_emision"), 
+        			  rs.getInt("puntuacion"),
+        			  rs.getInt("duracion"), 
+        			  rs.getInt("capitulos"), 
+        			  rs.getString("nacionalidad")));  
+			}
+		} catch (Exception e) {
+			e.printStackTrace();	
+		} 
+		
+		return data;	
 	}
 }
