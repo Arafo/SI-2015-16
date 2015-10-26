@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+body {
+  background-color: #99d1ea;
+}
+
+.bailongo {
+	margin: 0 auto;
+    width: 200px;
+    padding-top: 200px;
+}
