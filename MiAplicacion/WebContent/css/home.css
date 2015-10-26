@@ -1,0 +1,75 @@
+@CHARSET "UTF-8";
+
+body {
+	/* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+	padding-top: 70px;
+	background: #eee;
+}
+/* Cajas del inicio de sesion */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.col-centered{
+    float: none;
+}
+
+.tilte {
+
+}
+
+.submit {
+	
+}
+
+/* Menu de inicio de sesion */
+.dropdown-menu {
+    border-left: 1px solid #e1e8ef;
+    left: -200%;
+    margin: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    position: absolute;
+    width: 280px
+	
+}
+
+/* Caja de texto del item */
+.caption {
+	height: 130px;
+	overflow: hidden;
+}
+
+/* Texto del item tamaño h4 */
+.caption h4 {
+	white-space: nowrap;
+}
+
+/* Item */
+.thumbnail {
+	padding: 0;
+}
+
+/* Imagen del item */
+.thumbnail img {
+	width: 100%;
+}
+
+/* Item e imagen */
+.thumbnail .caption-full {
+	padding: 9px;
+	color: #333;
+}
+
+/* Puntuaciones */
+.ratings {
+	padding-right: 10px;
+	padding-left: 10px;
+	color: #d17581;
+}
+
+/* Pie de pagina */
+footer {
+	margin: 50px 0;
+}

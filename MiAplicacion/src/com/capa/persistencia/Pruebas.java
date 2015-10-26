@@ -23,7 +23,7 @@ public class Pruebas {
 			System.err.println(e.getMessage());
 		}
 		System.out.println(q.getUser("puta_caliente69@pene.com").getNombre());
-		System.out.println(q.numObras());
+		System.out.println(q.getNumObras());
 	}
 
 }

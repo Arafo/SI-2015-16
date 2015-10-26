@@ -1,6 +1,8 @@
 package com.capa.persistencia;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.capa.modelo.Obra;
 import com.capa.modelo.Usuario;
@@ -35,7 +37,26 @@ public interface Facade {
 	 */
 	public ArrayList<Obra> ObraData(int ObraId);
 	
-	public int numObras();
+	public int insertObra(String nombre, Date fecha, int puntuacion, int duracion, 
+			String nacionalidad, int capitulos, String ruta_imagen);
 	
+	/**
+	 * @param nombre
+	 * @return Devuelve los datos de las obras que contienen nombre
+	 */
+	public List<Obra> getObras(String nombre);
+	
+	/**
+	 * @param offset
+	 * @param noOfRecords
+	 * @return Devuelve una lista de obras con tamaño igual a noOfRecords
+	 * 		   a partir de offset
+	 */
+	public List<Obra> getObras(int offset, int noOfRecords);
+	
+	public int getNumObras();
+		
 	public Usuario getUser(String email);
+	
+	
 }

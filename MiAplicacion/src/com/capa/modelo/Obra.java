@@ -11,6 +11,7 @@ public class Obra {
 	private int duracion;
 	private int capitulos;
 	private String nacionalidad;
+	private String ruta_imagen;
 	
 	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, int capitulos,
 			String nacionalidad) {
@@ -24,6 +25,19 @@ public class Obra {
 		this.nacionalidad = nacionalidad;
 	}
 	
+	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, int capitulos,
+			String nacionalidad, String ruta_imagen) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.fecha_emision = fecha_emision;
+		this.puntuacion = puntuacion;
+		this.duracion = duracion;
+		this.capitulos = capitulos;
+		this.nacionalidad = nacionalidad;
+		this.ruta_imagen = ruta_imagen;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -66,4 +80,10 @@ public class Obra {
 	public void setNacionalidad(String nacionalidad) {
 		this.nacionalidad = nacionalidad;
 	}	
+	public String getRuta_imagen() {
+		return ruta_imagen;
+	}
+	public void setRuta_imagen(String ruta_imagen) {
+		this.ruta_imagen = ruta_imagen;
+	}
 }

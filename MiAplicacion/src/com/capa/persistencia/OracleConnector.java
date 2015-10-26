@@ -3,7 +3,7 @@ package com.capa.persistencia;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import com.capa.modelo.Obra;
@@ -143,8 +143,8 @@ public class OracleConnector implements Facade {
 			if (!rs.next()) {
 				sql = String.format("INSERT INTO USUARIO"
 						+ "(id, nombre, sexo, telefono, email, pass, nacimiento) "
-						+ "VALUES (%d, '%s', '%s', %d, '%s', '%s', TO_DATE('%s', 'YYYY-MM-DD'))",
-						0, user.getNombre(), user.getSexo(), user.getTelefono(),
+						+ "VALUES (user_seq.NEXTVAL, %d, '%s', '%s', %d, '%s', '%s', TO_DATE('%s', 'YYYY-MM-DD'))",
+						user.getNombre(), user.getSexo(), user.getTelefono(),
 						user.getEmail(), user.getPass(), user.getNacimiento());				
 			} else {
 				throw new EmailAlreadyExistsException("Error al insertar usuario,"
@@ -277,23 +277,6 @@ public class OracleConnector implements Facade {
 	}
 
 	@Override
-	public int numObras() {
-		int num_obras = 0;
-		String sql = String.format("SELECT COUNT(*) FROM OBRA");
-		ResultSet rs = executeQuery(sql);
-		
-		try {
-			if (rs.next()) {
-				num_obras = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			System.err.println("Error: " + e.getMessage());
-		}
-		
-		return num_obras;
-	}
-
-	@Override
 	public Usuario getUser(String email) {
 		String sql = String.format("SELECT * FROM USUARIO WHERE EMAIL='%s'", email);
 		ResultSet rs = executeQuery(sql);
@@ -318,27 +301,105 @@ public class OracleConnector implements Facade {
 		
 		return user;
 	}
+		
+	public int insertObra(String nombre, Date fecha, int puntuacion, int duracion, 
+			String nacionalidad, int capitulos, String ruta_imagen) {
+		String sql = String.format("INSERT INTO Obra"
+				+ "(id, nombre, fecha_emision, puntuacion, duracion, nacionalidad, capitulos, ruta_imagen) VALUES"
+				+ "(obra_seq.NEXTVAL, '%s', TO_DATE('%s', 'YYYY-MM-DD'),'%d', '%d', '%s', '%d', '%s')",
+				nombre, fecha, puntuacion, duracion, nacionalidad, capitulos, ruta_imagen);
+		ResultSet rs = null;
+		int obra_id = -1;
+		
+		try {
+			rs = executeQuery(sql);
+			if (rs.next()) {
+				obra_id = rs.getInt(1);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return obra_id;
+	}
 	
-	public ArrayList<Obra> getObras(String nombre)  {
-		String sql = String.format("SELECT * FROM OBRA WHERE nombre LIKE '%s'", nombre);
-		ArrayList<Obra> data = new ArrayList<Obra>();
+	public List<Obra> getObras(String nombre)  {
+		String sql = String.format("SELECT * FROM obra", 
+				nombre.toUpperCase());
+		List<Obra> data = new ArrayList<Obra>();
 
 		ResultSet rs = executeQuery(sql);
 		
 		try {
 			while (rs.next()) {
-        	  data.add(new Obra(rs.getInt("id"),
-        			  rs.getString("nombre"),
-        			  rs.getDate("fecha_emision"), 
-        			  rs.getInt("puntuacion"),
-        			  rs.getInt("duracion"), 
-        			  rs.getInt("capitulos"), 
-        			  rs.getString("nacionalidad")));  
+				if (rs.getString("nombre").toLowerCase().contains(nombre.toLowerCase())) {
+		        	  data.add(new Obra(rs.getInt("id"),
+		        			  rs.getString("nombre"),
+		        			  rs.getDate("fecha_emision"), 
+		        			  rs.getInt("puntuacion"),
+		        			  rs.getInt("duracion"), 
+		        			  rs.getInt("capitulos"), 
+		        			  rs.getString("nacionalidad"),
+		        			  rs.getString("ruta_imagen"))); 
+				}
+ 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();	
 		} 
 		
 		return data;	
+	}
+
+	public List<Obra> getObras(int offset, int noOfRecords) {
+		
+		String sql = "SELECT * FROM ("
+				+ "SELECT rownum rnum, a.* "
+				+ "FROM("
+				+ "SELECT * "
+				+ "FROM obra "
+				+ "ORDER BY nombre "
+				+ ") a "
+				+ "WHERE rownum <=" + (offset + noOfRecords)
+				+ ")"
+				+ "WHERE rnum >" + offset;
+       List<Obra> list = new ArrayList<Obra>();
+       
+       try {
+           ResultSet rs = executeQuery(sql);
+           while (rs.next()) {
+        	   list.add(new Obra(rs.getInt("id"),
+        			   rs.getString("nombre"),
+        			   rs.getDate("fecha_emision"), 
+        			   rs.getInt("puntuacion"),
+        			   rs.getInt("duracion"), 
+        			   rs.getInt("capitulos"), 
+        			   rs.getString("nacionalidad"),
+        			   rs.getString("ruta_imagen")));
+           }
+           rs.close();
+           
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+       
+       return list;
+	}
+
+	public int getNumObras() {
+		String sql = "select count(id) AS rowcount from obra";
+		ResultSet rs = executeQuery(sql);
+		int count = 0;
+		
+		try {
+			if (rs.next()) {
+				count = rs.getInt("rowcount");
+				rs.close();
+			}
+		} catch (SQLException e) {
+			System.err.println("Error: " + e.getMessage());
+		}
+		
+		return count;
 	}
 }
