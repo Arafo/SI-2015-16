@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.capa.modelo.Obra;
+import com.capa.modelo.Persona;
 import com.capa.modelo.Usuario;
 
 /**
@@ -271,10 +272,6 @@ public class OracleConnector implements Facade {
 		return comments;
 	}
 
-	@Override
-	public ArrayList<Obra> ObraData(int ObraId) {
-		return null;
-	}
 
 	@Override
 	public Usuario getUser(String email) {
@@ -401,5 +398,107 @@ public class OracleConnector implements Facade {
 		}
 		
 		return count;
+	}
+
+	@Override
+	public List<Obra> getObra(int ObraId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getIdObra(String obra, String anio) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertPersona(String nombre, Date fecha, String sexo, String nacionalidad) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Persona> getPersonas(int idObra) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getIdPersona(String nombre) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertTrabaja(int idPersona, int idObra, String rol) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Obra> getTrabajosPersona(int idObra) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Persona> getPersonaTrabajo(int idPersona) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insertAccion(String nombre, Date fecha, int idUsuario) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String getAccion(Date fecha, int idUsuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getAccionesUsuario(int idUsuario) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insertPuntuacion(int puntuacion, int idObra, int idAccion) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void modifyPuntuacion(int idAccion_Trabaja, int newPuntuacion) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deletePuntuacion(int idAccion_Trabaja) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getPuntuacion(int idAccion_Trabaja) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Integer> getObraPuntuaciones(int idObra) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Integer> getUserPuntuaciones(String email) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

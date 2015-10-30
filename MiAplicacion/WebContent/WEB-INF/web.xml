@@ -12,6 +12,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 </welcome-file-list>
 
 <servlet>
+	<servlet-name>Compare Completer Servlet</servlet-name>
+	<servlet-class>com.capa.modelo.CompareServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Compare Completer Servlet</servlet-name>
+	<url-pattern>/compare-servlet</url-pattern>
+</servlet-mapping>
+
+<servlet>
 	<servlet-name>Pagination Servlet</servlet-name>
     <servlet-class>com.capa.modelo.PaginationServlet</servlet-class>
 </servlet>

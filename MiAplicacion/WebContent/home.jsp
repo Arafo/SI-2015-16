@@ -10,9 +10,12 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <!-- <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" /> -->
 <link href="css/home.css" rel="stylesheet" type="text/css" />
+<link href="css/jquery-ui-bs.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery-ajax-autocomplete-servlet.js"></script>
 
 <title>Home</title>
 </head>
@@ -99,6 +102,22 @@
 			</div>
 
 			<div class="col-md-9">
+			
+				<div class="row well">
+            		<div class="col-xs-12 col-sm-8 col-md-8 col-centered center-block">
+            			<div class="title text-center">
+            				<h2>Comparar obras</h2>
+            				<h6>Alguna frase de explicacion por aqui</h6>
+            			</div>
+            			<div class="row">
+							<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete1" class="form-control input-lg" placeholder="Obra1"></div>
+							<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete2" class="form-control input-lg" placeholder="Obra2"></div>
+						</div>
+						<div class="submit">
+							<input type="submit" value="COMPARAR" class="btn btn-primary center-block">
+						</div>
+                	</div>
+            	</div>
 
 				<div class="row">
 					<c:forEach var="obra" items="${obrasList}">
