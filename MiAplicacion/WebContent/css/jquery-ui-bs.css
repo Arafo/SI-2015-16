@@ -79,6 +79,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+	width: 100px;
 	cursor: default;
 	max-height: 220px;
 	overflow-y: auto;

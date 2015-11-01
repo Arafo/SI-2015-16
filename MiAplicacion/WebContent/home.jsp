@@ -109,13 +109,15 @@
             				<h2>Comparar obras</h2>
             				<h6>Alguna frase de explicacion por aqui</h6>
             			</div>
-            			<div class="row">
-							<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete1" class="form-control input-lg" placeholder="Obra1"></div>
-							<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete2" class="form-control input-lg" placeholder="Obra2"></div>
-						</div>
-						<div class="submit">
-							<input type="submit" value="COMPARAR" class="btn btn-primary center-block">
-						</div>
+            			<form action="comparacion.html" method="get">
+            				<div class="row">
+								<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete1" class="form-control input-lg" name="obra1" placeholder="Obra1"></div>
+								<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete2" class="form-control input-lg" name="obra2" placeholder="Obra2"></div>
+							</div>
+							<div class="submit">
+								<input type="submit" value="COMPARAR" onclick="#" class="btn btn-primary center-block">
+							</div>
+						</form>
                 	</div>
             	</div>
 
@@ -123,10 +125,10 @@
 					<c:forEach var="obra" items="${obrasList}">
 						<div class="col-xs-6 col-lg-4 col-md-4">
 							<div class="thumbnail">
-								<img src="${obra.ruta_imagen}" alt="">
+								<a href="obra.html?id=${obra.id}"><img src="${obra.ruta_imagen}" alt=""></a>
 								<div class="caption">
 									<h4 class="pull-right">Lorem</h4>
-									<h4><a href="#">${obra.nombre}</a></h4>
+									<h4><a href="obra.html?id=${obra.id}">${obra.nombre}</a></h4>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 									sed do eiusmod tempor incididunt ut labore et dolore...</p>
 								</div>

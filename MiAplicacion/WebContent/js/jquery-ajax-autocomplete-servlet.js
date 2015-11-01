@@ -1,17 +1,8 @@
-//$(function(){
-//	$("#autocomplete").autocomplete({
-//		source: "compare-servlet", // AJAX: url --> web.xml
-//		select: function(event, ui) {
-//			$("#autocomplete").val(ui.item.nombre);
-//		}
-//	});
-//});
-
 $(function() {
 	
 	// Text Box 1
 	$("#autocomplete1").autocomplete({
-		source : "compare-servlet", // AJAX: url --> web.xml
+		source : "autocomplete-servlet", // AJAX: url --> web.xml
 		focus : function(event, ui) {
 			$("#autocomplete1").val(ui.item.nombre);
 			return false;
@@ -42,7 +33,7 @@ $(function() {
 	// Text Box 2
 	$("#autocomplete2").autocomplete({
 		minLength : 0,
-		source : "compare-servlet", // AJAX: url --> web.xml
+		source : "autocomplete-servlet", // AJAX: url --> web.xml
 		focus : function(event, ui) {
 			$("#autocomplete2").val(ui.item.nombre);
 			return false;

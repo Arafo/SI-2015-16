@@ -401,9 +401,28 @@ public class OracleConnector implements Facade {
 	}
 
 	@Override
-	public List<Obra> getObra(int ObraId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Obra getObra(int ObraId) {
+		String sql = String.format("SELECT * FROM obra WHERE id=('%d')", ObraId);
+		Obra obra = null;
+		ResultSet rs = null;
+		
+		try {		
+			rs = executeQuery(sql);
+			if (rs.next()) {
+				obra = new Obra(rs.getInt("id"),
+						rs.getString("nombre"),
+	        			rs.getDate("fecha_emision"), 
+	        			rs.getInt("puntuacion"),
+	        			rs.getInt("duracion"), 
+	        			rs.getInt("capitulos"), 
+	        			rs.getString("nacionalidad"),
+	        			rs.getString("ruta_imagen"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return obra;
 	}
 
 	@Override

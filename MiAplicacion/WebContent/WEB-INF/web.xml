@@ -12,12 +12,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 </welcome-file-list>
 
 <servlet>
-	<servlet-name>Compare Completer Servlet</servlet-name>
-	<servlet-class>com.capa.modelo.CompareServlet</servlet-class>
+	<servlet-name>Autocomplete Servlet</servlet-name>
+	<servlet-class>com.capa.modelo.AutocompleteServlet</servlet-class>
 </servlet>
 <servlet-mapping>
-	<servlet-name>Compare Completer Servlet</servlet-name>
-	<url-pattern>/compare-servlet</url-pattern>
+	<servlet-name>Autocomplete Servlet</servlet-name>
+	<url-pattern>/autocomplete-servlet</url-pattern>
 </servlet-mapping>
 
 <servlet>
@@ -27,6 +27,24 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 <servlet-mapping>
 	<servlet-name>Pagination Servlet</servlet-name>
     <url-pattern>/home.html</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>Obra Servlet</servlet-name>
+    <servlet-class>com.capa.modelo.ObraServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Obra Servlet</servlet-name>
+    <url-pattern>/obra.html</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>Comparacion Servlet</servlet-name>
+    <servlet-class>com.capa.modelo.CompareServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Comparacion Servlet</servlet-name>
+    <url-pattern>/comparacion.html</url-pattern>
 </servlet-mapping>
 
 </web-app>
