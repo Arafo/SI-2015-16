@@ -22,6 +22,7 @@ public interface Facade {
 	 * @return devuelve los datos de una pelicula en concreto
 	 */
 	public Obra getObra(int ObraId);
+	public Obra getObra(String name, String year);
 	
 	public int getIdObra(String obra, String anio);
 	

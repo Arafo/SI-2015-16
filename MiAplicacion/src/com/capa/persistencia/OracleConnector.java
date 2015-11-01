@@ -424,6 +424,32 @@ public class OracleConnector implements Facade {
 		
 		return obra;
 	}
+	
+	public Obra getObra(String name, String year) {
+		String sql = String.format("SELECT * FROM obra WHERE nombre=('%s') "
+				+ "AND TO_CHAR(fecha_emision, 'YYYY')=('%s')", name, year);
+		Obra obra = null;
+		ResultSet rs = null;
+		
+		try {		
+			rs = executeQuery(sql);
+			if (rs.next()) {
+				obra = new Obra(rs.getInt("id"),
+						rs.getString("nombre"),
+	        			rs.getDate("fecha_emision"), 
+	        			rs.getInt("puntuacion"),
+	        			rs.getInt("duracion"), 
+	        			rs.getInt("capitulos"), 
+	        			rs.getString("nacionalidad"),
+	        			rs.getString("ruta_imagen"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return obra;
+		
+	}
 
 	@Override
 	public int getIdObra(String obra, String anio) {
