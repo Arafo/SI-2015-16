@@ -3,40 +3,48 @@ body {
 	background: #eee;
 }
 
-.thumbnail img {
-	float: left;
-    width: 30%;
-    padding: 9px;
-    padding-right: 20px;
+/* Zona de la obra */
+.thumbnail {
+    min-height: 360px;
+    padding: 9px; 
 }
 
+/* Imagen de la obra*/
+.thumbnail img {
+	float: left;
+    width: 28%;
+    margin: 11px 20px 0px 11px;
+   	border: 1px solid #021a40;
+}
+
+/* Texto de la obra */
+.thumbnail .caption-full {
+    padding: 9px;
+    color: #333;
+}
+
+/* Titulo de la obra */
+.title {
+	padding-bottom: 10px;
+}
+
+/* */
 .form-group {
     margin-bottom: 15px;
 }
 
+/* */
 .center-block {
 	padding-left: 20px;
 	padding-right: 20px;
 }
 
+/* Zona de las puntuaciones */
 .ratings {
 	padding-right: 10px;
     padding-left: 10px;
-    padding-top: 20px;
+    padding-top: 24px;
     color: #d17581;
-}
-
-.title {
-	padding-bottom: 30px;
-}
-
-.thumbnail {
-    min-height: 360px;
-}
-
-.thumbnail .caption-full {
-    padding: 9px;
-    color: #333;
 }
 
 .col-sm-10 {
