@@ -7,6 +7,7 @@ import java.util.List;
 import com.capa.modelo.Obra;
 import com.capa.modelo.Persona;
 import com.capa.modelo.Usuario;
+import com.capa.persistencia.exceptions.EmailAlreadyExistsException;
 
 public interface Facade {
 

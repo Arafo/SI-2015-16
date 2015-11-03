@@ -1,4 +1,4 @@
-package com.capa.persistencia;
+package com.capa.persistencia.exceptions;
 
 public class EmailAlreadyExistsException extends Exception {
 

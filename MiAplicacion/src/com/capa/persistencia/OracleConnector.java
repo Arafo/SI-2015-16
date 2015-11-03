@@ -9,6 +9,7 @@ import java.util.Properties;
 import com.capa.modelo.Obra;
 import com.capa.modelo.Persona;
 import com.capa.modelo.Usuario;
+import com.capa.persistencia.exceptions.EmailAlreadyExistsException;
 
 /**
  * Clase para acceder a una BD ORACLE

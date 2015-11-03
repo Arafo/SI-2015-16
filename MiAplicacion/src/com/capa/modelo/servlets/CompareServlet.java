@@ -1,4 +1,4 @@
-package com.capa.modelo;
+package com.capa.modelo.servlets;
 
 import java.io.IOException;
 

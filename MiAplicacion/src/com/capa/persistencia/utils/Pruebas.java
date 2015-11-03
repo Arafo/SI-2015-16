@@ -1,8 +1,11 @@
-package com.capa.persistencia;
+package com.capa.persistencia.utils;
 
 import java.sql.Date;
 
 import com.capa.modelo.Usuario;
+import com.capa.persistencia.Facade;
+import com.capa.persistencia.OracleConnector;
+import com.capa.persistencia.exceptions.EmailAlreadyExistsException;
 
 public class Pruebas {
 	

@@ -1,4 +1,4 @@
-package com.capa.persistencia;
+package com.capa.persistencia.utils;
 
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -22,17 +22,21 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+import com.capa.persistencia.Facade;
+import com.capa.persistencia.OracleConnector;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
 public class InsertObrasPersonas {
+	
+	final static String FILE_PATH = "utils/carga.txt";
 
 	public static void main(String[] args) {
 		boolean update = false;
 		Scanner file = null;
 		Facade f = new OracleConnector();
 		try {
-			file = new Scanner(new File("carga.txt"));
+			file = new Scanner(new File(FILE_PATH));
 			while (file.hasNextLine()) {
 				String pelicula[] = file.next().split(";");
 				if (update || f.getObra(pelicula[0].replaceAll("\\+", " ").replaceAll("'", "''"), pelicula[1]) == null)
