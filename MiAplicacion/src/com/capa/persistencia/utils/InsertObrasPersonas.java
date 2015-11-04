@@ -32,7 +32,7 @@ public class InsertObrasPersonas {
 	final static String FILE_PATH = "utils/carga.txt";
 
 	public static void main(String[] args) {
-		boolean update = false;
+		boolean update = true;
 		Scanner file = null;
 		Facade f = new OracleConnector();
 		try {
@@ -40,14 +40,14 @@ public class InsertObrasPersonas {
 			while (file.hasNextLine()) {
 				String pelicula[] = file.next().split(";");
 				if (update || f.getObra(pelicula[0].replaceAll("\\+", " ").replaceAll("'", "''"), pelicula[1]) == null)
-					insertObra(pelicula[0], pelicula[1]);
+					insertObra(pelicula[0], pelicula[1], f);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private static void insertObra(String name, String year) {
+	private static void insertObra(String name, String year, Facade f) {
 		String url = String.format("http://www.omdbapi.com/?t=%s&y=%s&r=json", 
 				name, year);
 		
@@ -70,13 +70,12 @@ public class InsertObrasPersonas {
 					date = format.parse(page.Released);
 				}
 
-//				OracleConnector oc = new OracleConnector();
-//				oc.insertObra(page.Title.replaceAll("'", "''"), 
-//						new java.sql.Date(date.getTime()), 
-//						4, 
-//						Integer.valueOf(page.Runtime.split(" ")[0]),
-//						page.Country, 1, imagePath);
-				insertActors(name, year);
+				int idObra = f.insertObra(name.replaceAll("\\+", " ").replaceAll("'", "''"), 
+						new java.sql.Date(date.getTime()), 
+						4, 
+						Integer.valueOf(page.Runtime.split(" ")[0]),
+						page.Country, 1, imagePath);
+				insertActors(name, year, idObra, f);
 				
 			} 
 			else {
@@ -91,7 +90,7 @@ public class InsertObrasPersonas {
 		}
 	}
 	
-	private static void insertActors(String name, String year) {
+	private static void insertActors(String name, String year, int idObra, Facade f) {
 		String url = String.format("http://www.myapifilms.com/imdb?"
 				+ "title=%s&format=JSON&aka=0&business=0&seasons=0&seasonYear=0&technical=0&filter=N&exactFilter=0&limit=1&"
 				+ "year=%s&forceYear=0&lang=en-us&actors=S&biography=1&trailer=0&uniqueName=0&filmography=0&bornDied=1&starSign=0&"
@@ -106,8 +105,13 @@ public class InsertObrasPersonas {
 			for (Actor i : actors) {
 				// Fecha de nacimiento
 				String date = "";
+				Date dateFormat = new Date(0);
 				if (i.biography.dateOfBirth != null) {
 					date = i.biography.dateOfBirth.substring(i.biography.dateOfBirth.length() - 4);
+					DateFormat format = new SimpleDateFormat("yyyy", Locale.ENGLISH);
+					try {
+						dateFormat = format.parse(date);
+					} catch (ParseException e) {}
 				}
 				// Pais de origen
 				String country = "";
@@ -120,13 +124,12 @@ public class InsertObrasPersonas {
 				if (i.biography.actorActress != null) {
 					sex = i.biography.actorActress.equals("Actor") ? "H" : "M";
 				}
-				
+				Facade oc = new OracleConnector();
 				System.out.println(i.actorName + ", " + date + ", " + sex + ", " + country);
 				// Insertar actor
-				//Facade f = new OracleConnector();
-				//f.insertActor();
-				
-				insertRelacionObraActor();
+				int idPersona = oc.insertPersona(i.actorName, new java.sql.Date(dateFormat.getTime()), sex, country);
+				// Insertar relacion Actor-Trabaja-Obra
+				insertRelacionObraActor(idPersona, idObra, "Actor", oc);
 			}
 		} catch (IOException e) {
 			System.err.println("Error al descargar el archivo JSON de la obra " + name);
@@ -135,8 +138,8 @@ public class InsertObrasPersonas {
 		}
 	}
 	
-	private static void insertRelacionObraActor() {
-		
+	private static void insertRelacionObraActor(int idPersona, int idObra, String rol, Facade f) {
+		f.insertTrabaja(idPersona, idObra, rol);
 	}
 
 	/**
@@ -211,6 +214,7 @@ public class InsertObrasPersonas {
 		String Released;
 		String Runtime;
 		String Genre;
+		String Country;
 		String Director;
 		String Writer;
 		String Actors;

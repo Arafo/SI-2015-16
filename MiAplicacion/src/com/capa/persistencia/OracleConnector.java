@@ -131,7 +131,7 @@ public class OracleConnector implements Facade {
 			stmt = connection.createStatement();
 			rs = stmt.executeQuery(sql);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.err.println("Error:'" + e.getMessage() + "'");
 		}
 		return rs;
 	}
@@ -303,20 +303,25 @@ public class OracleConnector implements Facade {
 	public int insertObra(String nombre, Date fecha, int puntuacion, int duracion, 
 			String nacionalidad, int capitulos, String ruta_imagen) {
 		String sql = String.format("INSERT INTO Obra"
-				+ "(id, nombre, fecha_emision, puntuacion, duracion, nacionalidad, capitulos, ruta_imagen) VALUES"
-				+ "(obra_seq.NEXTVAL, '%s', TO_DATE('%s', 'YYYY-MM-DD'),'%d', '%d', '%s', '%d', '%s')",
+				+ "(nombre, fecha_emision, puntuacion, duracion, nacionalidad, capitulos, ruta_imagen) VALUES"
+				+ "('%s', TO_DATE('%s', 'YYYY-MM-DD'),'%d', '%d', '%s', '%d', '%s')",
 				nombre, fecha, puntuacion, duracion, nacionalidad, capitulos, ruta_imagen);
 		ResultSet rs = null;
 		int obra_id = -1;
 		
 		try {
 			rs = executeQuery(sql);
+			sql = String.format("SELECT id FROM obra WHERE nombre='%s' "
+					+ "AND fecha_emision=TO_DATE('%s', 'YYYY-MM-DD')", nombre, fecha);		
+			rs = executeQuery(sql);
 			if (rs.next()) {
 				obra_id = rs.getInt(1);
+				//System.out.println(obra_id);
 			}
 			rs.close();
+			disconnect();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.err.println("Error:'" + e.getMessage() + "'");
 		}
 		return obra_id;
 	}
@@ -444,8 +449,10 @@ public class OracleConnector implements Facade {
 	        			rs.getString("nacionalidad"),
 	        			rs.getString("ruta_imagen"));
 			}
+			rs.close();
+			disconnect();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.err.println("Error:'" + e.getMessage() + "'");
 		}
 		
 		return obra;
@@ -460,8 +467,27 @@ public class OracleConnector implements Facade {
 
 	@Override
 	public int insertPersona(String nombre, Date fecha, String sexo, String nacionalidad) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = String.format("INSERT INTO Persona"
+				+ "(nombre, fecha_nacimiento, sexo, nacionalidad) VALUES"
+				+ "('%s', TO_DATE('%s', 'YYYY-MM-DD'),'%s', '%s')",
+				nombre, fecha, sexo, nacionalidad);
+		ResultSet rs = null;
+		int persona_id = -1;
+		
+		try {
+			rs = executeQuery(sql);
+			sql = String.format("SELECT id FROM persona WHERE nombre='%s' "
+					+ "AND fecha_nacimiento=TO_DATE('%s', 'YYYY-MM-DD')", nombre, fecha);
+			rs = executeQuery(sql);
+			if (rs.next()) {
+				persona_id = rs.getInt(1);
+			}
+			rs.close();
+			disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return persona_id;
 	}
 
 	@Override
@@ -478,8 +504,25 @@ public class OracleConnector implements Facade {
 
 	@Override
 	public int insertTrabaja(int idPersona, int idObra, String rol) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = String.format("INSERT INTO Trabaja"
+				+ "(nombre_persona, nombre_obra, rol) VALUES"
+				+ "('%d', '%d', '%s')",
+				idPersona, idObra, rol);
+		ResultSet rs = null;
+		int trabaja_id = -1;
+		
+		try {
+			rs = executeQuery(sql);
+			//if (rs.next()) {
+				//trabaja_id = rs.getInt(1);
+				//System.out.println(obra_id);
+			//}
+			rs.close();
+			disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return trabaja_id;
 	}
 
 	@Override

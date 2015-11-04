@@ -105,4 +105,5 @@ public interface Facade {
 	public int getPuntuacion(int idAccion_Trabaja);
 	public List<Integer> getObraPuntuaciones(int idObra);
 	public List<Integer> getUserPuntuaciones(String email);
+
 }

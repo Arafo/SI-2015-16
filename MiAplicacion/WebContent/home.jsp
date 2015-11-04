@@ -71,7 +71,8 @@
 								</div>
 
 							</form>
-						</div></li>
+						</div>
+					</li>
 				</ul>
 
 			</div>

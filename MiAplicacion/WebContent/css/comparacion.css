@@ -1,0 +1,46 @@
+@CHARSET "UTF-8";
+
+body {
+	padding-top: 70px;
+	/* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+	background: #eee;
+}
+
+.panel-body img {
+	float: left;
+	margin: 0px 20px 0px 0px;
+	border: 1px solid #021a40;
+}
+
+.panel-pricing .panel-heading {
+	padding: 20px 10px;
+}
+
+.panel-pricing .panel-heading .fa {
+	margin-top: 10px;
+	font-size: 58px;
+}
+
+.panel-pricing .list-group-item {
+	color: #777777;
+	border-bottom: 1px solid rgba(250, 250, 250, 0.5);
+}
+
+.panel-pricing .panel-body {
+	background-color: #f0f0f0;
+	font-size: 16px;
+	padding: 20px;
+	margin: 0px;
+}
+
+.list-group-active {
+	font-color: #ffffff;
+}
+
+.list-group-item text-left {
+	padding-left: 400px;
+}
+
+footer {
+	margin: 50px 0;
+}
