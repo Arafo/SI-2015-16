@@ -19,6 +19,14 @@ public class Persona {
 		this.nacionalidad = nacionalidad;
 	}
 	
+	public Persona(String nombre, String sexo, Date nacimiento, String nacionalidad) {
+		super();
+		this.nombre = nombre;
+		this.sexo = sexo;
+		this.nacimiento = nacimiento;
+		this.nacionalidad = nacionalidad;
+	}
+	
 	public int getId() {
 		return id;
 	}

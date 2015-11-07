@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -9,7 +10,11 @@
 <link href="css/comparacion.css" rel="stylesheet" type="text/css" />
 <link href="css/jquery-ui-bs.css" rel="stylesheet" type="text/css" />
 
-<title>Insert title here</title>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
+<title>${obra1.nombre} VS ${obra2.nombre}</title>
 </head>
 <body>
 
@@ -19,27 +24,119 @@
 
 			<!-- Obra1 -->
 			<div class="col-md-6 text-center">
-				<div class="panel panel-info panel-pricing">
+				<div class="panel panel-default panel-obra">
+					<a href="obra.html?id=${obra1.id}">
+						<div class="panel-heading">
+							<h3>${obra1.nombre}</h3>
+						</div>
+					</a>
+					<!--  Imagen -->
+					<div class="panel-body img-responsive text-left">
+					    <img class="img-responsive" src="${obra1.ruta_imagen}" alt="">
+						<p><strong>Estreno:</strong> 
+							<fmt:formatDate pattern="dd MMMM, yyyy" value="${obra1.fecha_emision}"/>
+						</p>
+						<p><strong>Duración:</strong> ${obra1.duracion} min</p>
+						<p><strong>Pais:</strong> ${obra1.nacionalidad}</p>
+					</div>
+					<!-- /Imagen -->
+					<div class="panel-body text-center">
+					</div>
+				</div>
+				
+				<div class="panel-obra">
+					<ul class="list-group text-center">						
+						<!-- Actores -->
+						<a href="#collapseActors" class="list-group-item panel-title collapsed " data-toggle="collapse" ><b>Reparto</b></a>
+						<div id="collapseActors" class="panel-collapse collapse in">
+							<c:forEach var="persona" items="${personasObra1}">
+								<a href="#collapse01${persona.id}" class="list-group-item text-left accordion-toggle collapsed" data-toggle="collapse" >${persona.nombre}</a>
+								<div id="collapse01${persona.id}" class="panel-collapse collapse text-left">
+      								<ul class="list-group">
+    					  				<li class="list-group-item"><b>Fecha de nacimiento:</b> 
+    					   					<fmt:formatDate pattern="yyyy" value="${persona.nacimiento}"/>
+    					   				</li>
+       									<li class="list-group-item"><b>Sexo:</b> ${persona.sexo}</li>
+       									<li class="list-group-item"><b>Nacionalidad:</b> ${persona.nacionalidad}</li>       							
+      								</ul>
+    							</div>
+							</c:forEach>
+						</div>
+						<!-- /Actores -->
+					</ul>
+				</div>
+					
+				<div class="panel-obra">
+					<ul class="list-group text-center">									
+						<!-- Directores -->	
+						<a href="#collapseDirector" class="list-group-item panel-title collapsed " data-toggle="collapse" ><b>Director</b></a>
+						<div id="collapseDirector" class="panel-collapse collapse in">					
+							<li class="list-group-item text-left">Director1</li>
+							<li class="list-group-item text-left">Director2</li>							
+						</div>
+						<!-- /Directores -->
+					</ul>
+				</div>
+								
+				<div class="panel-obra">
+					<ul class="list-group text-center">									
+						<!-- Puntuaciones -->
+						<a href="#collapseScore" class="list-group-item panel-title collapsed " data-toggle="collapse" ><b>Puntuaciones</b></a>
+						<div id="collapseScore" class="panel-collapse collapse in">
+							<li class="list-group-item">
+								<img class="img-responsive img-imdb" src="images/imdb.png" alt="">						
+								<span class="imdb_score">96<span class="imdb_slash">/</span><span class="imdb_base">100</span></span>
+								<img class="img-responsive img-star" src="images/imdb_star.png" alt="">													
+							</li>
+							<li class="list-group-item">
+								<img class="img-responsive img-metascore" src="images/metascore.png" alt="">
+								<label class="btn btn-success">76</label>
+							</li>
+						</div>
+						<!-- /Puntuaciones -->
+					</ul>
+				</div>
+				
+			</div>
+			<!-- /Obra1 -->
+
+			<!-- Obra2 -->
+			<div class="col-md-6 text-center">
+				<div class="panel panel-default panel-obra">
 					<div class="panel-heading">
-						<i class="fa fa-desktop"></i>
-						<h3>${obra1}</h3>
+						<h3>${obra2.nombre}</h3>
 					</div>
 					<!--  Imagen -->
 					<div class="panel-body img-responsive text-left">
-						<img src="images/matrix.jpg" alt="Matrix" />
-						<p><strong>Estreno:</strong> 1 de Enero, 1999</p>
-						<p><strong>Duración:</strong> 132 min</p>
-						<p><strong>Pais:</strong> USA</p>
+					    <img class="img-responsive" src="${obra2.ruta_imagen}" alt="">
+						<p><strong>Estreno:</strong> 
+							<fmt:formatDate pattern="dd MMMM, yyyy" value="${obra2.fecha_emision}"/>
+						</p>
+						<p><strong>Duración:</strong> ${obra2.duracion} min</p>
+						<p><strong>Pais:</strong> ${obra2.nacionalidad}</p>
 					</div>
 					<!-- /Imagen -->
 					<div class="panel-body text-center">
 					</div>
 					<ul class="list-group text-center">
-						<li class="list-group-item">
-							<div class="list-group-active"><b>Reparto</b></div></li>
-						<li class="list-group-item text-left">Actor1</li>
-						<li class="list-group-item text-left">Actor2</li>
-						
+											
+						<!-- Actores -->
+						<li class="list-group-item"><div class="list-group-active"><b>Reparto</b></div></li>						
+							<c:forEach var="persona" items="${personasObra2}">
+								<a href="#collapse01${persona.id}" class="list-group-item text-left accordion-toggle collapsed" data-toggle="collapse" >
+								${persona.nombre}</a>
+								<div id="collapse01${persona.id}" class="panel-collapse collapse text-left">
+      								<ul class="list-group">
+    						    		<li class="list-group-item"><b>Fecha de nacimiento:</b> 
+    						    			<fmt:formatDate pattern="yyyy" value="${persona.nacimiento}"/>
+    						    		</li>
+       									<li class="list-group-item"><b>Sexo:</b> ${persona.sexo}</li>
+       									<li class="list-group-item"><b>Nacionalidad:</b> ${persona.nacionalidad}</li>       							
+      								</ul>
+    							</div>
+							</c:forEach>
+						<!-- /Actores -->
+												
 						<li class="list-group-item">
 							<div class="list-group-active"><b>Director</b></div></li>
 						<li class="list-group-item text-left">Director1</li>
@@ -50,24 +147,6 @@
 					</ul>
 					<div class="panel-footer">
 						<a class="btn btn-lg btn-block btn-info" href="#">TEST!</a>
-					</div>
-				</div>
-			</div>
-			<!-- /Obra1 -->
-
-			<!-- Obra2 -->
-			<div class="col-md-6 text-center">
-				<div class="panel panel-success panel-pricing">
-					<div class="panel-heading">
-						<i class="fa fa-desktop"></i>
-						<h3>${obra2}</h3>
-					</div>
-					<div class="panel-body img-responsive">
-						<img src="images/AliGIndahouse_2002.jpg" alt="Matrix" />
-					</div>
-					</div>
-					<div class="panel-footer">
-						<a class="btn btn-lg btn-block btn-success" href="#"></a>
 					</div>
 				</div>
 			</div>

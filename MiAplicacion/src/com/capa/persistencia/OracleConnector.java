@@ -3,6 +3,7 @@ package com.capa.persistencia;
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 
@@ -311,17 +312,13 @@ public class OracleConnector implements Facade {
 		
 		try {
 			rs = executeQuery(sql);
-			sql = String.format("SELECT id FROM obra WHERE nombre='%s' "
-					+ "AND fecha_emision=TO_DATE('%s', 'YYYY-MM-DD')", nombre, fecha);		
-			rs = executeQuery(sql);
-			if (rs.next()) {
-				obra_id = rs.getInt(1);
-				//System.out.println(obra_id);
-			}
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(fecha);
+			obra_id = getIdObra(nombre, String.valueOf(calendar.get(Calendar.YEAR)));
 			rs.close();
 			disconnect();
 		} catch (SQLException e) {
-			System.err.println("Error:'" + e.getMessage() + "'");
+			System.err.println("Error: " + e.getMessage());
 		}
 		return obra_id;
 	}
@@ -347,6 +344,8 @@ public class OracleConnector implements Facade {
 				}
  
 			}
+			rs.close();
+			disconnect();
 		} catch (Exception e) {
 			e.printStackTrace();	
 		} 
@@ -381,7 +380,7 @@ public class OracleConnector implements Facade {
         			   rs.getString("ruta_imagen")));
            }
            rs.close();
-           
+           disconnect();
        } catch (SQLException e) {
            e.printStackTrace();
        }
@@ -399,6 +398,8 @@ public class OracleConnector implements Facade {
 				count = rs.getInt("rowcount");
 				rs.close();
 			}
+			rs.close();
+			disconnect();
 		} catch (SQLException e) {
 			System.err.println("Error: " + e.getMessage());
 		}
@@ -424,6 +425,8 @@ public class OracleConnector implements Facade {
 	        			rs.getString("nacionalidad"),
 	        			rs.getString("ruta_imagen"));
 			}
+			rs.close();
+			disconnect();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -434,6 +437,9 @@ public class OracleConnector implements Facade {
 	public Obra getObra(String name, String year) {
 		String sql = String.format("SELECT * FROM obra WHERE nombre=('%s') "
 				+ "AND TO_CHAR(fecha_emision, 'YYYY')=('%s')", name, year);
+		if (year.length() == 0)
+			sql = String.format("SELECT * FROM obra WHERE nombre=('%s')", name);
+
 		Obra obra = null;
 		ResultSet rs = null;
 		
@@ -461,8 +467,25 @@ public class OracleConnector implements Facade {
 
 	@Override
 	public int getIdObra(String obra, String anio) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = String.format("SELECT id FROM obra WHERE nombre='%s' "
+				+ "AND TO_CHAR(fecha_emision, 'YYYY')=('%s')", obra, anio);
+		if (anio.length() == 0)
+			sql = String.format("SELECT id FROM obra WHERE nombre='%s'", obra);
+	
+		ResultSet rs = null;
+		int obra_id = -1;
+		
+		try {	
+			rs = executeQuery(sql);
+			if (rs.next()) {
+				obra_id = rs.getInt(1);
+			}
+			rs.close();
+			disconnect();
+		} catch (SQLException e) {
+			System.err.println("Error:'" + e.getMessage() + "'");
+		}
+		return obra_id;
 	}
 
 	@Override
@@ -493,6 +516,10 @@ public class OracleConnector implements Facade {
 	@Override
 	public List<Persona> getPersonas(int idObra) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public List<Persona> getPersonas(String nombre) {
 		return null;
 	}
 
@@ -526,15 +553,32 @@ public class OracleConnector implements Facade {
 	}
 
 	@Override
-	public List<Obra> getTrabajosPersona(int idObra) {
+	public List<Obra> getTrabajosPersona(int idPersona) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Persona> getPersonaTrabajo(int idPersona) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Persona> getPersonaTrabajo(int idObra) {
+		String sql = String.format("SELECT * FROM Persona WHERE id IN "
+				+ "(SELECT nombre_persona FROM Trabaja WHERE nombre_obra='%d')", idObra);
+		List<Persona> personas = new ArrayList<Persona>();
+		ResultSet rs = null;
+		
+		try {		
+			rs = executeQuery(sql);
+			while (rs.next()) {
+				personas.add(new Persona(rs.getInt("id"),
+						rs.getString("nombre"),
+						rs.getString("sexo"),
+						rs.getDate("fecha_nacimiento"),
+						rs.getString("nacionalidad")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return personas;
 	}
 
 	@Override

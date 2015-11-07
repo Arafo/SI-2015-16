@@ -41,3 +41,7 @@ INSERT into obra(id, nombre, fecha_emision, puntuacion, duracion, capitulos, nac
 values (13, 'Test', TO_DATE('1999-01-01', 'YYYY-MM-DD'), 5, 122, 1, 'Estados Unidos', 'images/matrix_rev.jpg');
 
 alter table obra add ruta_imagen VARCHAR2(100);
+
+SELECT * FROM Persona WHERE id IN (SELECT nombre_persona FROM Trabaja WHERE nombre_obra='59')
+
+SELECT nombre_obra from trabaja
