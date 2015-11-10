@@ -515,18 +515,51 @@ public class OracleConnector implements Facade {
 
 	@Override
 	public List<Persona> getPersonas(int idObra) {
-		// TODO Auto-generated method stub
-		return null;
+		return getPersonaTrabajo(idObra);
 	}
 	
-	public List<Persona> getPersonas(String nombre) {
-		return null;
+	public List<Persona> getPersonas(String nombreObra) {
+		String sql = String.format("SELECT * FROM Persona WHERE id IN "
+				+ "(SELECT nombre_persona FROM Trabaja WHERE nombre_obra IN "
+				+ "(SELECT id FROM Obra WHERE nombre='%s'))", nombreObra);
+		List<Persona> personas = new ArrayList<Persona>();
+		ResultSet rs = null;
+		
+		try {		
+			rs = executeQuery(sql);
+			while (rs.next()) {
+				personas.add(new Persona(rs.getInt("id"),
+						rs.getString("nombre"),
+						rs.getString("sexo"),
+						rs.getDate("fecha_nacimiento"),
+						rs.getString("nacionalidad")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return personas;
 	}
 
 	@Override
 	public int getIdPersona(String nombre) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = String.format("SELECT id FROM persona WHERE nombre='%s'",
+				nombre);
+	
+		ResultSet rs = null;
+		int persona_id = -1;
+		
+		try {	
+			rs = executeQuery(sql);
+			if (rs.next()) {
+				persona_id = rs.getInt(1);
+			}
+			rs.close();
+			disconnect();
+		} catch (SQLException e) {
+			System.err.println("Error:'" + e.getMessage() + "'");
+		}
+		return persona_id;
 	}
 
 	@Override
@@ -554,8 +587,28 @@ public class OracleConnector implements Facade {
 
 	@Override
 	public List<Obra> getTrabajosPersona(int idPersona) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = String.format("SELECT * FROM Obra WHERE id IN "
+				+ "(SELECT nombre_obra FROM Trabaja WHERE nombre_persona='%d')", idPersona);
+		List<Obra> obras = new ArrayList<Obra>();
+		ResultSet rs = null;
+		
+		try {		
+			rs = executeQuery(sql);
+			while (rs.next()) {
+				obras.add(new Obra(rs.getInt("id"),
+						rs.getString("nombre"),
+						rs.getDate("fecha_emision"),
+						rs.getInt("puntuacion"),
+						rs.getInt("duracion"),
+						rs.getInt("capitulos"),
+						rs.getString("nacionalidad"),
+						rs.getString("ruta_imagen")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return obras;
 	}
 
 	@Override

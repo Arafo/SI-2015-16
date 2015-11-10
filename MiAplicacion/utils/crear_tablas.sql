@@ -8,6 +8,12 @@ CREATE TABLE Obra
 	duracion 		NUMBER(6),
 	nacionalidad 	VARCHAR2(40),
 	capitulos 		NUMBER(4),
+	ruta_imagen 	VARCHAR2(100),
+	plot			VARCHAR2(1000);
+	awards			VARCHAR2(300);
+	metascore		number(3),
+	imdb_rating		NUMBER(1,1),
+	imdb_votes		NUMBER(7),
 	PRIMARY KEY(id)
 );
 

@@ -2,9 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+
+<title>${obra1.nombre} VS ${obra2.nombre}</title>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="css/comparacion.css" rel="stylesheet" type="text/css" />
@@ -14,36 +18,39 @@
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 
-<title>${obra1.nombre} VS ${obra2.nombre}</title>
 </head>
-<body>
 
+<body>
 	<!-- Comparacion -->
 	<div class="container">
 		<div class="row">
-
 			<!-- Obra1 -->
 			<div class="col-md-6 text-center">
+				<!-- Primer panel -->
 				<div class="panel panel-default panel-obra">
+					<!-- Titulo -->
 					<a href="obra.html?id=${obra1.id}">
 						<div class="panel-heading">
 							<h3>${obra1.nombre}</h3>
 						</div>
 					</a>
-					<!--  Imagen -->
+					<!-- /Titulo -->
+					<!--  Imagen y datos -->
 					<div class="panel-body img-responsive text-left">
 					    <img class="img-responsive" src="${obra1.ruta_imagen}" alt="">
-						<p><strong>Estreno:</strong> 
+						<p>
+							<strong>Estreno:</strong> 
 							<fmt:formatDate pattern="dd MMMM, yyyy" value="${obra1.fecha_emision}"/>
 						</p>
 						<p><strong>Duración:</strong> ${obra1.duracion} min</p>
 						<p><strong>Pais:</strong> ${obra1.nacionalidad}</p>
 					</div>
-					<!-- /Imagen -->
+					<!-- /Imagen y datos-->
 					<div class="panel-body text-center">
 					</div>
 				</div>
-				
+				<!-- /Primer panel -->
+				<!-- Panel de actores -->
 				<div class="panel-obra">
 					<ul class="list-group text-center">						
 						<!-- Actores -->
@@ -65,7 +72,8 @@
 						<!-- /Actores -->
 					</ul>
 				</div>
-					
+				<!-- /Panel de actores -->
+				<!-- Panel de directores -->
 				<div class="panel-obra">
 					<ul class="list-group text-center">									
 						<!-- Directores -->	
@@ -77,7 +85,8 @@
 						<!-- /Directores -->
 					</ul>
 				</div>
-								
+				<!-- /Panel de directores -->
+				<!-- Panel de puntuaciones -->		
 				<div class="panel-obra">
 					<ul class="list-group text-center">									
 						<!-- Puntuaciones -->
@@ -96,7 +105,7 @@
 						<!-- /Puntuaciones -->
 					</ul>
 				</div>
-				
+				<!-- /Panel de puntuaciones -->
 			</div>
 			<!-- /Obra1 -->
 
@@ -151,14 +160,12 @@
 				</div>
 			</div>
 			<!-- /Obra2 -->
-
 		</div>
 	</div>
 	<!-- /Comparacion -->
 	
 	<div class="container">
 		<hr>
-		<!-- Footer -->
 		<footer>
 			<div class="row">
                 <div class="col-lg-12">
@@ -167,7 +174,6 @@
             </div>
         </footer>
     </div>
-    <!-- /.container -->
 
 </body>
 </html>

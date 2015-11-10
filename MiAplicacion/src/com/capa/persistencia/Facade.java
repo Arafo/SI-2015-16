@@ -35,24 +35,31 @@ public interface Facade {
 	public int getNumObras();
 	
 	/////////////////////////////////////////////////////////////
-	// TABLA PERSONA (NO ACABADA)
+	// TABLA PERSONA (ACABADA)
 	/////////////////////////////////////////////////////////////
 	
+	//
 	public int insertPersona(String nombre, Date fecha, String sexo, String nacionalidad);
+	// Devuelve la lista de personas que actuaron en la obra cuyo id es "idObra"
+	// SIMILAR A getPersonaTrabajo(idObra)
 	public List<Persona> getPersonas(int idObra);
-	public List<Persona> getPersonas(String nombre);
+	// Devuelve la lista de personas que actuaron en la obra cuyo nombre es "nombreObra"
+	public List<Persona> getPersonas(String nombreObra);
+	// Devuelve la id de la persona cuyo nombre es "nombre"
 	public int getIdPersona(String nombre);
 	
 	/////////////////////////////////////////////////////////////
-	// TABLA TRABAJA (NO ACABADA)
+	// TABLA TRABAJA (ACABADA)
 	/////////////////////////////////////////////////////////////
 	
 	public int insertTrabaja(int idPersona, int idObra, String rol);
-	public List<Obra> getTrabajosPersona(int idPersona);
+	// Devuelve la lista de personas que actuaron en la obra cuyo id es "idObra"
 	public List<Persona> getPersonaTrabajo(int idObra);
+	// Devuelve la lista de obras en las que actuo la persona cuyo id es "idPersona"
+	public List<Obra> getTrabajosPersona(int idPersona);
 	
 	/////////////////////////////////////////////////////////////
-	// TABLA USUARIO (NO ACABADA)
+	// TABLA USUARIO (ACABADA)
 	/////////////////////////////////////////////////////////////
 	
 	public void insertUser(Usuario user) throws EmailAlreadyExistsException;

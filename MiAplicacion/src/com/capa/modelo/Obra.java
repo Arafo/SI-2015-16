@@ -12,6 +12,11 @@ public class Obra {
 	private int capitulos;
 	private String nacionalidad;
 	private String ruta_imagen;
+	private String plot;
+	private String awards;
+	private int metascore;
+	private double imdb_rating;
+	private int imdb_votes;
 	
 	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, int capitulos,
 			String nacionalidad) {
@@ -36,6 +41,25 @@ public class Obra {
 		this.capitulos = capitulos;
 		this.nacionalidad = nacionalidad;
 		this.ruta_imagen = ruta_imagen;
+	}
+	
+	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, int capitulos,
+			String nacionalidad, String ruta_imagen, String plot, String awards, int metascore,
+			double imdb_rating, int imdb_votes) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.fecha_emision = fecha_emision;
+		this.puntuacion = puntuacion;
+		this.duracion = duracion;
+		this.capitulos = capitulos;
+		this.nacionalidad = nacionalidad;
+		this.ruta_imagen = ruta_imagen;
+		this.plot = plot;
+		this.awards = awards;
+		this.metascore = metascore;
+		this.imdb_rating = imdb_rating;
+		this.imdb_votes = imdb_votes;
 	}
 
 	public int getId() {
@@ -86,4 +110,45 @@ public class Obra {
 	public void setRuta_imagen(String ruta_imagen) {
 		this.ruta_imagen = ruta_imagen;
 	}
+
+	public String getPlot() {
+		return plot;
+	}
+
+	public void setPlot(String plot) {
+		this.plot = plot;
+	}
+
+	public String getAwards() {
+		return awards;
+	}
+
+	public void setAwards(String awards) {
+		this.awards = awards;
+	}
+
+	public int getMetascore() {
+		return metascore;
+	}
+
+	public void setMetascore(int metascore) {
+		this.metascore = metascore;
+	}
+
+	public double getImdb_rating() {
+		return imdb_rating;
+	}
+
+	public void setImdb_rating(double imdb_rating) {
+		this.imdb_rating = imdb_rating;
+	}
+
+	public int getImdb_votes() {
+		return imdb_votes;
+	}
+
+	public void setImdb_votes(int imdb_votes) {
+		this.imdb_votes = imdb_votes;
+	}
+	
 }
