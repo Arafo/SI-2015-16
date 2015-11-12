@@ -33,21 +33,25 @@
                 </div>
                 
                 <hr>
-                
+                          
+                <!-- Comparacion -->
+                <form action="comparacion.html" method="get">                
                 <div class="row">
             		<div class="col-centered center-block">
             			<p class="lead">Comparar</p>
             			<div class="row">
-							<div class="form-group col-xs-12 col-md-12"><input type="text" id="autocomplete1" class="form-control input-lg" value="${obra.nombre}"></div>
+							<div class="form-group col-xs-12 col-md-12"><input type="text" id="autocomplete1" class="form-control input-lg" name="obra1" value="${obra.nombre}"></div>
 						</div>
 						<div class="row">
-							<div class="form-group col-xs-12 col-md-12"><input type="text" id="autocomplete2" class="form-control input-lg" placeholder="Obra2"></div>
+							<div class="form-group col-xs-12 col-md-12"><input type="text" id="autocomplete2" class="form-control input-lg" name="obra2" placeholder="Obra2"></div>
 						</div>
 						<div class="submit">
-							<input type="submit" value="COMPARAR" class="btn btn-primary center-block">
+							<input type="submit" value="COMPARAR" onclick="#" class="btn btn-primary center-block">
 						</div>
                 	</div>
             	</div>
+               	</form>          	
+            	<!-- /Comparacion -->
             	
             	<hr>
                 

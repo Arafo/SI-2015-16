@@ -36,21 +36,29 @@
 			</div>
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<!-- Enlaces -->
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="home.html">Home</a></li>
 					<li><a href="JesusBailongo.html">Sorprendeme</a></li>
-					<li>
-						<form class="navbar-form navbar-left" role="search">
-							<div class="form-group">
-								<input class="form-control" placeholder="Search" type="text">
-								<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
-							</div>
-						</form>
-					</li>
 				</ul>
-
+				<!-- /Enlaces -->
+				<!-- Busqueda -->
+				<div class="col-sm-3 col-md-3">
+        			<form class="navbar-form" action="search.html" method="get">
+        				<div class="input-group">
+            				<input type="text" class="form-control" placeholder="Buscar" name="q">
+            				<div class="input-group-btn">
+                				<button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            				</div>
+        				</div>
+        			</form>
+    			</div>
+    			<!-- /Busqueda -->
+    			
+    			<!-- Registro e inicio de sesión -->
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="register.html">Registro</a></li>
+					<!-- Inicio de sesión -->
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Iniciar sesión <span class="caret"></span></a>
@@ -72,7 +80,9 @@
 							</form>
 						</div>
 					</li>
+					<!-- /Inicio de sesión -->
 				</ul>
+    			<!-- /Registro e inicio de sesión -->
 
 			</div>
 			<!-- /.navbar-collapse -->
@@ -82,7 +92,8 @@
 
 	<div class="container">
 		<div class="row">
-
+		
+			<!-- Columna izquierda -->
 			<div class="col-md-3">
 				<p class="lead">MiAplicacion</p>
 				<div class="list-group">
@@ -91,7 +102,6 @@
 					<a href="#" class="list-group-item">Categoria 3</a>
 					<a href="#" class="list-group-item">Categoria 4</a>
 					<a href="#" class="list-group-item">Categoria 5</a>
-					
 				</div>
 				<p class="lead">MasMiAplicacion</p>
 				<div class="list-group">
@@ -100,9 +110,10 @@
 					<a href="#" class="list-group-item">Mas Categoria 3</a>
 				</div>
 			</div>
+			<!-- /Columna izquierda -->
 
 			<div class="col-md-9">
-			
+				<!-- Zona de la comparacion -->
 				<div class="row well">
             		<div class="col-xs-12 col-sm-8 col-md-8 col-centered center-block">
             			<div class="title text-center">
@@ -120,18 +131,22 @@
 						</form>
                 	</div>
             	</div>
+				<!-- /Zona de la comparacion -->
 
 				<div class="row">
 					<c:forEach var="obra" items="${obrasList}">
 						<div class="col-xs-6 col-lg-4 col-md-4">
+							<!-- Obra -->
 							<div class="thumbnail">
 								<a href="obra.html?id=${obra.id}"><img src="${obra.ruta_imagen}" alt=""></a>
+								<!-- Datos de la obra -->
 								<div class="caption">
-									<h4 class="pull-right">Lorem</h4>
+									<!--  <h4 class="pull-right">Lorem</h4> -->
 									<h4><a href="obra.html?id=${obra.id}">${obra.nombre}</a></h4>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-									sed do eiusmod tempor incididunt ut labore et dolore...</p>
+									<p>${obra.plot}</p>
 								</div>
+								<!-- /Datos de la obra -->	
+								<!-- Puntuaciones -->															
 								<div class="ratings">
 									<p class="pull-right">15 comentarios</p>
 									<p>
@@ -142,7 +157,9 @@
 											class="glyphicon glyphicon-star"></span>
 									</p>
 								</div>
+								<!-- /Puntuaciones -->															
 							</div>
+							<!-- /Obra -->							
 						</div>
 			        </c:forEach>					
 				</div>
@@ -182,6 +199,7 @@
                     			</c:otherwise>
                 			</c:choose>
            				</c:forEach>
+						<!-- /Numeros de pagina -->
           				
           				<!-- Boton siguiente y ultima pagina -->
        					<c:choose>
@@ -194,8 +212,10 @@
   								 <li><span class="glyphicon glyphicon-forward"></span></li>
 							</c:otherwise>
 						</c:choose>
+          				<!-- /Boton siguiente y ultima pagina -->						
         			</ul>
 				</div>
+				<!-- /Indices de la paginacion -->
         		
 			</div>
 		</div>

@@ -10,16 +10,8 @@ body {
     margin-bottom: 15px;
 }
 
-.col-centered{
+.col-centered {
     float: none;
-}
-
-.tilte {
-
-}
-
-.submit {
-	
 }
 
 /* Menu de inicio de sesion */
@@ -44,6 +36,8 @@ body {
 /* Texto del item tamaño h4 */
 .caption h4 {
 	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Item */
