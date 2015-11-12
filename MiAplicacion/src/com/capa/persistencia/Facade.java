@@ -20,7 +20,8 @@ public interface Facade {
 	// capitulos es "capitulos" y ruta de la imagen es "ruta_imagen"
 	// Devuelve un identificador id correspondiente a la Obra insertada
 	public int insertObra(String nombre, Date fecha, int puntuacion, int duracion, 
-			String nacionalidad, int capitulos, String ruta_imagen);
+			String nacionalidad, int capitulos, String ruta_imagen, String plot, 
+			String awards, int metascore, double imdb_rating, int imdb_votes);
 	// Devuelve la Obra cuyo cuyo id es igual a "ObraId"
 	public Obra getObra(int ObraId);
 	// Devuelve la Obra cuyo cuyo nombre es "nombre" y fecha de emision es "year"
@@ -31,6 +32,7 @@ public interface Facade {
 	public List<Obra> getObras(String nombre);
 	// Devuelve una lista de Obras con tamaño igual a noOfRecords a partir de offset
 	public List<Obra> getObras(int offset, int noOfRecords);
+	public List<Obra> getObrasSearch(String nombre);
 	// Devuelve el numero de Obras existentes
 	public int getNumObras();
 	

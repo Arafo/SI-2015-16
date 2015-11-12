@@ -44,6 +44,8 @@
 						</p>
 						<p><strong>Duración:</strong> ${obra1.duracion} min</p>
 						<p><strong>Pais:</strong> ${obra1.nacionalidad}</p>
+						<p><strong>Sinopsis:</strong> ${obra1.plot}</p>				
+						<p><strong>Premios:</strong> ${obra1.awards}</p>														
 					</div>
 					<!-- /Imagen y datos-->
 					<div class="panel-body text-center">
@@ -94,12 +96,12 @@
 						<div id="collapseScore" class="panel-collapse collapse in">
 							<li class="list-group-item">
 								<img class="img-responsive img-imdb" src="images/imdb.png" alt="">						
-								<span class="imdb_score">96<span class="imdb_slash">/</span><span class="imdb_base">100</span></span>
+								<span class="imdb_score">${obra1.imdb_rating}<span class="imdb_slash">/</span><span class="imdb_base">10</span></span>
 								<img class="img-responsive img-star" src="images/imdb_star.png" alt="">													
 							</li>
 							<li class="list-group-item">
 								<img class="img-responsive img-metascore" src="images/metascore.png" alt="">
-								<label class="btn btn-success">76</label>
+								<label class="btn btn-success">${obra1.metascore}</label>
 							</li>
 						</div>
 						<!-- /Puntuaciones -->

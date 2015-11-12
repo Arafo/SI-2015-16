@@ -302,11 +302,14 @@ public class OracleConnector implements Facade {
 	}
 		
 	public int insertObra(String nombre, Date fecha, int puntuacion, int duracion, 
-			String nacionalidad, int capitulos, String ruta_imagen) {
+			String nacionalidad, int capitulos, String ruta_imagen, String plot, 
+			String awards, int metascore, double imdb_rating, int imdb_votes) {
 		String sql = String.format("INSERT INTO Obra"
-				+ "(nombre, fecha_emision, puntuacion, duracion, nacionalidad, capitulos, ruta_imagen) VALUES"
-				+ "('%s', TO_DATE('%s', 'YYYY-MM-DD'),'%d', '%d', '%s', '%d', '%s')",
-				nombre, fecha, puntuacion, duracion, nacionalidad, capitulos, ruta_imagen);
+				+ "(nombre, fecha_emision, puntuacion, duracion, nacionalidad, capitulos, ruta_imagen,"
+				+ "plot, awards, metascore, imdb_rating, imdb_votes) VALUES"
+				+ "('%s', TO_DATE('%s', 'YYYY-MM-DD'),'%d', '%d', '%s', '%d', '%s', '%s', '%s', '%d', '%.1f', '%d')",
+				nombre, fecha, puntuacion, duracion, nacionalidad, capitulos, ruta_imagen,
+				plot, awards, metascore, imdb_rating, imdb_votes);
 		ResultSet rs = null;
 		int obra_id = -1;
 		
@@ -340,7 +343,12 @@ public class OracleConnector implements Facade {
 		        			  rs.getInt("duracion"), 
 		        			  rs.getInt("capitulos"), 
 		        			  rs.getString("nacionalidad"),
-		        			  rs.getString("ruta_imagen"))); 
+		        			  rs.getString("ruta_imagen"),
+		        			  rs.getString("plot"),
+		        			  rs.getString("awards"),
+		        			  rs.getInt("metascore"),
+		        			  rs.getDouble("imdb_rating"),
+		        			  rs.getInt("imdb_votes"))); 
 				}
  
 			}
@@ -377,7 +385,12 @@ public class OracleConnector implements Facade {
         			   rs.getInt("duracion"), 
         			   rs.getInt("capitulos"), 
         			   rs.getString("nacionalidad"),
-        			   rs.getString("ruta_imagen")));
+        			   rs.getString("ruta_imagen"),
+        			   rs.getString("plot"),
+        			   rs.getString("awards"),
+        			   rs.getInt("metascore"),
+        			   rs.getDouble("imdb_rating"),
+        			   rs.getInt("imdb_votes")));
            }
            rs.close();
            disconnect();
@@ -386,6 +399,37 @@ public class OracleConnector implements Facade {
        }
        
        return list;
+	}
+	
+	public List<Obra> getObrasSearch(String nombre) {
+		String sql = "SELECT * FROM obra WHERE UPPER(nombre) LIKE '%" + nombre.toUpperCase() + "%'";
+		List<Obra> data = new ArrayList<Obra>();
+
+		ResultSet rs = executeQuery(sql);
+		
+		try {
+			while (rs.next()) {
+				data.add(new Obra(rs.getInt("id"),
+						rs.getString("nombre"),
+						rs.getDate("fecha_emision"), 
+						rs.getInt("puntuacion"),
+						rs.getInt("duracion"), 
+						rs.getInt("capitulos"), 
+						rs.getString("nacionalidad"),
+						rs.getString("ruta_imagen"),
+						rs.getString("plot"),
+						rs.getString("awards"),
+						rs.getInt("metascore"),
+						rs.getDouble("imdb_rating"),
+						rs.getInt("imdb_votes"))); 	
+			}
+			rs.close();
+			disconnect();
+		} catch (Exception e) {
+			e.printStackTrace();	
+		} 
+		
+		return data;
 	}
 
 	public int getNumObras() {
@@ -423,7 +467,12 @@ public class OracleConnector implements Facade {
 	        			rs.getInt("duracion"), 
 	        			rs.getInt("capitulos"), 
 	        			rs.getString("nacionalidad"),
-	        			rs.getString("ruta_imagen"));
+	        			rs.getString("ruta_imagen"),
+	        			rs.getString("plot"),
+	        			rs.getString("awards"),
+	        			rs.getInt("metascore"),
+	        			rs.getDouble("imdb_rating"),
+	        			rs.getInt("imdb_votes"));
 			}
 			rs.close();
 			disconnect();
@@ -453,7 +502,12 @@ public class OracleConnector implements Facade {
 	        			rs.getInt("duracion"), 
 	        			rs.getInt("capitulos"), 
 	        			rs.getString("nacionalidad"),
-	        			rs.getString("ruta_imagen"));
+	        			rs.getString("ruta_imagen"),
+	        			rs.getString("plot"),
+	        			rs.getString("awards"),
+	        			rs.getInt("metascore"),
+	        			rs.getDouble("imdb_rating"),
+	        			rs.getInt("imdb_votes"));
 			}
 			rs.close();
 			disconnect();
@@ -602,7 +656,12 @@ public class OracleConnector implements Facade {
 						rs.getInt("duracion"),
 						rs.getInt("capitulos"),
 						rs.getString("nacionalidad"),
-						rs.getString("ruta_imagen")));
+						rs.getString("ruta_imagen"),
+	        			rs.getString("plot"),
+	        			rs.getString("awards"),
+	        			rs.getInt("metascore"),
+	        			rs.getDouble("imdb_rating"),
+	        			rs.getInt("imdb_votes")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

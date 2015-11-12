@@ -32,7 +32,7 @@ public class InsertObrasPersonas {
 	final static String FILE_PATH = "utils/carga.txt";
 
 	public static void main(String[] args) {
-		boolean update = true;
+		boolean update = false;
 		Scanner file = null;
 		Facade f = new OracleConnector();
 		try {
@@ -58,7 +58,7 @@ public class InsertObrasPersonas {
 			
 			if (!page.Response.equals("False") && !page.Poster.equals("N/A")) {
 				String imagePath = "images/" + 
-						page.Title.replaceAll("[\\s\\:\\'\\,\\.\\·]", "") + "_" + 
+						page.Title.replaceAll("[\\s\\:\\'\\,\\.\\·\\?]", "") + "_" + 
 						page.Year + ".jpg";
 				saveImagefromUrl(page.Poster, "WebContent/" + imagePath);
 				resizeImage(214, 320, "WebContent/" + imagePath);
@@ -69,12 +69,16 @@ public class InsertObrasPersonas {
 				if (page.Released != null && !page.Released.equals("N/A")) {
 					date = format.parse(page.Released);
 				}
-
+				int metascore = page.Metascore.equals("N/A") ? -1 : Integer.valueOf(page.Metascore);
+				double imdb_rating = page.imdbRating.equals("N/A") ? -1d : Double.valueOf(page.imdbRating);
+				
 				int idObra = f.insertObra(name.replaceAll("\\+", " ").replaceAll("'", "''"), 
 						new java.sql.Date(date.getTime()), 
 						4, 
 						Integer.valueOf(page.Runtime.split(" ")[0]),
-						page.Country, 1, imagePath);
+						page.Country, 1, imagePath, page.Plot.replaceAll("'", "''"),
+						page.Awards.replaceAll("'", "''"), metascore, imdb_rating,
+						Integer.valueOf(page.imdbVotes.replaceAll(",", "")));
 				insertActors(name, year, idObra, f);
 				
 			} 

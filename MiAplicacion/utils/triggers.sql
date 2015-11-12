@@ -37,10 +37,22 @@ END;
 
 -------------------
 
+DROP SEQUENCE obra_seq;
+DROP SEQUENCE persona_seq;
+DROP SEQUENCE trabaja_seq;
+DROP TRIGGER obra_autoincrement;
+DROP TRIGGER persona_autoincrement;
+DROP TRIGGER trabaja_autoincrement;
+
+
 INSERT into obra(id, nombre, fecha_emision, puntuacion, duracion, capitulos, nacionalidad, ruta_imagen) 
 values (13, 'Test', TO_DATE('1999-01-01', 'YYYY-MM-DD'), 5, 122, 1, 'Estados Unidos', 'images/matrix_rev.jpg');
 
+alter table obra MODIFY nombre VARCHAR2(100);
 alter table obra add ruta_imagen VARCHAR2(100);
+alter table obra MODIFY plot VARCHAR2(2000);
+alter table obra MODIFY imdb_votes NUMBER(16);
+
 
 SELECT * FROM Persona WHERE id IN (SELECT nombre_persona FROM Trabaja WHERE nombre_obra='59')
 
