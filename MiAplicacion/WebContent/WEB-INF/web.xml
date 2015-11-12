@@ -47,4 +47,13 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <url-pattern>/comparacion.html</url-pattern>
 </servlet-mapping>
 
+<servlet>
+	<servlet-name>Search Servlet</servlet-name>
+    <servlet-class>com.capa.modelo.servlets.SearchServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Search Servlet</servlet-name>
+    <url-pattern>/search.html</url-pattern>
+</servlet-mapping>
+
 </web-app>

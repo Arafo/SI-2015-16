@@ -1,0 +1,97 @@
+body {
+	/* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+	padding-top: 70px;
+	background: #eee;
+}
+
+/* Titulo */
+hgroup { 
+	padding-left: 15px; 
+	border-bottom: 1px solid #ccc; 
+}
+
+/* Titulo h1 */
+hgroup h1 { 
+	font: 500 normal 1.625em Arial,Verdana,sans-serif; 
+	color: #2a3644; 
+	margin-top: 0; 
+	line-height: 1.15; 
+}
+
+/* Titulo h2 */
+hgroup h2.lead { 
+	font: normal normal 1.125em Arial,Verdana,sans-serif; 
+	color: #2a3644; 
+	margin: 0; 
+	padding-bottom: 10px; 
+}
+
+/* Imagen del resultado */
+.search-result .thumbnail { 
+	border-radius: 0; 
+	width: 24%;
+	display: inline;
+	float: left;
+	margin: 0px 30px 0px 0px;
+}
+
+/* Primer resultado */
+.search-result:first-child { 
+	margin-top: 0; 
+}
+
+/* Resultados */
+.search-result { 
+	margin-top: 20px; 
+}
+
+/* Parte izquierda del resultado */
+.search-result .obra-list { 
+	min-height: 140px; 
+	display: inline;
+	white-space: nowrap;
+}
+
+/* Lista de datos de la parte izquierda */
+.search-result ul { 
+	padding-left: 0; 
+	list-style: none;  
+}
+
+/* Lista de datos de la parte izquierda */
+.search-result ul li { 
+	font: 400 normal .85em Arial,Verdana,sans-serif;  
+	line-height: 30px; 
+}
+
+/* Parte derecha del resultado */
+.search-result .col-md-7 { 
+	border-left: 1px dotted #ccc; 
+	position: relative;
+	padding-top: 10px;
+}
+
+/* Titulo del resultado */
+.search-result h3 { 
+	font: 500 normal 1.375em Arial,Verdana,sans-serif; 
+	margin-top: 0; 
+	margin-bottom: 10px; 
+}
+
+/* Enlace del itulo del resultado */
+.search-result h3 > a, .search-result i { 
+	color: #248dc1; 	
+}
+
+/* Parrafo del resultado */
+.search-result p { 
+	font: normal normal 1.125em Arial,Verdana,sans-serif; 
+}
+ 
+ /* Borde */
+.search-result span.border { 
+	display: block; 
+	width: 97%; 
+	margin: 0 15px; 
+	border-bottom: 1px dotted #ccc; 
+}
