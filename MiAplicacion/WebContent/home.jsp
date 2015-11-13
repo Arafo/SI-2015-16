@@ -8,6 +8,7 @@
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <!-- <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" /> -->
+<link href="css/miaplicacion_base.css" rel="stylesheet" type="text/css" />
 <link href="css/home.css" rel="stylesheet" type="text/css" />
 <link href="css/jquery-ui-bs.css" rel="stylesheet" type="text/css" />
 

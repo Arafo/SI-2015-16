@@ -23,15 +23,18 @@ public class SearchServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String obra = null;
-
+		long startTime = System.nanoTime();
+		
 		if (request.getParameter("q") != null)
 			obra = request.getParameter("q");
 		
 		Facade f = new OracleConnector();
 		List<Obra> obrasList = f.getObrasSearch(obra);
 		
+		float endTime = (System.nanoTime() - startTime)/1e9f;
 		request.setAttribute("obrasList", obrasList);
 		request.setAttribute("obrasListSize", obrasList.size());
+		request.setAttribute("time", endTime);
 
 		request.setAttribute("query", obra);
 
