@@ -11,6 +11,8 @@ import com.capa.modelo.Obra;
 import com.capa.modelo.Persona;
 import com.capa.modelo.Usuario;
 import com.capa.persistencia.exceptions.EmailAlreadyExistsException;
+import com.capa.persistencia.exceptions.InvalidPasswordException;
+import com.capa.persistencia.exceptions.InvalidUserException;
 
 /**
  * Clase para acceder a una BD ORACLE
@@ -138,46 +140,58 @@ public class OracleConnector implements Facade {
 	}
 
 	@Override
-	public void insertUser(Usuario user) throws EmailAlreadyExistsException {
-		String sql = String.format("SELECT * FROM USUARIO WHERE EMAIL='%s'",
-				user.getEmail());
+	public int insertUser(Usuario user) throws EmailAlreadyExistsException {
+		String sql = String.format("SELECT * FROM USUARIO WHERE EMAIL='%s'", user.getEmail());
+		int exito = 0;
 		ResultSet rs = executeQuery(sql);
 		try {
 			if (!rs.next()) {
+				exito = 1;
 				sql = String.format("INSERT INTO USUARIO"
-						+ "(id, nombre, sexo, telefono, email, pass, nacimiento) "
-						+ "VALUES (user_seq.NEXTVAL, %d, '%s', '%s', %d, '%s', '%s', TO_DATE('%s', 'YYYY-MM-DD'))",
+						+ "(nombre, sexo, telefono, email, pass, nacimiento) "
+						+ "VALUES ('%s', '%s', '%d', '%s', '%s', TO_DATE('%s', 'YYYY-MM-DD'))",
 						user.getNombre(), user.getSexo(), user.getTelefono(),
-						user.getEmail(), user.getPass(), user.getNacimiento());				
+						user.getEmail(), user.getPass(), user.getNacimiento());	
+				executeQuery(sql);
 			} else {
 				throw new EmailAlreadyExistsException("Error al insertar usuario,"
 						+ " email '" + user.getEmail() + 
 						"' ya existe en la base de datos.");
 			}
+			rs.close();
+			disconnect();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		executeQuery(sql);
+		return exito;
 	}
 
 	@Override
-	public Usuario loginUser(String email, String password) {
+	public Usuario loginUser(String email, String password) throws InvalidUserException, InvalidPasswordException {
 		String sql = String.format("SELECT * FROM USUARIO WHERE EMAIL='%s'", email);
 		ResultSet rs = null;
 		Usuario user = null;
 		
 		try {
 			rs = executeQuery(sql);
-			if (rs.next() && rs.getString("pass").equals(password)) {
-				user = new Usuario(
-						rs.getInt("id"),
-						rs.getString("nombre"),
-						rs.getString("sexo"),
-						rs.getInt("telefono"),
-						rs.getString("email"),
-						rs.getString("pass"),
-						rs.getDate("nacimiento"));	
+			if (rs.next()) {
+				if (rs.getString("pass").equals(password)) {
+					user = new Usuario(
+							rs.getInt("id"),
+							rs.getString("nombre"),
+							rs.getString("sexo"),
+							rs.getInt("telefono"),
+							rs.getString("email"),
+							rs.getString("pass"),
+							rs.getDate("nacimiento"));						
+				}
+				else {
+					throw new InvalidPasswordException("Clave de acceso errónea");
+				}
+			}
+			else {
+				throw new InvalidUserException("El usuario no se encuentra registrado");
 			}
 
 		} catch (SQLException e) {

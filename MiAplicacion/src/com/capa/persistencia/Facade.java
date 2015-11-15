@@ -8,6 +8,8 @@ import com.capa.modelo.Obra;
 import com.capa.modelo.Persona;
 import com.capa.modelo.Usuario;
 import com.capa.persistencia.exceptions.EmailAlreadyExistsException;
+import com.capa.persistencia.exceptions.InvalidPasswordException;
+import com.capa.persistencia.exceptions.InvalidUserException;
 
 public interface Facade {
 
@@ -64,8 +66,8 @@ public interface Facade {
 	// TABLA USUARIO (ACABADA)
 	/////////////////////////////////////////////////////////////
 	
-	public void insertUser(Usuario user) throws EmailAlreadyExistsException;
-	public Usuario loginUser(String email, String password);
+	public int insertUser(Usuario user) throws EmailAlreadyExistsException;
+	public Usuario loginUser(String email, String password) throws InvalidUserException, InvalidPasswordException;
 	public Usuario getUser(String email);
 	
 	/////////////////////////////////////////////////////////////

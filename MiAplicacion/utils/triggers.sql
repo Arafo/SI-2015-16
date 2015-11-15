@@ -37,6 +37,19 @@ END;
 
 -------------------
 
+CREATE SEQUENCE user_seq START WITH 1 INCREMENT BY 1;
+ 
+CREATE OR REPLACE TRIGGER user_autoincrement
+BEFORE INSERT ON Usuario
+FOR EACH ROW
+BEGIN
+	IF :NEW.ID IS NULL THEN 
+    	SELECT user_seq.NEXTVAL INTO :new.id FROM dual;
+	END IF;
+END;
+
+-------------------
+
 DROP SEQUENCE obra_seq;
 DROP SEQUENCE persona_seq;
 DROP SEQUENCE trabaja_seq;

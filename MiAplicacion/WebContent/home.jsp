@@ -58,30 +58,39 @@
     			
     			<!-- Registro e inicio de sesión -->
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="register.html">Registro</a></li>
-					<!-- Inicio de sesión -->
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Iniciar sesión <span class="caret"></span></a>
-						<div class="dropdown-menu">
-							<form method="post" action="#">
-								<div class="form-group">
-									<label>Correo electrónico</label> <input type="text" placeholder="Correo electrónico" name="username" class="form-control username-input input-sm">
+					<c:choose> 
+  						<c:when test="${empty nombre}">
+  							<li><a href="register.html">Registro</a></li>
+  							<!-- Inicio de sesión -->
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false">Iniciar sesión <span class="caret"></span></a>
+								<div class="dropdown-menu">
+									<form name="login" method="post" action="/MiAplicacion/LoginUsuario.do">
+										<div class="form-group">
+											<!-- TODO Cambiar input type a email -->
+											<label>Correo electrónico</label> <input type="text" placeholder="Correo electrónico" name="email" class="form-control username-input input-sm" required>
+										</div>
+										<div class="form-group">
+											<label>Contraseña</label> <input type="password" placeholder="Contraseña" name="password" class="form-control password-input input-sm" required>
+										</div>
+										<div class="form-group">
+											<label><input type="checkbox" id="remember" name="remember"> Recuérdame</label>
+										</div>
+										<div class="form-group">
+											<input type="submit" value="Iniciar sesión" name="submit" class="btn btn-primary">
+										</div>
+									</form>
 								</div>
-								<div class="form-group">
-									<label>Contraseña</label> <input type="password" placeholder="Contraseña" name="password" class="form-control password-input input-sm">
-								</div>
-								<div class="form-group">
-									<label><input type="checkbox" id="remember" name="remember"> Recuérdame</label>
-								</div>
-								<div class="form-group">
-									<input type="submit" value="Iniciar sesión" name="submit" class="btn btn-primary">
-								</div>
-
-							</form>
-						</div>
-					</li>
-					<!-- /Inicio de sesión -->
+							</li>
+							<!-- /Inicio de sesión -->
+						</c:when>
+  						<c:otherwise>
+  							<li><a href="">${nombre}</a></li>
+  							<li><a href="/MiAplicacion/LogoutUsuario.do">[Logout]</a></li>
+ 		 				</c:otherwise>
+					</c:choose>
+					
 				</ul>
     			<!-- /Registro e inicio de sesión -->
 
@@ -96,7 +105,7 @@
 		
 			<!-- Columna izquierda -->
 			<div class="col-md-3">
-				<p class="lead">MiAplicacion</p>
+				<p class="lead">Género</p>
 				<div class="list-group">
 					<a href="#" class="list-group-item">Categoria 1</a> 
 					<a href="#" class="list-group-item">Categoria 2</a> 
@@ -104,11 +113,21 @@
 					<a href="#" class="list-group-item">Categoria 4</a>
 					<a href="#" class="list-group-item">Categoria 5</a>
 				</div>
-				<p class="lead">MasMiAplicacion</p>
+				<p class="lead">Mejor puntuación</p>
 				<div class="list-group">
-					<a href="#" class="list-group-item">Mas categoria 1</a> 
-					<a href="#" class="list-group-item">Mas Categoria 2</a> 
-					<a href="#" class="list-group-item">Mas Categoria 3</a>
+					<a href="#" class="list-group-item">Obra1</a> 
+					<a href="#" class="list-group-item">Obra2</a> 
+					<a href="#" class="list-group-item">Obra3</a>
+					<a href="#" class="list-group-item">Obra4</a>
+					<a href="#" class="list-group-item">Obra5</a>
+				</div>
+				<p class="lead">Más comentadas</p>
+				<div class="list-group">
+					<a href="#" class="list-group-item">Obra1</a> 
+					<a href="#" class="list-group-item">Obra2</a> 
+					<a href="#" class="list-group-item">Obra3</a>
+					<a href="#" class="list-group-item">Obra4</a>
+					<a href="#" class="list-group-item">Obra5</a>
 				</div>
 			</div>
 			<!-- /Columna izquierda -->
@@ -139,7 +158,7 @@
 						<div class="col-xs-6 col-lg-4 col-md-4">
 							<!-- Obra -->
 							<div class="thumbnail">
-								<a href="obra.html?id=${obra.id}"><img src="${obra.ruta_imagen}" alt=""></a>
+								<a href="obra.html?id=${obra.id}"><img src="${obra.ruta_imagen}" alt="${obra.nombre}"></a>
 								<!-- Datos de la obra -->
 								<div class="caption">
 									<!--  <h4 class="pull-right">Lorem</h4> -->

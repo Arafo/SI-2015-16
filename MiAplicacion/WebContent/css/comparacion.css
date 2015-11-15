@@ -6,6 +6,12 @@ body {
 	background: #eee;
 }
 
+.col-centered {
+	padding-left: 150px;
+	padding-right: 150px;
+	padding-bottom: 50px;
+}
+
 /* Imagen de la obra*/
 .panel-body img {
 	float: left;

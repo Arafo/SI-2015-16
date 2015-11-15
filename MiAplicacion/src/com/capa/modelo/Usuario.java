@@ -22,6 +22,18 @@ public class Usuario {
 		this.pass = pass;
 		this.nacimiento = nacimiento;
 	}
+	
+	public Usuario(String nombre, String sexo, int telefono, String email, String pass, Date nacimiento,
+			String surname, String address) {
+		super();
+		this.nombre = nombre;
+		this.sexo = sexo;
+		this.telefono = telefono;
+		this.email = email;
+		this.pass = pass;
+		this.nacimiento = nacimiento;
+	}
+	
 	public int getId() {
 		return id;
 	}

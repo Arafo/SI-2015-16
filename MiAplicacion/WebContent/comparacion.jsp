@@ -21,6 +21,29 @@
 </head>
 
 <body>
+
+
+
+	<!-- Zona de la comparacion -->
+	<div class="row">
+    	<div class="col-centered center-block">
+            <div class="title text-center">
+            	<h2>Comparar obras</h2>
+            	<h6>Alguna frase de explicacion por aqui</h6>
+            </div>
+            <form action="comparacion.html" method="get">
+            	<div class="row">
+					<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete1" class="form-control input-lg" name="obra1" value="${obra1.nombre}"></div>
+					<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete2" class="form-control input-lg" name="obra2" value="${obra2.nombre}"></div>
+				</div>
+				<div class="submit">
+					<input type="submit" value="COMPARAR" onclick="#" class="btn btn-primary center-block">
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- /Zona de la comparacion -->
+
 	<!-- Comparacion -->
 	<div class="container">
 		<div class="row">

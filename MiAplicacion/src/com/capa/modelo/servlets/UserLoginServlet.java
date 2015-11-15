@@ -6,16 +6,22 @@ import java.net.CookieManager;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.capa.modelo.Usuario;
 import com.capa.persistencia.Facade;
 import com.capa.persistencia.OracleConnector;
+import com.capa.persistencia.exceptions.InvalidPasswordException;
+import com.capa.persistencia.exceptions.InvalidUserException;
 
 public class UserLoginServlet extends HttpServlet {
 	
@@ -25,23 +31,63 @@ public class UserLoginServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-
+		
+		Map<String, String> errors = new HashMap<String, String>();
 		String email = request.getParameter("email");
-		String pass = encodeMd5(request.getParameter(""));
-		String stayLogged = request.getParameter("");
+		String password = encodeMd5(request.getParameter("password"));
+		String remember = request.getParameter("remember");
 		boolean exito = true;
-
-		Facade facade = new OracleConnector();
-		Usuario user = facade.getUser(email);
-		if (user == null)
-			exito = false;
-		else {
-			if (!pass.equals(user.getPass()))
-				exito = false;
+		
+		// Los tres if's son siempre falso, los valores se comprueban en el jsp
+		if (email == null) errors.put("Login", "Campo obligatorio");
+		if (password == null) errors.put("Clave", "Campo obligatorio");
+		
+		if (!errors.isEmpty()) {
+			// Forward a login.jsp con el mapa de errores
+			request.setAttribute("errores", errors);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+			dispatcher.forward(request, response);
 		}
-
-		String encodedUser = URLEncoder.encode(email, "UTF-8");
-		if (exito) {
+		else {
+			// Procesamiento del proceso de autenticacion
+			Facade facade = new OracleConnector();
+			try {
+				Usuario user = facade.loginUser(email, password);
+				
+				HttpSession s = request.getSession();
+				// TODO Cambiar a getNombre()
+				s.setAttribute("nombre", user.getEmail());
+				
+				if (remember != null && remember.equals("on")) {
+					Cookie cookieLogin = new Cookie("loginUsuario", user.getEmail());
+					Cookie cookieClave = new Cookie("claveUsuario", user.getPass());
+					response.addCookie(cookieLogin);
+					response.addCookie(cookieClave);
+				}
+				response.sendRedirect("home.html");
+			} catch (InvalidPasswordException e) {
+				errors.put("Clave", "Clave de  acceso errónea"); // Forward a  Login.jsp
+				request.setAttribute("errores", errors);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+				dispatcher.forward(request, response);
+			} catch (InvalidUserException e1) {
+				errors.put("Login", "El usuario no se encuentra registrado"); // Forward a  Login.jsp
+				request.setAttribute("errores", errors);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+				dispatcher.forward(request, response);
+			}
+		}
+		
+//		Usuario user = facade.getUser(email);
+//		if (user == null)
+//			exito = false;
+//		else {
+//			if (!pass.equals(user.getPass()))
+//				exito = false;
+//		}
+//
+//		String encodedUser = URLEncoder.encode(email, "UTF-8");
+//		if (exito) {
 //			Cookie cUser = new Cookie(CookieManager.COOKIENAME_USER, user.getEmail());
 //			cUser.setPath("/miAplicacion");
 //			Cookie cPass = new Cookie(CookieManager.COOKIENAME_PASS, pass);
@@ -52,8 +98,8 @@ public class UserLoginServlet extends HttpServlet {
 //			}
 //			response.addCookie(cUser);
 //			response.addCookie(cPass);
-		}
-		response.sendRedirect("loginStatus.jsp?user=" + encodedUser + "&exito=" + exito);
+//		}
+//		response.sendRedirect("loginStatus.jsp?user=" + encodedUser + "&exito=" + exito);
 	}
 
 	/**
@@ -63,24 +109,20 @@ public class UserLoginServlet extends HttpServlet {
 	 * Algoritmo obtenido de:
 	 * http://viralpatel.net/blogs/java-md5-hashing-salting-password/
 	 */
-	public static String encodeMd5(String input) {
+	private static String encodeMd5(String input) {
 		String md5 = null;
 		if (null == input)
 			return null;
 
 		try {
-
 			// Create MessageDigest object for MD5
 			MessageDigest digest = MessageDigest.getInstance("MD5");
-
 			// Update input string in message digest
 			digest.update(input.getBytes(), 0, input.length());
-
 			// Converts message digest value in base 16 (hex)
 			md5 = new BigInteger(1, digest.digest()).toString(16);
-
 		} catch (NoSuchAlgorithmException e) {
-
+			
 		}
 		return md5;
 	}
