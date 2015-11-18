@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,7 +73,7 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
                     </div>
                     <div class="ratings">
-                        <p class="pull-right">3 comentarios</p>
+                        <p class="pull-right">${comentariosSize} comentarios</p>
                         <p>
                             <span class="glyphicon glyphicon-star"></span>
                             <span class="glyphicon glyphicon-star"></span>
@@ -84,59 +85,32 @@
                     </div>
                 </div>
 
+				<!-- Zona de comentarios -->
                 <div class="well">
-
                     <div class="text-right">
                         <a class="btn btn-success">Dejar un comentario</a>
                     </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            Anonymous
-                            <span class="pull-right">Hace 10 días</span>
-                            <p>This product was great in terms of quality. I would definitely buy another!</p>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            Anonymous
-                            <span class="pull-right">Hace 12 días</span>
-                            <p>I've alredy ordered another one!</p>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            Anonymous
-                            <span class="pull-right">Hace 15 días</span>
-                            <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
-                        </div>
-                    </div>
-                    
                     <hr>
                     
+                   	<c:forEach var="comentario" items="${comentarios}">
+                    	<!-- Comentario -->
+                    	<div class="row">
+                       		<div class="col-md-12">
+                            	<span class="glyphicon glyphicon-star"></span>
+                            	<span class="glyphicon glyphicon-star"></span>
+                            	<span class="glyphicon glyphicon-star"></span>
+                            	<span class="glyphicon glyphicon-star"></span>
+                            	<span class="glyphicon glyphicon-star-empty"></span>
+                            	${comentario.nombre}
+                            	<span class="pull-right">Hace 10 días</span>
+                            	<p>${comentario.comentario}</p>
+                        	</div>
+                    	</div>
+                    	<hr>
+                    	<!-- /Comentario -->
+                    </c:forEach>
+                    
+              		<!-- Dejar comentario -->
                     <div class="row">
                         <div class="col-md-12">
                             <textarea class="form-control message" rows="4" name="message"></textarea>
@@ -148,21 +122,17 @@
 							</div>
 						</div>
                     </div>
-                    
-
+              		<!-- /Dejar comentario -->                    
                 </div>
+				<!-- /Zona de comentarios -->
 
             </div>
-
         </div>
-
     </div>
     <!-- /.container -->
 
     <div class="container">
-
         <hr>
-
         <!-- Footer -->
         <footer>
             <div class="row">
@@ -171,7 +141,7 @@
                 </div>
             </div>
         </footer>
-
+        <!-- /Footer -->
     </div>
     <!-- /.container -->
 	

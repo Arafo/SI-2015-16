@@ -2,8 +2,6 @@ package com.capa.modelo.servlets;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.net.CookieManager;
-import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -59,8 +57,10 @@ public class UserLoginServlet extends HttpServlet {
 				s.setAttribute("nombre", user.getEmail());
 				
 				if (remember != null && remember.equals("on")) {
-					Cookie cookieLogin = new Cookie("loginUsuario", user.getEmail());
-					Cookie cookieClave = new Cookie("claveUsuario", user.getPass());
+					Cookie cookieLogin = new Cookie(CookieManager.COOKIENAME_USER, user.getEmail());
+					Cookie cookieClave = new Cookie(CookieManager.COOKIENAME_PASS, user.getPass());
+					cookieLogin.setMaxAge(COOKIE_EXPIRETIME);
+					cookieClave.setMaxAge(COOKIE_EXPIRETIME);
 					response.addCookie(cookieLogin);
 					response.addCookie(cookieClave);
 				}

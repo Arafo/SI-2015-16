@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.capa.modelo.Accion;
+import com.capa.modelo.Comentario;
 import com.capa.modelo.Obra;
 import com.capa.modelo.Persona;
 import com.capa.modelo.Usuario;
@@ -74,8 +76,11 @@ public interface Facade {
 	// TABLA ACCION (NO ACABADA)
 	/////////////////////////////////////////////////////////////
 	
+	//
 	public int insertAccion(String nombre, Date fecha, int idUsuario);
-	public String getAccion(Date fecha, int idUsuario);
+	//
+	public Accion getAccion(String nombre, Date fecha, int idUsuario);
+	//
 	public List<String> getAccionesUsuario(int idUsuario);
 	
 	/////////////////////////////////////////////////////////////
@@ -83,12 +88,13 @@ public interface Facade {
 	/////////////////////////////////////////////////////////////
 	
 	public int insertComment(String comment, int id_obra, int id_accion);
-	public void modifyComment(int id, String text);
+	public void modifyComment(int id, String text, Date fecha);
 	public void deleteComment(int id);
 	// Devuelve el String con id = [id]
 	public String getComment(int id);
+	public int getIdComment(int id_accion, int id_obra);
 	//Devuelve una lista de Strings de una pelicula
-	public ArrayList<String> ObraComments(int filmId);
+	public ArrayList<Comentario> ObraComments(int filmId);
 	// Devuelve una lista de Strings de un usuario
 	public ArrayList<String> userComments(String email);
 	

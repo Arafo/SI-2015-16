@@ -1,6 +1,7 @@
 package com.capa.modelo.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.capa.modelo.Comentario;
 import com.capa.modelo.Obra;
 import com.capa.persistencia.Facade;
 import com.capa.persistencia.OracleConnector;
@@ -31,7 +33,12 @@ public class ObraServlet extends HttpServlet {
 		if (obra != null) {
 			System.out.println(obra.getNombre());
 			
+			List<Comentario> comentarios = f.ObraComments(id);
+			
 			request.setAttribute("obra", obra);
+			request.setAttribute("comentarios", comentarios);
+			request.setAttribute("comentariosSize", comentarios.size());
+
 			//request.setAttribute("pages", noOfPages);
 			//request.setAttribute("currentPage", page);
 			

@@ -33,6 +33,12 @@ public class PaginationServlet extends HttpServlet {
 		int noOfRecords = oc.getNumObras();
 		int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 		
+		// MUY POCO EFICIENTE!
+//		for (Obra obra : list) {
+//			obra.setNum_comentarios(oc.ObraComments(obra.getId()).size());
+//		}
+		// MUY POCO EFICIENTE!
+
 		request.setAttribute("obrasList", list);
 		request.setAttribute("pages", noOfPages);
 		request.setAttribute("currentPage", page);

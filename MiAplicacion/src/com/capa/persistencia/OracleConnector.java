@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 
+import com.capa.modelo.Accion;
+import com.capa.modelo.Comentario;
 import com.capa.modelo.Obra;
 import com.capa.modelo.Persona;
 import com.capa.modelo.Usuario;
@@ -204,16 +206,16 @@ public class OracleConnector implements Facade {
 	@Override
 	public int insertComment(String comment, int id_obra, int id_accion) {
 		String sql = String.format("INSERT INTO accion_obra"
-				+ "(id, id_obra, id_accion, puntuacion, ) VALUES"
-				+ "(0,'%d','%s','%s')", id_obra, id_accion, comment);
+				+ "(id_obra, id_accion, comentario, puntuacion) VALUES"
+				+ "('%d', '%d', '%s', 0)", id_obra, id_accion, comment);
 		ResultSet rs = null;
 		int comment_id = -1;
 		
 		try {
 			rs = executeQuery(sql);
-			if (rs.next()) {
-				comment_id = rs.getInt(1);
-			}
+			comment_id = getIdComment(id_accion, id_obra);
+			rs.close();
+			disconnect();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -221,21 +223,27 @@ public class OracleConnector implements Facade {
 	}
 
 	@Override
-	public void modifyComment(int id, String new_comment) {
-		String sql = String.format("UPDATE accion_obra SET comentario = '%s' "
-				+ "WHERE id=%d", new_comment, id);
-		executeQuery(sql);		
+	public void modifyComment(int id, String new_comment, Date fecha) {
+		String sql = String.format("UPDATE accion_obra SET comentario='%s' "
+				+ "WHERE id='%d'", new_comment, id);
+		executeQuery(sql);
+		sql = String.format("UPDATE accion SET fecha=TO_DATE('%s', 'YYYY-MM-DD') "
+				+ "WHERE id IN"
+				+ "(SELECT id_accion FROM accion_obra WHERE id='%d')", fecha, id);
+		executeQuery(sql);
+		disconnect();
 	}
 
 	@Override
 	public void deleteComment(int id) {
 		String sql = String.format("DELETE FROM accion_obra WHERE id=%d", id);
 		executeQuery(sql);
+		disconnect();
 	}
 
 	@Override
 	public String getComment(int id) {
-		String sql = String.format("SELECT * FROM accion_obra WHERE id=('%d')", id);
+		String sql = String.format("SELECT * FROM accion_obra WHERE id='%d'", id);
 		String comment = null;
 		ResultSet rs = null;
 		
@@ -250,18 +258,41 @@ public class OracleConnector implements Facade {
 		
 		return comment;
 	}
-
-	@Override
-	public ArrayList<String> ObraComments(int ObraId) {
-		ArrayList<String> comments = new ArrayList<>(); 
-		String sql = String.format("SELECT * FROM accion_obra WHERE id_obra="
-				+ "('%d')", ObraId);
+	
+	public int getIdComment(int id_accion, int id_obra) {
+		String sql = String.format("SELECT id FROM accion_obra "
+				+ "WHERE id_accion='%d' AND id_obra='%d'", id_accion, id_obra);
+		int id_comment = 0;
 		ResultSet rs = null;
 		
 		try {		
 			rs = executeQuery(sql);
+			if (rs.next()) {
+				id_comment = rs.getInt("id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return id_comment;
+	}
+
+	@Override
+	public ArrayList<Comentario> ObraComments(int ObraId) {
+		ArrayList<Comentario> comments = new ArrayList<Comentario>(); 
+		String sql = String.format("SELECT a.id, c.nombre, a.comentario, b.fecha "
+				+ "FROM accion_obra a, accion b, usuario c "
+				+ "WHERE a.id_obra='%d' AND a.id_accion=b.id AND b.id_usuario=c.id "
+				+ "ORDER BY a.id",ObraId);
+		ResultSet rs = null;
+		try {		
+			rs = executeQuery(sql);
 			while (rs.next()) {
-				comments.add(rs.getString("comentario"));
+				comments.add(new Comentario(
+						rs.getInt("id"),
+						rs.getString("nombre"),
+						rs.getString("comentario"),
+						rs.getDate("fecha")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -709,14 +740,49 @@ public class OracleConnector implements Facade {
 
 	@Override
 	public int insertAccion(String nombre, Date fecha, int idUsuario) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "SELECT accion_seq.NEXTVAL FROM DUAL";
+		ResultSet rs = null;
+		int accion_id = -1;
+		
+		try {
+			rs = executeQuery(sql);
+			if (rs.next())
+				accion_id = rs.getInt(1) ;
+			sql = String.format("INSERT INTO Accion (id, nombre, fecha, id_usuario) "
+					+ "VALUES('%d', '%s', TO_DATE('%s', 'YYYY-MM-DD HH:MI:SS'),'%d')",
+					accion_id, nombre, fecha, idUsuario);
+			rs = executeQuery(sql);
+
+			rs.close();
+			disconnect();
+		} catch (SQLException e) {
+			System.err.println("Error: " + e.getMessage());
+		}
+		return accion_id;
 	}
 
 	@Override
-	public String getAccion(Date fecha, int idUsuario) {
-		// TODO Auto-generated method stub
-		return null;
+	public Accion getAccion(String nombre, Date fecha, int idUsuario) {
+		String sql = String.format("SELECT * FROM ACCION WHERE nombre='%s' "
+				+ "AND fecha=TO_DATE('%s', 'YYYY-MM-DD HH:MI:SS') AND id_usuario='%d'", nombre, fecha, idUsuario);
+		ResultSet rs = executeQuery(sql);
+		
+		Accion accion  = null;
+		try {
+			if (rs.next()) {
+				accion = new Accion(
+						rs.getInt("id"),
+						rs.getString("nombre"),
+						rs.getDate("fecha"),
+						rs.getInt("id_usuario"));	
+			}
+			
+		} catch (SQLException e) {
+			System.err.println("Error: " + e.getMessage());
+		}
+		disconnect();
+		
+		return accion;
 	}
 
 	@Override

@@ -86,7 +86,8 @@
 							<!-- /Inicio de sesión -->
 						</c:when>
   						<c:otherwise>
-  							<li><a href="">${nombre}</a></li>
+  							<!-- TODO Cambiar nombre por id (o email) -->
+  							<li><a href="member.jsp?u=${nombre}">${nombre}</a></li>
   							<li><a href="/MiAplicacion/LogoutUsuario.do">[Logout]</a></li>
  		 				</c:otherwise>
 					</c:choose>
@@ -168,7 +169,7 @@
 								<!-- /Datos de la obra -->	
 								<!-- Puntuaciones -->															
 								<div class="ratings">
-									<p class="pull-right">15 comentarios</p>
+									<p class="pull-right">${obra.num_comentarios} comentarios</p>
 									<p>
 										<span class="glyphicon glyphicon-star"></span> <span
 											class="glyphicon glyphicon-star"></span> <span

@@ -50,12 +50,44 @@ END;
 
 -------------------
 
+CREATE SEQUENCE accion_seq START WITH 1 INCREMENT BY 1;
+
+-- NO USAR NO USAR NO USAR NO USAR
+CREATE OR REPLACE TRIGGER accion_autoincrement
+BEFORE INSERT ON Accion
+FOR EACH ROW
+BEGIN
+	IF :NEW.ID IS NULL THEN 
+    	SELECT accion_seq.NEXTVAL INTO :new.id FROM dual;
+	END IF;
+END;
+-- NO USAR NO USAR NO USAR NO USAR
+
+-------------------
+
+CREATE SEQUENCE accion_obra_seq START WITH 1 INCREMENT BY 1;
+ 
+CREATE OR REPLACE TRIGGER accion_obra_autoincrement
+BEFORE INSERT ON Accion_obra
+FOR EACH ROW
+BEGIN
+	IF :NEW.ID IS NULL THEN 
+    	SELECT accion_obra_seq.NEXTVAL INTO :new.id FROM dual;
+	END IF;
+END;
+
+-------------------
+
 DROP SEQUENCE obra_seq;
 DROP SEQUENCE persona_seq;
 DROP SEQUENCE trabaja_seq;
+DROP SEQUENCE accion_seq;
+DROP SEQUENCE accion_obra_seq;
 DROP TRIGGER obra_autoincrement;
 DROP TRIGGER persona_autoincrement;
 DROP TRIGGER trabaja_autoincrement;
+DROP TRIGGER accion_autoincrement;
+DROP TRIGGER accion_obra_autoincrement;
 
 
 INSERT into obra(id, nombre, fecha_emision, puntuacion, duracion, capitulos, nacionalidad, ruta_imagen) 

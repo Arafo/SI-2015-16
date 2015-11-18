@@ -17,6 +17,7 @@ public class Obra {
 	private int metascore;
 	private double imdb_rating;
 	private int imdb_votes;
+	private int num_comentarios;
 	
 	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, int capitulos,
 			String nacionalidad) {
@@ -28,6 +29,7 @@ public class Obra {
 		this.duracion = duracion;
 		this.capitulos = capitulos;
 		this.nacionalidad = nacionalidad;
+		this.num_comentarios = 0;
 	}
 	
 	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, int capitulos,
@@ -41,6 +43,7 @@ public class Obra {
 		this.capitulos = capitulos;
 		this.nacionalidad = nacionalidad;
 		this.ruta_imagen = ruta_imagen;
+		this.num_comentarios = 0;
 	}
 	
 	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, int capitulos,
@@ -150,5 +153,12 @@ public class Obra {
 	public void setImdb_votes(int imdb_votes) {
 		this.imdb_votes = imdb_votes;
 	}
-	
+
+	public int getNum_comentarios() {
+		return num_comentarios;
+	}
+
+	public void setNum_comentarios(int num_comentarios) {
+		this.num_comentarios = num_comentarios;
+	}
 }
