@@ -105,13 +105,14 @@
                             	${comentario.nombre}
                             	
                             	<!-- Fecha del comentario -->
-    							<c:set value="${((date_today.time-comentario.fecha.time)-(1000*60*60*24))/(1000*60*60*24)}" var="dateDiff"/>
+    							<c:set value="${(date_today.time-comentario.fecha.time)/(1000*60*60*24)}" var="dateDiff"/>
                             	<c:choose>
   									<c:when test="${dateDiff lt 1}">
   										<span class="pull-right">Hoy mismo</span>
 			  						</c:when>
   									<c:otherwise>
-  										<span class="pull-right">Hace ${dateDiff} días</span>	
+  										<fmt:parseNumber var="finalDate" integerOnly="true" type="number" value="${(dateDiff-(dateDiff%1))/10}" />
+  										<span class="pull-right">Hace ${finalDate} días</span>	
   									</c:otherwise>
 								</c:choose>
 								<!-- /Fecha del comentario -->
@@ -123,17 +124,20 @@
                     </c:forEach>
                     
               		<!-- Dejar comentario -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <textarea class="form-control message" rows="4" name="message"></textarea>
-                            <input type="hidden" class="rating check"/>
-                        </div>
-                        <div class="form-group">
-							<div class="col-sm-10">
-								<input id="submit" name="submit" type="submit" value="Enviar" class="btn btn-primary">
+              		<form action="AddComment.do" method="get">
+                    	<div class="row">
+                        	<div class="col-md-12">
+                            	<textarea class="form-control message" rows="4" name="comment"></textarea>
+                            	<input type="hidden" class="rating check"/>
+                        	</div>
+                        	<div class="form-group">
+								<div class="col-sm-10">
+								  	<input type="hidden" name="id" value="${obra.id}" /> 
+									<input id="submit" name="submit" type="submit" value="Enviar" onclick="#" class="btn btn-primary">
+								</div>
 							</div>
-						</div>
-                    </div>
+                    	</div>
+					</form>
               		<!-- /Dejar comentario -->                    
                 </div>
 				<!-- /Zona de comentarios -->

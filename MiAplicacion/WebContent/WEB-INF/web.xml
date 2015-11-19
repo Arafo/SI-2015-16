@@ -74,4 +74,13 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <url-pattern>/LogoutUsuario.do</url-pattern>
 </servlet-mapping>
 
+<servlet>
+	<servlet-name>AddComment Servlet</servlet-name>
+    <servlet-class>com.capa.modelo.servlets.AddCommentServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>AddComment Servlet</servlet-name>
+    <url-pattern>/AddComment.do</url-pattern>
+</servlet-mapping>
+
 </web-app>
