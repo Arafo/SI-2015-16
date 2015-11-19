@@ -1,6 +1,7 @@
 package com.capa.modelo.servlets;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -31,16 +32,13 @@ public class ObraServlet extends HttpServlet {
 		
 		Obra obra = f.getObra(id);
 		if (obra != null) {
-			System.out.println(obra.getNombre());
 			
 			List<Comentario> comentarios = f.ObraComments(id);
 			
 			request.setAttribute("obra", obra);
 			request.setAttribute("comentarios", comentarios);
 			request.setAttribute("comentariosSize", comentarios.size());
-
-			//request.setAttribute("pages", noOfPages);
-			//request.setAttribute("currentPage", page);
+			request.setAttribute("date_today", new Date());
 			
 			RequestDispatcher view = request.getRequestDispatcher("obra.jsp");
 			view.forward(request, response);

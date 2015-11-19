@@ -79,7 +79,7 @@ public class Pruebas {
 		 * Insertar una accion
 		 */
 		int accion = f.insertAccion("comentario", new Date(new java.util.Date().getTime()), f.getUser("Fallout1").getId());
-		int accion_obra = f.insertComment("Test", f.getIdObra("Ali G Indahouse", "2002"), accion);
+		int accion_obra = f.insertComment("Esta pelicula iba de monos locos?", f.getIdObra("Ali G Indahouse", "2002"), accion);
 		System.out.println(accion);
 		System.out.println(accion_obra);
 		
@@ -89,24 +89,24 @@ public class Pruebas {
 		List<Comentario> comentarios = f.ObraComments(f.getIdObra("Ali G Indahouse", "2002"));
 		for (Comentario comment : comentarios)
 			System.out.println(comment.getComentario() + ", " + comment.getNombre() + ", " + comment.getFecha());
-		
-		/**
-		 * Modificar un comentario
-		 */
-		f.modifyComment(comentarios.get(0).getId_comentario(), "Otra modificacion del comentario", new Date(new java.util.Date().getTime()));
-		comentarios = f.ObraComments(f.getIdObra("Ali G Indahouse", "2002"));
-		System.out.println();
-		for (Comentario comment : comentarios)
-			System.out.println(comment.getId_comentario() + ", " + comment.getComentario() + ", " + comment.getNombre() + ", " + comment.getFecha());
-		
-		/**
-		 * Borrar comentarios
-		 */
-		//f.deleteComment(comentarios.get(0).getId_comentario());
-		comentarios = f.ObraComments(f.getIdObra("Ali G Indahouse", "2002"));
-		System.out.println();
-		for (Comentario comment : comentarios)
-			System.out.println(comment.getId_comentario() + ", " + comment.getComentario() + ", " + comment.getNombre() + ", " + comment.getFecha());
+//		
+//		/**
+//		 * Modificar un comentario
+//		 */
+//		f.modifyComment(comentarios.get(0).getId_comentario(), "Otra modificacion del comentario", new Date(new java.util.Date().getTime()));
+//		comentarios = f.ObraComments(f.getIdObra("Ali G Indahouse", "2002"));
+//		System.out.println();
+//		for (Comentario comment : comentarios)
+//			System.out.println(comment.getId_comentario() + ", " + comment.getComentario() + ", " + comment.getNombre() + ", " + comment.getFecha());
+//		
+//		/**
+//		 * Borrar comentarios
+//		 */
+//		f.deleteComment(comentarios.get(0).getId_comentario());
+//		comentarios = f.ObraComments(f.getIdObra("Ali G Indahouse", "2002"));
+//		System.out.println();
+//		for (Comentario comment : comentarios)
+//			System.out.println(comment.getId_comentario() + ", " + comment.getComentario() + ", " + comment.getNombre() + ", " + comment.getFecha());
 		
 		// System.out.println(q.getUser("puta_caliente69@pene.com").getNombre());
 		// System.out.println(q.getNumObras());

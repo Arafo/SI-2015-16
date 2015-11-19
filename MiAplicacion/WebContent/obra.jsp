@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,7 +103,18 @@
                             	<span class="glyphicon glyphicon-star"></span>
                             	<span class="glyphicon glyphicon-star-empty"></span>
                             	${comentario.nombre}
-                            	<span class="pull-right">Hace 10 días</span>
+                            	
+                            	<!-- Fecha del comentario -->
+    							<c:set value="${((date_today.time-comentario.fecha.time)-(1000*60*60*24))/(1000*60*60*24)}" var="dateDiff"/>
+                            	<c:choose>
+  									<c:when test="${dateDiff lt 1}">
+  										<span class="pull-right">Hoy mismo</span>
+			  						</c:when>
+  									<c:otherwise>
+  										<span class="pull-right">Hace ${dateDiff} días</span>	
+  									</c:otherwise>
+								</c:choose>
+								<!-- /Fecha del comentario -->
                             	<p>${comentario.comentario}</p>
                         	</div>
                     	</div>
