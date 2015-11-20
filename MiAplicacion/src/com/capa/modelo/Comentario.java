@@ -4,14 +4,14 @@ import java.sql.Date;
 
 public class Comentario {
 	
-	private int id_comentario;
+	private int id;
 	private String nombre;
 	private String comentario;
 	private Date fecha;
 	
 	public Comentario(int id_comentario, String nombre, String comentario, Date fecha) {
 		super();
-		this.id_comentario = id_comentario;
+		this.id = id_comentario;
 		this.nombre = nombre;
 		this.comentario = comentario;
 		this.fecha = fecha;
@@ -25,12 +25,12 @@ public class Comentario {
 	}
 	
 	
-	public int getId_comentario() {
-		return id_comentario;
+	public int getId() {
+		return id;
 	}
 
-	public void setId_comentario(int id_comentario) {
-		this.id_comentario = id_comentario;
+	public void setId(int id_comentario) {
+		this.id = id_comentario;
 	}
 	public String getNombre() {
 		return nombre;

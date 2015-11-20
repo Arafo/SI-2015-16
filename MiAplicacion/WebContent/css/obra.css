@@ -35,6 +35,21 @@
 	padding-right: 20px;
 }
 
+/* Area del comentario */
+.comment-textarea {
+	border: none; 
+	overflow: hidden; 
+	resize: none;
+	background-color: #F5F5F5;
+}
+
+/* Boton de editar y borrar */
+.action-buttons {
+	display: inline;
+	float: right;
+	padding-top: 10px;
+}
+
 /* Zona de las puntuaciones */
 .ratings {
 	padding-right: 10px;

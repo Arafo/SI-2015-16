@@ -83,4 +83,22 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <url-pattern>/AddComment.do</url-pattern>
 </servlet-mapping>
 
+<servlet>
+	<servlet-name>ModifyComment Servlet</servlet-name>
+    <servlet-class>com.capa.modelo.servlets.ModifyCommentServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>ModifyComment Servlet</servlet-name>
+    <url-pattern>/ModifyComment.do</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>DeleteComment Servlet</servlet-name>
+    <servlet-class>com.capa.modelo.servlets.DeleteCommentServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>DeleteComment Servlet</servlet-name>
+    <url-pattern>/DeleteComment.do</url-pattern>
+</servlet-mapping>
+
 </web-app>

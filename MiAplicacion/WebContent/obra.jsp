@@ -17,7 +17,8 @@
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery-ajax-autocomplete-servlet.js"></script>
-<script src="js/ratings.js"></script>
+<script type="text/javascript" src="js/modify-comment.js"></script>
+<script type="text/javascript" src="js/ratings.js"></script>
 
 </head>
 
@@ -116,7 +117,23 @@
   									</c:otherwise>
 								</c:choose>
 								<!-- /Fecha del comentario -->
-                            	<p>${comentario.comentario}</p>
+								<form action="ModifyComment.do" method="get">							
+                            	<div class="row" id="comentariofila_${comentario.id}">
+                        			<div class="col-md-12">
+                        				<textarea class="comment-textarea" disabled id ="comentario_${comentario.id}" cols="110" name="new_comment">${comentario.comentario}
+                            			</textarea>
+                            			<div class="action-buttons">
+                            				<a class="btn btn-warning btn-sm" id="edit_${comentario.id}"><span class="glyphicon glyphicon-pencil"></span></a>
+     										<a class="btn btn-danger btn-sm" href="DeleteComment.do?comment_id=${comentario.id}&id=${obra.id}"><span class="glyphicon glyphicon-trash"></span></a>
+     									</div>
+                            		</div>
+                            		<input type="hidden" name="comment_id" value="${comentario.id}" /> 
+                            		<input type="hidden" name="obra_id" value="${obra.id}" /> 
+                            		
+                            		<input type="hidden" class="btn btn-success" id="sendb_${comentario.id}" value="Enviar "style="margin: 4px 0 0 16px"/>
+                            		<input type="hidden" class="btn btn-primary" id="cancelb_${comentario.id}" value="Cancelar" style="margin: 4px 0 0 6px"/>
+                            	</div>
+                            	</form>
                         	</div>
                     	</div>
                     	<hr>
