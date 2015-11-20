@@ -35,6 +35,13 @@
 	padding-right: 20px;
 }
 
+/* Boton de editar y borrar */
+.action-buttons {
+	display: inline;
+	float: right;
+	padding-top: 10px;
+}
+
 /* Zona de las puntuaciones */
 .ratings {
 	padding-right: 10px;

@@ -116,7 +116,16 @@
   									</c:otherwise>
 								</c:choose>
 								<!-- /Fecha del comentario -->
-                            	<p>${comentario.comentario}</p>
+                            	<div class="row">
+                        			<div class="col-md-12">
+                        				<textarea disabled style="border: none; overflow: hidden; resize:none; background-color: #F5F5F5;" cols="110">${comentario.comentario}
+                            			</textarea>
+                            			<div class="action-buttons">
+                            				<a class="btn btn-warning btn-sm" href=""><span class="glyphicon glyphicon-pencil"></span></a>
+     										<a class="btn btn-danger btn-sm" href="DeleteComment.do?comment_id=${comentario.id}&id=${obra.id}"><span class="glyphicon glyphicon-trash"></span></a>
+     									</div>
+                            		</div>
+                            	</div>
                         	</div>
                     	</div>
                     	<hr>
