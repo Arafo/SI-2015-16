@@ -34,11 +34,16 @@ public class ObraServlet extends HttpServlet {
 		if (obra != null) {
 			
 			List<Comentario> comentarios = f.ObraComments(id);
+			List<Obra> mejor_puntuadas = f.getMejorPuntuadas(5);
+			List<Obra> mas_comentadas = f.getMasComentadas(5);
 			obra.setPuntuacion(f.getUserAveragePuntuaciones(id));
 			request.setAttribute("obra", obra);
 			request.setAttribute("comentarios", comentarios);
 			request.setAttribute("comentariosSize", comentarios.size());
 			request.setAttribute("date_today", new Date());
+			
+			request.setAttribute("mejor_puntuadas", mejor_puntuadas);
+			request.setAttribute("mas_comentadas", mas_comentadas);
 			
 			RequestDispatcher view = request.getRequestDispatcher("obra.jsp");
 			view.forward(request, response);

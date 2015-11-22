@@ -866,6 +866,102 @@ public class OracleConnector implements Facade {
 		}
 		return average_rating;
 	}
+
+	@Override
+	public List<Obra> getMejorPuntuadas(int num_obras) {
+		String sql = "SELECT * FROM ("
+				+ "SELECT rownum rnum, t.* FROM ( "
+				+ "SELECT a.*, y.avg_puntuacion FROM ("
+				+ "SELECT * FROM obra ORDER BY nombre) a "
+				+ "LEFT JOIN ("
+				+ "SELECT DISTINCT id_obra, AVG(puntuacion) AS avg_puntuacion FROM accion_obra WHERE puntuacion!=0 GROUP BY id_obra) y "
+				+ "ON y.id_obra=a.id "
+				+ "ORDER BY y.avg_puntuacion DESC NULLS LAST) t "
+				+ "WHERE rownum <=" + num_obras + ") "
+				+ "WHERE rnum > 0";
+		List<Obra> obras = new ArrayList<Obra>();
+		ResultSet rs = null;
+		
+		try {		
+			rs = executeQuery(sql);
+			while (rs.next()) {
+				obras.add(new Obra(
+						rs.getInt("id"),
+						rs.getString("nombre"),
+						"",
+						rs.getString("avg_puntuacion")));
+			}
+			rs.close();
+			disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return obras;
+	}
+
+	@Override
+	public List<Obra> getPeorPuntuadas(int num_obras) {
+		String sql = "SELECT * FROM ("
+				+ "SELECT rownum rnum, t.* FROM ( "
+				+ "SELECT a.*, y.avg_puntuacion FROM ("
+				+ "SELECT * FROM obra ORDER BY nombre) a "
+				+ "LEFT JOIN ("
+				+ "SELECT DISTINCT id_obra, AVG(puntuacion) AS avg_puntuacion FROM accion_obra WHERE puntuacion!=0 GROUP BY id_obra) y "
+				+ "ON y.id_obra=a.id "
+				+ "ORDER BY y.avg_puntuacion ASC NULLS FIRST) t "
+				+ "WHERE rownum <=" + num_obras + ") "
+				+ "WHERE rnum > 0";
+		List<Obra> obras = new ArrayList<Obra>();
+		ResultSet rs = null;
+		
+		try {		
+			rs = executeQuery(sql);
+			while (rs.next()) {
+				obras.add(new Obra(
+						rs.getInt("id"),
+						rs.getString("nombre"),
+						"",
+						rs.getString("avg_puntuacion")));
+			}
+			rs.close();
+			disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return obras;
+	}
+
+	@Override
+	public List<Obra> getMasComentadas(int num_obras) {
+		String sql = "SELECT * FROM ("
+				+ "SELECT rownum rnum, t.* FROM ( "
+				+ "SELECT a.*, y.num_comentarios FROM ("
+				+ "SELECT * FROM obra ORDER BY nombre) a "
+				+ "LEFT JOIN ("
+				+ "SELECT id_obra, COUNT(*) AS num_comentarios FROM accion_obra GROUP BY id_obra) y "
+				+ "ON y.id_obra=a.id "
+				+ "ORDER BY y.num_comentarios DESC NULLS LAST) t "
+				+ "WHERE rownum <=" + num_obras + ")"
+				+ "WHERE rnum > 0";
+		List<Obra> obras = new ArrayList<Obra>();
+		ResultSet rs = null;
+		
+		try {		
+			rs = executeQuery(sql);
+			while (rs.next()) {
+				obras.add(new Obra(
+						rs.getInt("id"),
+						rs.getString("nombre"),
+						rs.getString("num_comentarios"),
+						""));
+			}
+			rs.close();
+			disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return obras;
+	}
 	
 	
 }

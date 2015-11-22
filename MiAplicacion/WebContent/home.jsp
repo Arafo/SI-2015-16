@@ -114,22 +114,23 @@
 					<a href="#" class="list-group-item">Categoria 4</a>
 					<a href="#" class="list-group-item">Categoria 5</a>
 				</div>
+				<!-- Obras mejor puntuadas -->
 				<p class="lead">Mejor puntuación</p>
 				<div class="list-group">
-					<a href="#" class="list-group-item">Obra1</a> 
-					<a href="#" class="list-group-item">Obra2</a> 
-					<a href="#" class="list-group-item">Obra3</a>
-					<a href="#" class="list-group-item">Obra4</a>
-					<a href="#" class="list-group-item">Obra5</a>
+					<c:forEach var="obra" items="${mejor_puntuadas}">
+						<a href="obra.html?id=${obra.id}" class="list-group-item">${obra.nombre} (${obra.avg_puntuacion})</a> 
+					</c:forEach>
 				</div>
+				<!-- /Obras mejor puntuadas -->		
+				<!-- Obras mas comentadas -->		
 				<p class="lead">Más comentadas</p>
 				<div class="list-group">
-					<a href="#" class="list-group-item">Obra1</a> 
-					<a href="#" class="list-group-item">Obra2</a> 
-					<a href="#" class="list-group-item">Obra3</a>
-					<a href="#" class="list-group-item">Obra4</a>
-					<a href="#" class="list-group-item">Obra5</a>
+					<c:forEach var="obra" items="${mas_comentadas}">
+						<a href="obra.html?id=${obra.id}" class="list-group-item">${obra.nombre} (${obra.num_comentarios})</a> 
+					</c:forEach>
 				</div>
+				<!-- /Obras mas comentadas -->		
+
 			</div>
 			<!-- /Columna izquierda -->
 

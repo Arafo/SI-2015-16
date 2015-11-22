@@ -87,6 +87,18 @@ public class Obra {
 		this.avg_puntuacion = avg_puntuacion != null ? avg_puntuacion : "0";
 	}
 
+	public Obra(int id, String nombre) {
+		this.id = id;
+		this.nombre = nombre;
+	}
+
+	public Obra(int id, String nombre, String num_comentarios, String avg_puntuacion) {
+		this.id = id;
+		this.nombre = nombre;
+		this.num_comentarios = num_comentarios != null ? num_comentarios : "0";
+		this.avg_puntuacion = avg_puntuacion != null ? avg_puntuacion : "0";
+	}
+
 	public int getId() {
 		return id;
 	}

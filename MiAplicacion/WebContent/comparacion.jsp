@@ -17,6 +17,7 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery-ajax-autocomplete-servlet.js"></script>
 
 </head>
 
@@ -26,7 +27,7 @@
 
 	<!-- Zona de la comparacion -->
 	<div class="row">
-    	<div class="col-centered center-block">
+    	<div class="col-centered col-xs-12 col-sm-8 col-md-6 center-block">
             <div class="title text-center">
             	<h2>Comparar obras</h2>
             	<h6>Alguna frase de explicacion por aqui</h6>
@@ -136,53 +137,88 @@
 
 			<!-- Obra2 -->
 			<div class="col-md-6 text-center">
+				<!-- Primer panel -->
 				<div class="panel panel-default panel-obra">
-					<div class="panel-heading">
-						<h3>${obra2.nombre}</h3>
-					</div>
-					<!--  Imagen -->
+					<!-- Titulo -->
+					<a href="obra.html?id=${obra2.id}">
+						<div class="panel-heading">
+							<h3>${obra2.nombre}</h3>
+						</div>
+					</a>
+					<!-- /Titulo -->
+					<!--  Imagen y datos -->
 					<div class="panel-body img-responsive text-left">
 					    <img class="img-responsive" src="${obra2.ruta_imagen}" alt="">
-						<p><strong>Estreno:</strong> 
+						<p>
+							<strong>Estreno:</strong> 
 							<fmt:formatDate pattern="dd MMMM, yyyy" value="${obra2.fecha_emision}"/>
 						</p>
 						<p><strong>Duración:</strong> ${obra2.duracion} min</p>
 						<p><strong>Pais:</strong> ${obra2.nacionalidad}</p>
+						<p><strong>Sinopsis:</strong> ${obra2.plot}</p>				
+						<p><strong>Premios:</strong> ${obra2.awards}</p>														
 					</div>
-					<!-- /Imagen -->
+					<!-- /Imagen y datos-->
 					<div class="panel-body text-center">
 					</div>
-					<ul class="list-group text-center">
-											
+				</div>
+				<!-- /Primer panel -->
+				<!-- Panel de actores -->
+				<div class="panel-obra">
+					<ul class="list-group text-center">						
 						<!-- Actores -->
-						<li class="list-group-item"><div class="list-group-active"><b>Reparto</b></div></li>						
+						<a href="#collapseActors2" class="list-group-item panel-title collapsed " data-toggle="collapse" ><b>Reparto</b></a>
+						<div id="collapseActors2" class="panel-collapse collapse in">
 							<c:forEach var="persona" items="${personasObra2}">
-								<a href="#collapse01${persona.id}" class="list-group-item text-left accordion-toggle collapsed" data-toggle="collapse" >
-								${persona.nombre}</a>
-								<div id="collapse01${persona.id}" class="panel-collapse collapse text-left">
+								<a href="#collapse02${persona.id}" class="list-group-item text-left accordion-toggle collapsed" data-toggle="collapse" >${persona.nombre}</a>
+								<div id="collapse02${persona.id}" class="panel-collapse collapse text-left">
       								<ul class="list-group">
-    						    		<li class="list-group-item"><b>Fecha de nacimiento:</b> 
-    						    			<fmt:formatDate pattern="yyyy" value="${persona.nacimiento}"/>
-    						    		</li>
+    					  				<li class="list-group-item"><b>Fecha de nacimiento:</b> 
+    					   					<fmt:formatDate pattern="yyyy" value="${persona.nacimiento}"/>
+    					   				</li>
        									<li class="list-group-item"><b>Sexo:</b> ${persona.sexo}</li>
        									<li class="list-group-item"><b>Nacionalidad:</b> ${persona.nacionalidad}</li>       							
       								</ul>
     							</div>
 							</c:forEach>
+						</div>
 						<!-- /Actores -->
-												
-						<li class="list-group-item">
-							<div class="list-group-active"><b>Director</b></div></li>
-						<li class="list-group-item text-left">Director1</li>
-						<li class="list-group-item">
-							<div class="list-group-active"><b>Puntuaciones</b></div></li>
-						<li class="list-group-item text-left">IMDB Rating</li>
-						<li class="list-group-item text-left">Metascore</li>
 					</ul>
-					<div class="panel-footer">
-						<a class="btn btn-lg btn-block btn-info" href="#">TEST!</a>
-					</div>
 				</div>
+				<!-- /Panel de actores -->
+				<!-- Panel de directores -->
+				<div class="panel-obra">
+					<ul class="list-group text-center">									
+						<!-- Directores -->	
+						<a href="#collapseDirector2" class="list-group-item panel-title collapsed " data-toggle="collapse" ><b>Director</b></a>
+						<div id="collapseDirector2" class="panel-collapse collapse in">					
+							<li class="list-group-item text-left">Director1</li>
+							<li class="list-group-item text-left">Director2</li>							
+						</div>
+						<!-- /Directores -->
+					</ul>
+				</div>
+				<!-- /Panel de directores -->
+				<!-- Panel de puntuaciones -->		
+				<div class="panel-obra">
+					<ul class="list-group text-center">									
+						<!-- Puntuaciones -->
+						<a href="#collapseScore2" class="list-group-item panel-title collapsed " data-toggle="collapse" ><b>Puntuaciones</b></a>
+						<div id="collapseScore2" class="panel-collapse collapse in">
+							<li class="list-group-item">
+								<img class="img-responsive img-imdb" src="images/imdb.png" alt="">						
+								<span class="imdb_score">${obra2.imdb_rating}<span class="imdb_slash">/</span><span class="imdb_base">10</span></span>
+								<img class="img-responsive img-star" src="images/imdb_star.png" alt="">													
+							</li>
+							<li class="list-group-item">
+								<img class="img-responsive img-metascore" src="images/metascore.png" alt="">
+								<label class="btn btn-success">${obra2.metascore}</label>
+							</li>
+						</div>
+						<!-- /Puntuaciones -->
+					</ul>
+				</div>
+				<!-- /Panel de puntuaciones -->
 			</div>
 			<!-- /Obra2 -->
 		</div>

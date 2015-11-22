@@ -30,11 +30,10 @@ public class PaginationServlet extends HttpServlet {
 		
 		Facade oc = new OracleConnector();
 		List<Obra> list = oc.getObras((page - 1) * recordsPerPage, recordsPerPage);
+		List<Obra> mejor_puntuadas = oc.getMejorPuntuadas(10);
+		List<Obra> mas_comentadas = oc.getMasComentadas(10);
 		int noOfRecords = oc.getNumObras();
 		int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
-		
-		for (Obra o: list)
-			System.out.println(o.getRuta_imagen());
 		
 		// TODO AHORA SE HACE EN getObras() DE FORMA MUY EFECIENTE
 		// MUY POCO EFICIENTE!
@@ -46,6 +45,8 @@ public class PaginationServlet extends HttpServlet {
 		request.setAttribute("obrasList", list);
 		request.setAttribute("pages", noOfPages);
 		request.setAttribute("currentPage", page);
+		request.setAttribute("mejor_puntuadas", mejor_puntuadas);
+		request.setAttribute("mas_comentadas", mas_comentadas);
 		
 		RequestDispatcher view = request.getRequestDispatcher("home.jsp");
 		view.forward(request, response);

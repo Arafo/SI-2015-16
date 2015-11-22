@@ -7,9 +7,10 @@ body {
 }
 
 .col-centered {
-	padding-left: 150px;
-	padding-right: 150px;
+	padding-left: 25px;
+	padding-right: 25px;
 	padding-bottom: 50px;
+    float: none;
 }
 
 /* Imagen de la obra*/
@@ -21,14 +22,14 @@ body {
 
 .panel-obra {
 	margin-bottom: 20px;
-	border-bottom: 1px solid #DDD;
+	/*border-bottom: 1px solid #DDD;*/
 	border-radius: 0px;
-	border-width: 1px 0px;;
+	border-width: 1px 1px;;
 }
 
 /* Sombra al pasar el cursor por encima de una obra */
 .panel-obra:hover {
-	box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
+	/*box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);*/
 }
 
 .panel-obra .panel-heading .fa {

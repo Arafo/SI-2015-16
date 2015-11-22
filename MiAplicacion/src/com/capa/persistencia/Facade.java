@@ -106,5 +106,12 @@ public interface Facade {
 	public List<Integer> getUserPuntuaciones(String email);
 	public int getUserAveragePuntuaciones(int id_obra);
 
+	/////////////////////////////////////////////////////////////
+	// OTROS
+	/////////////////////////////////////////////////////////////
+	public List<Obra> getMejorPuntuadas(int num_obras);
+	public List<Obra> getPeorPuntuadas(int num_obras);
+	public List<Obra> getMasComentadas(int num_obras);
+
 
 }

@@ -89,6 +89,10 @@ DROP TRIGGER trabaja_autoincrement;
 DROP TRIGGER accion_autoincrement;
 DROP TRIGGER accion_obra_autoincrement;
 
+-------------------
+-- OTROS
+-------------------
+
 
 INSERT into obra(id, nombre, fecha_emision, puntuacion, duracion, capitulos, nacionalidad, ruta_imagen) 
 values (13, 'Test', TO_DATE('1999-01-01', 'YYYY-MM-DD'), 5, 122, 1, 'Estados Unidos', 'images/matrix_rev.jpg');
@@ -121,17 +125,46 @@ SELECT nombre_obra from trabaja
 	WHERE rownum <= 9)
 WHERE rnum > 0
 
- 	SELECT rownum rnum, a.*, y.num_comentarios FROM (
- 		SELECT * FROM obra ORDER BY nombre) a 
- 	LEFT JOIN (
-		SELECT id_obra, COUNT(*) AS num_comentarios FROM accion_obra GROUP BY id_obra) y 
-	ON y.id_obra=a.id 
+-- 5 obras mas comentadas
+SELECT * FROM (
+	SELECT rownum rnum, t.* FROM ( 
+		SELECT a.*, y.num_comentarios FROM (
+ 			SELECT * FROM obra ORDER BY nombre) a 
+		LEFT JOIN (
+			SELECT id_obra, COUNT(*) AS num_comentarios FROM accion_obra GROUP BY id_obra) y 
+		ON y.id_obra=a.id 
+		ORDER BY y.num_comentarios DESC NULLS LAST) t
+	WHERE rownum <= 5)
+WHERE rnum > 0
+
+-- 5 obras mejor puntuadas
+SELECT * FROM (
+	SELECT rownum rnum, t.* FROM ( 
+		SELECT a.*, y.avg_puntuacion FROM (
+ 			SELECT * FROM obra ORDER BY nombre) a 
+		LEFT JOIN (
+			SELECT DISTINCT id_obra, AVG(puntuacion) AS avg_puntuacion FROM accion_obra WHERE puntuacion!=0 GROUP BY id_obra) y		
+		ON y.id_obra=a.id 
+		ORDER BY y.avg_puntuacion DESC NULLS LAST) t
+	WHERE rownum <= 5)
+WHERE rnum > 0
+
+-- 5 obras peor puntuadas
+SELECT * FROM (
+	SELECT rownum rnum, t.* FROM ( 
+		SELECT a.*, y.avg_puntuacion FROM (
+ 			SELECT * FROM obra ORDER BY nombre) a 
+		LEFT JOIN (
+			SELECT DISTINCT id_obra, AVG(puntuacion) AS avg_puntuacion FROM accion_obra WHERE puntuacion!=0 GROUP BY id_obra) y		
+		ON y.id_obra=a.id 
+		ORDER BY y.avg_puntuacion ASC NULLS FIRST) t
+	WHERE rownum <= 5)
+WHERE rnum > 0
 
 
-SELECT *
-FROM obra,
-LEFT JOIN accion_obra
-ON obra.id=accion_obra.id_obra
+--
+SELECT * FROM obra
 
+--
 SELECT DISTINCT id_obra, AVG(puntuacion) FROM accion_obra WHERE puntuacion!=0 GROUP BY id_obra
 SELECT DISTINCT * FROM Accion_obra

@@ -59,6 +59,37 @@
             	<!-- /Comparacion -->
             	
             	<hr>
+            	
+            	<!-- Obras mejor puntuadas -->
+				<p class="lead">Mejor puntuación</p>
+				<div class="list-group">
+					<c:forEach var="mejor" items="${mejor_puntuadas}">
+						<c:choose>
+  							<c:when test="${obra.id eq mejor.id}">
+  								<a href="obra.html?id=${mejor.id}" class="list-group-item"><b>${mejor.nombre} (${mejor.avg_puntuacion})</b></a> 	
+  							</c:when>
+  							<c:otherwise>
+  								<a href="obra.html?id=${mejor.id}" class="list-group-item">${mejor.nombre} (${mejor.avg_puntuacion})</a> 
+  							</c:otherwise>
+  						</c:choose>
+					</c:forEach>
+				</div>
+				<!-- /Obras mejor puntuadas -->		
+				<!-- Obras mas comentadas -->		
+				<p class="lead">Más comentadas</p>
+				<div class="list-group">
+					<c:forEach var="mas" items="${mas_comentadas}">
+						<c:choose>
+  							<c:when test="${mas.id eq obra.id}">
+								<a href="obra.html?id=${mas.id}" class="list-group-item"><b>${mas.nombre} (${mas.num_comentarios})</b></a> 
+  							</c:when>
+  							<c:otherwise>
+								<a href="obra.html?id=${mas.id}" class="list-group-item">${mas.nombre} (${mas.num_comentarios})</a> 	
+  							</c:otherwise>
+  						</c:choose>
+					</c:forEach>
+				</div>
+				<!-- /Obras mas comentadas -->	
                 
             </div>
 
