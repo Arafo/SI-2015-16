@@ -167,18 +167,21 @@
 									<p>${obra.plot}</p>
 								</div>
 								<!-- /Datos de la obra -->	
-								<!-- Puntuaciones -->															
+								<!-- Puntuacion y numero de comentarios -->															
 								<div class="ratings">
 									<p class="pull-right">${obra.num_comentarios} comentarios</p>
 									<p>
-										<span class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span> <span
-											class="glyphicon glyphicon-star"></span>
+										<!-- Puntuacion de la obra -->
+                       					<c:forEach var="rating" begin="1" end="${obra.avg_puntuacion}" >
+                       						<span class="glyphicon glyphicon-star"></span>
+                       					</c:forEach>
+                       					<c:forEach var="rating" begin="${obra.avg_puntuacion + 1}" end="5" >
+                            				<span class="glyphicon glyphicon-star-empty"></span>
+                       					</c:forEach>
+										<!-- /Puntuacion de la obra -->                    					
 									</p>
 								</div>
-								<!-- /Puntuaciones -->															
+								<!-- /Puntuacion y numero de comentarios -->															
 							</div>
 							<!-- /Obra -->							
 						</div>

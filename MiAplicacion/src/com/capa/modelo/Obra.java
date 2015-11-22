@@ -17,7 +17,8 @@ public class Obra {
 	private int metascore;
 	private double imdb_rating;
 	private int imdb_votes;
-	private int num_comentarios;
+	private String num_comentarios;
+	private String avg_puntuacion;
 	
 	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, int capitulos,
 			String nacionalidad) {
@@ -29,7 +30,7 @@ public class Obra {
 		this.duracion = duracion;
 		this.capitulos = capitulos;
 		this.nacionalidad = nacionalidad;
-		this.num_comentarios = 0;
+		this.num_comentarios = null;
 	}
 	
 	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, int capitulos,
@@ -43,7 +44,7 @@ public class Obra {
 		this.capitulos = capitulos;
 		this.nacionalidad = nacionalidad;
 		this.ruta_imagen = ruta_imagen;
-		this.num_comentarios = 0;
+		this.num_comentarios = null;
 	}
 	
 	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, int capitulos,
@@ -63,6 +64,27 @@ public class Obra {
 		this.metascore = metascore;
 		this.imdb_rating = imdb_rating;
 		this.imdb_votes = imdb_votes;
+	}
+	
+	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, int capitulos,
+			String nacionalidad, String ruta_imagen, String plot, String awards, int metascore,
+			double imdb_rating, int imdb_votes, String num_comentarios, String avg_puntuacion) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.fecha_emision = fecha_emision;
+		this.puntuacion = puntuacion;
+		this.duracion = duracion;
+		this.capitulos = capitulos;
+		this.nacionalidad = nacionalidad;
+		this.ruta_imagen = ruta_imagen;
+		this.plot = plot;
+		this.awards = awards;
+		this.metascore = metascore;
+		this.imdb_rating = imdb_rating;
+		this.imdb_votes = imdb_votes;
+		this.num_comentarios = num_comentarios != null ? num_comentarios : "0";
+		this.avg_puntuacion = avg_puntuacion != null ? avg_puntuacion : "0";
 	}
 
 	public int getId() {
@@ -154,11 +176,19 @@ public class Obra {
 		this.imdb_votes = imdb_votes;
 	}
 
-	public int getNum_comentarios() {
+	public String getNum_comentarios() {
 		return num_comentarios;
 	}
 
-	public void setNum_comentarios(int num_comentarios) {
+	public void setNum_comentarios(String num_comentarios) {
 		this.num_comentarios = num_comentarios;
+	}
+	
+	public String getAvg_puntuacion() {
+		return avg_puntuacion;
+	}
+	
+	public void setAvg_puntuacion(String avg_puntuacion) {
+		this.avg_puntuacion = avg_puntuacion;
 	}
 }

@@ -79,7 +79,7 @@ public class Pruebas {
 		 * Insertar una accion
 		 */
 		int accion = f.insertAccion("comentario", new Date(new java.util.Date().getTime()), f.getUser("Fallout1").getId());
-		int accion_obra = f.insertComment("Esta pelicula iba de monos locos?", f.getIdObra("Ali G Indahouse", "2002"), accion);
+		int accion_obra = f.insertComment("Esta pelicula iba de monos locos?", 0, f.getIdObra("Ali G Indahouse", "2002"), accion);
 		System.out.println(accion);
 		System.out.println(accion_obra);
 		

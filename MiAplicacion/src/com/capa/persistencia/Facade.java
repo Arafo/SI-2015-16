@@ -87,7 +87,7 @@ public interface Facade {
 	// TABLA ACCION_TRABAJA (NO ACABADA)
 	/////////////////////////////////////////////////////////////
 	
-	public int insertComment(String comment, int id_obra, int id_accion);
+	public int insertComment(String comment, int rating, int id_obra, int id_accion);
 	public void modifyComment(int id, String text, Date fecha);
 	public void deleteComment(int id);
 	// Devuelve el String con id = [id]
@@ -104,5 +104,7 @@ public interface Facade {
 	public int getPuntuacion(int idAccion_Trabaja);
 	public List<Integer> getObraPuntuaciones(int idObra);
 	public List<Integer> getUserPuntuaciones(String email);
+	public int getUserAveragePuntuaciones(int id_obra);
+
 
 }

@@ -7,20 +7,23 @@ public class Comentario {
 	private int id;
 	private String nombre;
 	private String comentario;
+	private int puntuacion;
 	private Date fecha;
 	
-	public Comentario(int id_comentario, String nombre, String comentario, Date fecha) {
+	public Comentario(int id_comentario, String nombre, String comentario, int puntuacion, Date fecha) {
 		super();
 		this.id = id_comentario;
 		this.nombre = nombre;
 		this.comentario = comentario;
+		this.puntuacion = puntuacion;
 		this.fecha = fecha;
 	}
 	
-	public Comentario(String nombre, String comentario, Date fecha) {
+	public Comentario(String nombre, String comentario, int puntuacion, Date fecha) {
 		super();
 		this.nombre = nombre;
 		this.comentario = comentario;
+		this.puntuacion = puntuacion;
 		this.fecha = fecha;
 	}
 	
@@ -28,7 +31,6 @@ public class Comentario {
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id_comentario) {
 		this.id = id_comentario;
 	}
@@ -43,6 +45,12 @@ public class Comentario {
 	}
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
+	}
+	public int getPuntuacion() {
+		return puntuacion;
+	}
+	public void setPuntuacion(int rating) {
+		this.puntuacion = rating;
 	}
 	public Date getFecha() {
 		return fecha;

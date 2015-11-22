@@ -204,10 +204,10 @@ public class OracleConnector implements Facade {
 	}
 
 	@Override
-	public int insertComment(String comment, int id_obra, int id_accion) {
+	public int insertComment(String comment, int rating, int id_obra, int id_accion) {
 		String sql = String.format("INSERT INTO accion_obra"
 				+ "(id_obra, id_accion, comentario, puntuacion) VALUES"
-				+ "('%d', '%d', '%s', 0)", id_obra, id_accion, comment);
+				+ "('%d', '%d', '%s', '%d')", id_obra, id_accion, comment, rating);
 		ResultSet rs = null;
 		int comment_id = -1;
 		
@@ -280,7 +280,7 @@ public class OracleConnector implements Facade {
 	@Override
 	public ArrayList<Comentario> ObraComments(int ObraId) {
 		ArrayList<Comentario> comments = new ArrayList<Comentario>(); 
-		String sql = String.format("SELECT a.id, c.nombre, a.comentario, b.fecha "
+		String sql = String.format("SELECT a.id, c.nombre, a.puntuacion, a.comentario, b.fecha "
 				+ "FROM accion_obra a, accion b, usuario c "
 				+ "WHERE a.id_obra='%d' AND a.id_accion=b.id AND b.id_usuario=c.id "
 				+ "ORDER BY a.id",ObraId);
@@ -292,6 +292,7 @@ public class OracleConnector implements Facade {
 						rs.getInt("id"),
 						rs.getString("nombre"),
 						rs.getString("comentario"),
+						rs.getInt("puntuacion"),
 						rs.getDate("fecha")));
 			}
 		} catch (SQLException e) {
@@ -383,7 +384,9 @@ public class OracleConnector implements Facade {
 				if (rs.getString("nombre").toLowerCase().contains(nombre.toLowerCase())) {
 		        	  data.add(new Obra(rs.getInt("id"),
 		        			  rs.getString("nombre"),
-		        			  rs.getDate("fecha_emision"), 
+		        			  rs.getDate("fecha_emision"),
+		        			  // TODO Quiza sea muy pesado obtener la puntuacion media de los usuarios
+		        			  //getUserAveragePuntuaciones(rs.getInt("id")),
 		        			  rs.getInt("puntuacion"),
 		        			  rs.getInt("duracion"), 
 		        			  rs.getInt("capitulos"), 
@@ -408,16 +411,31 @@ public class OracleConnector implements Facade {
 
 	public List<Obra> getObras(int offset, int noOfRecords) {
 		
-		String sql = "SELECT * FROM ("
-				+ "SELECT rownum rnum, a.* "
-				+ "FROM("
-				+ "SELECT * "
-				+ "FROM obra "
-				+ "ORDER BY nombre "
-				+ ") a "
-				+ "WHERE rownum <=" + (offset + noOfRecords)
-				+ ")"
-				+ "WHERE rnum >" + offset;
+		// TODO Consulta vieja - borrar
+//		String sql = "SELECT * FROM ("
+//				+ "SELECT rownum rnum, a.* "
+//				+ "FROM("
+//				+ "SELECT * "
+//				+ "FROM obra "
+//				+ "ORDER BY nombre "
+//				+ ") a "
+//				+ "WHERE rownum <=" + (offset + noOfRecords)
+//				+ ")"
+//				+ "WHERE rnum >" + offset;
+		String sql = " SELECT * FROM ("
+				+ "SELECT rownum rnum, t.* FROM("
+				+ "SELECT a.*, y.num_comentarios, z.avg_puntuacion FROM ("
+				+ "SELECT * FROM obra ORDER BY nombre) a "
+				+ "LEFT JOIN ("
+				+ "SELECT id_obra, COUNT(*) AS num_comentarios FROM accion_obra GROUP BY id_obra) y "
+				+ "ON y.id_obra=a.id "
+				+ "LEFT JOIN ("
+				+ "SELECT DISTINCT id_obra, AVG(puntuacion) AS avg_puntuacion FROM accion_obra WHERE puntuacion!=0 GROUP BY id_obra) z "
+				+ "ON z.id_obra=a.id "
+				+ "ORDER BY a.nombre) t "
+				+ "WHERE rownum <=" + (offset + noOfRecords) + ")"
+				+ "WHERE rnum >"  + offset;
+
        List<Obra> list = new ArrayList<Obra>();
        
        try {
@@ -435,8 +453,11 @@ public class OracleConnector implements Facade {
         			   rs.getString("awards"),
         			   rs.getInt("metascore"),
         			   rs.getDouble("imdb_rating"),
-        			   rs.getInt("imdb_votes")));
+        			   rs.getInt("imdb_votes"),
+        			   rs.getString("num_comentarios"),
+        			   rs.getString("avg_puntuacion")));
            }
+
            rs.close();
            disconnect();
        } catch (SQLException e) {
@@ -826,4 +847,25 @@ public class OracleConnector implements Facade {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int getUserAveragePuntuaciones(int id_obra) {
+		int average_rating = 0;
+		String sql = String.format("SELECT AVG(puntuacion) "
+				+ "FROM accion_obra WHERE id_obra='%d' AND puntuacion!=0", id_obra);
+		ResultSet rs = executeQuery(sql);
+		
+		try {
+			if (rs.next())
+				average_rating = rs.getInt(1);
+			
+			rs.close();
+			disconnect();
+		} catch (SQLException e) {
+			System.err.println("Error: " + e.getMessage());
+		}
+		return average_rating;
+	}
+	
+	
 }

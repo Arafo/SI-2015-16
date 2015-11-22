@@ -33,10 +33,14 @@ public class PaginationServlet extends HttpServlet {
 		int noOfRecords = oc.getNumObras();
 		int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 		
+		for (Obra o: list)
+			System.out.println(o.getRuta_imagen());
+		
+		// TODO AHORA SE HACE EN getObras() DE FORMA MUY EFECIENTE
 		// MUY POCO EFICIENTE!
-//		for (Obra obra : list) {
-//			obra.setNum_comentarios(oc.ObraComments(obra.getId()).size());
-//		}
+		//for (Obra obra : list) {
+		//	obra.setNum_comentarios(oc.ObraComments(obra.getId()).size());
+		//}
 		// MUY POCO EFICIENTE!
 
 		request.setAttribute("obrasList", list);

@@ -35,7 +35,6 @@
 	padding-right: 20px;
 }
 
-<<<<<<< HEAD
 /* Area del comentario */
 .comment-textarea {
 	border: none; 
@@ -44,8 +43,6 @@
 	background-color: #F5F5F5;
 }
 
-=======
->>>>>>> refs/remotes/origin/master
 /* Boton de editar y borrar */
 .action-buttons {
 	display: inline;

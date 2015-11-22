@@ -102,3 +102,36 @@ alter table obra MODIFY imdb_votes NUMBER(16);
 SELECT * FROM Persona WHERE id IN (SELECT nombre_persona FROM Trabaja WHERE nombre_obra='59')
 
 SELECT nombre_obra from trabaja
+
+
+ SELECT id_obra, COUNT(*) AS COMENTARIOS FROM accion_obra GROUP BY id_obra
+ 
+
+ SELECT * FROM (
+ 	SELECT rownum rnum, t.* FROM ( 
+ 		SELECT a.*, y.num_comentarios, z.avg_puntuacion FROM (
+ 			SELECT * FROM obra ORDER BY nombre) a 
+ 		LEFT JOIN (
+			SELECT id_obra, COUNT(*) AS num_comentarios FROM accion_obra GROUP BY id_obra) y 
+		ON y.id_obra=a.id 
+		LEFT JOIN (
+			SELECT DISTINCT id_obra, AVG(puntuacion) AS avg_puntuacion FROM accion_obra WHERE puntuacion!=0 GROUP BY id_obra) z
+		ON z.id_obra=a.id
+		ORDER BY a.nombre) t
+	WHERE rownum <= 9)
+WHERE rnum > 0
+
+ 	SELECT rownum rnum, a.*, y.num_comentarios FROM (
+ 		SELECT * FROM obra ORDER BY nombre) a 
+ 	LEFT JOIN (
+		SELECT id_obra, COUNT(*) AS num_comentarios FROM accion_obra GROUP BY id_obra) y 
+	ON y.id_obra=a.id 
+
+
+SELECT *
+FROM obra,
+LEFT JOIN accion_obra
+ON obra.id=accion_obra.id_obra
+
+SELECT DISTINCT id_obra, AVG(puntuacion) FROM accion_obra WHERE puntuacion!=0 GROUP BY id_obra
+SELECT DISTINCT * FROM Accion_obra

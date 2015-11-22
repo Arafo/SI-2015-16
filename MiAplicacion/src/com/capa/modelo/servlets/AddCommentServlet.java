@@ -22,6 +22,7 @@ public class AddCommentServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String comentario = null;
 		String obra = null;
+		int rating = 0;
 
 		if (request.getParameter("comment") != null)
 			comentario = request.getParameter("comment");
@@ -29,12 +30,17 @@ public class AddCommentServlet extends HttpServlet {
 		if (request.getParameter("id") != null)
 			obra = request.getParameter("id");
 		
+		if (request.getParameter("rating") != null)
+			rating = Integer.valueOf(request.getParameter("rating"));
+		
+		System.out.println(rating);
+		
 		
 		Facade f = new OracleConnector();
 		
 		// TODO Cambiar id de usuario por el real
 		int id_accion = f.insertAccion("comentario", new Date(new java.util.Date().getTime()), f.getUser("Fallout1").getId());
-		f.insertComment(comentario, Integer.valueOf(obra), id_accion);
+		f.insertComment(comentario, rating, Integer.valueOf(obra), id_accion);
 
 		response.sendRedirect("obra.html?id=" + obra);
 	}

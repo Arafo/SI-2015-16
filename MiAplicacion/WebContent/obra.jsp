@@ -12,13 +12,14 @@
 <link href="css/miaplicacion_base.css" rel="stylesheet" type="text/css" />
 <link href="css/obra.css" rel="stylesheet">
 <link href="css/jquery-ui-bs.css" rel="stylesheet" type="text/css" />
+<link href="css/star-rating.min.css" media="all" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery-ajax-autocomplete-servlet.js"></script>
 <script type="text/javascript" src="js/modify-comment.js"></script>
-<script type="text/javascript" src="js/ratings.js"></script>
+<script type="text/javascript" src="js/star-rating.min.js"></script>
 
 </head>
 
@@ -77,12 +78,15 @@
                     <div class="ratings">
                         <p class="pull-right">${comentariosSize} comentarios</p>
                         <p>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star"></span>
-                            <span class="glyphicon glyphicon-star-empty"></span>
-                            4.0 estrellas
+                        	<!-- Puntuacion de la obra -->
+                       		<c:forEach var="rating" begin="1" end="${obra.puntuacion}" >
+                       			<span class="glyphicon glyphicon-star"></span>
+                       		</c:forEach>
+                       		<c:forEach var="rating" begin="${obra.puntuacion + 1}" end="5" >
+                            	<span class="glyphicon glyphicon-star-empty"></span>
+                       		</c:forEach>
+                            ${obra.puntuacion}.0 estrellas
+                            <!-- /Puntuacion de la obra -->      
                         </p>
                     </div>
                 </div>
@@ -98,11 +102,15 @@
                     	<!-- Comentario -->
                     	<div class="row">
                        		<div class="col-md-12">
-                            	<span class="glyphicon glyphicon-star"></span>
-                            	<span class="glyphicon glyphicon-star"></span>
-                            	<span class="glyphicon glyphicon-star"></span>
-                            	<span class="glyphicon glyphicon-star"></span>
-                            	<span class="glyphicon glyphicon-star-empty"></span>
+                       			<!-- Puntuacion del comentario -->
+                       			<c:forEach var="rating" begin="1" end="${comentario.puntuacion}" >
+                       				<span class="glyphicon glyphicon-star"></span>
+                       			</c:forEach>
+                       			<c:forEach var="rating" begin="${comentario.puntuacion + 1}" end="5" >
+                            		<span class="glyphicon glyphicon-star-empty"></span>
+                       			</c:forEach>
+                       			<!-- /Puntuacion del comentario -->
+                       			                       		
                             	${comentario.nombre}
                             	
                             	<!-- Fecha del comentario -->
@@ -145,10 +153,10 @@
                     	<div class="row">
                         	<div class="col-md-12">
                             	<textarea class="form-control message" rows="4" name="comment"></textarea>
-                            	<input type="hidden" class="rating check"/>
-                        	</div>
+                        	</div>                        	
                         	<div class="form-group">
 								<div class="col-sm-10">
+                            		<input id="input-1" name="rating" class="rating" data-size="sm" data-min="0" data-max="5" data-step="1">
 								  	<input type="hidden" name="id" value="${obra.id}" /> 
 									<input id="submit" name="submit" type="submit" value="Enviar" onclick="#" class="btn btn-primary">
 								</div>

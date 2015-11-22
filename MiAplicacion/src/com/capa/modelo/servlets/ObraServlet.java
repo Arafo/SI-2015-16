@@ -34,7 +34,7 @@ public class ObraServlet extends HttpServlet {
 		if (obra != null) {
 			
 			List<Comentario> comentarios = f.ObraComments(id);
-			
+			obra.setPuntuacion(f.getUserAveragePuntuaciones(id));
 			request.setAttribute("obra", obra);
 			request.setAttribute("comentarios", comentarios);
 			request.setAttribute("comentariosSize", comentarios.size());
