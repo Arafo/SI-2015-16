@@ -36,11 +36,14 @@
 }
 
 /* Area del comentario */
-.comment-textarea {
+.comment-textarea[disabled] {
 	border: none; 
 	overflow: hidden; 
 	resize: none;
 	background-color: #F5F5F5;
+	cursor: auto;
+	display: inline;
+	width: 90%;
 }
 
 /* Boton de editar y borrar */

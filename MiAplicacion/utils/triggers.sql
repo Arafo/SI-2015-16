@@ -152,7 +152,7 @@ WHERE rnum > 0
 -- 5 obras peor puntuadas
 SELECT * FROM (
 	SELECT rownum rnum, t.* FROM ( 
-		SELECT a.*, y.avg_puntuacion FROM (
+		SELECT a.*, TO_NUMBER(y.avg_puntuacion) AS avg_puntuacion FROM (
  			SELECT * FROM obra ORDER BY nombre) a 
 		LEFT JOIN (
 			SELECT DISTINCT id_obra, AVG(puntuacion) AS avg_puntuacion FROM accion_obra WHERE puntuacion!=0 GROUP BY id_obra) y		

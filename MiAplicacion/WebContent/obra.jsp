@@ -159,7 +159,7 @@
 								<form action="ModifyComment.do" method="get">							
                             		<div class="row" id="comentariofila_${comentario.id}">
                         				<div class="col-md-12">
-                        					<textarea class="comment-textarea" disabled id ="comentario_${comentario.id}" cols="110" name="new_comment">${comentario.comentario}
+                        					<textarea class="form-control comment-textarea" disabled id ="comentario_${comentario.id}" name="new_comment">${comentario.comentario}
                             				</textarea>
                             				<div class="action-buttons">
                             					<a class="btn btn-warning btn-sm" id="edit_${comentario.id}"><span class="glyphicon glyphicon-pencil"></span></a>
@@ -183,7 +183,7 @@
               		<form action="AddComment.do" method="get">
                     	<div class="row">
                         	<div class="col-md-12">
-                            	<textarea class="form-control message" rows="4" name="comment"></textarea>
+                            	<textarea class="form-control message" rows="4" name="comment" placeholder="Escribe un comentario..."></textarea>
                         	</div>                        	
                         	<div class="form-group">
 								<div class="col-sm-10">
