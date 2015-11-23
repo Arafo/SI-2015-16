@@ -81,7 +81,7 @@ public interface Facade {
 	//
 	public Accion getAccion(String nombre, Date fecha, int idUsuario);
 	//
-	public List<String> getAccionesUsuario(int idUsuario);
+	public List<Accion> getAccionesUsuario(int idUsuario);
 	
 	/////////////////////////////////////////////////////////////
 	// TABLA ACCION_TRABAJA (NO ACABADA)
@@ -112,6 +112,7 @@ public interface Facade {
 	public List<Obra> getMejorPuntuadas(int num_obras);
 	public List<Obra> getPeorPuntuadas(int num_obras);
 	public List<Obra> getMasComentadas(int num_obras);
+	public boolean userDidComment(int id_user, int id_comentario);
 
 
 }

@@ -280,7 +280,7 @@ public class OracleConnector implements Facade {
 	@Override
 	public ArrayList<Comentario> ObraComments(int ObraId) {
 		ArrayList<Comentario> comments = new ArrayList<Comentario>(); 
-		String sql = String.format("SELECT a.id, c.nombre, a.puntuacion, a.comentario, b.fecha "
+		String sql = String.format("SELECT a.id, c.nombre, c.email, a.puntuacion, a.comentario, b.fecha "
 				+ "FROM accion_obra a, accion b, usuario c "
 				+ "WHERE a.id_obra='%d' AND a.id_accion=b.id AND b.id_usuario=c.id "
 				+ "ORDER BY a.id",ObraId);
@@ -291,6 +291,7 @@ public class OracleConnector implements Facade {
 				comments.add(new Comentario(
 						rs.getInt("id"),
 						rs.getString("nombre"),
+						rs.getString("email"),
 						rs.getString("comentario"),
 						rs.getInt("puntuacion"),
 						rs.getDate("fecha")));
@@ -424,7 +425,7 @@ public class OracleConnector implements Facade {
 //				+ "WHERE rnum >" + offset;
 		String sql = " SELECT * FROM ("
 				+ "SELECT rownum rnum, t.* FROM("
-				+ "SELECT a.*, y.num_comentarios, z.avg_puntuacion FROM ("
+				+ "SELECT a.*, y.num_comentarios, ROUND(z.avg_puntuacion) AS avg_puntuacion FROM ("
 				+ "SELECT * FROM obra ORDER BY nombre) a "
 				+ "LEFT JOIN ("
 				+ "SELECT id_obra, COUNT(*) AS num_comentarios FROM accion_obra GROUP BY id_obra) y "
@@ -807,9 +808,27 @@ public class OracleConnector implements Facade {
 	}
 
 	@Override
-	public List<String> getAccionesUsuario(int idUsuario) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Accion> getAccionesUsuario(int idUsuario) {
+		String sql = String.format("SELECT * FROM accion WHERE id_usuario='%d'",
+				idUsuario);
+		ResultSet rs = null;
+		List<Accion> acciones = new ArrayList<Accion>();
+		
+		try {		
+			rs = executeQuery(sql);
+			while (rs.next()) 
+				acciones.add(new Accion(rs.getInt("id"),
+						rs.getString("nombre"),
+						rs.getDate("fecha"),
+						rs.getInt("id_usuario")));
+				
+			rs.close();
+			disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return acciones;	
 	}
 
 	@Override
@@ -871,7 +890,7 @@ public class OracleConnector implements Facade {
 	public List<Obra> getMejorPuntuadas(int num_obras) {
 		String sql = "SELECT * FROM ("
 				+ "SELECT rownum rnum, t.* FROM ( "
-				+ "SELECT a.*, y.avg_puntuacion FROM ("
+				+ "SELECT a.*, ROUND(y.avg_puntuacion) AS avg_puntuacion FROM ("
 				+ "SELECT * FROM obra ORDER BY nombre) a "
 				+ "LEFT JOIN ("
 				+ "SELECT DISTINCT id_obra, AVG(puntuacion) AS avg_puntuacion FROM accion_obra WHERE puntuacion!=0 GROUP BY id_obra) y "
@@ -953,7 +972,7 @@ public class OracleConnector implements Facade {
 						rs.getInt("id"),
 						rs.getString("nombre"),
 						rs.getString("num_comentarios"),
-						""));
+						null));
 			}
 			rs.close();
 			disconnect();
@@ -961,6 +980,28 @@ public class OracleConnector implements Facade {
 			e.printStackTrace();
 		}
 		return obras;
+	}
+
+	@Override
+	public boolean userDidComment(int id_user, int comentario) {
+		String sql = String.format("SELECT * FROM accion a, accion_obra b "
+				+ "WHERE a.id=b.id_accion AND a.id_usuario='%d' AND b.id='%d'",
+				id_user, comentario);
+		ResultSet rs = null;
+		boolean exito = false;
+		
+		try {		
+			rs = executeQuery(sql);
+			if (rs.next()) 
+				exito = true;
+			
+			rs.close();
+			disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return exito;
 	}
 	
 	

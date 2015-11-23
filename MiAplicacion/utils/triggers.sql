@@ -168,3 +168,7 @@ SELECT * FROM obra
 --
 SELECT DISTINCT id_obra, AVG(puntuacion) FROM accion_obra WHERE puntuacion!=0 GROUP BY id_obra
 SELECT DISTINCT * FROM Accion_obra
+
+SELECT * FROM usuario
+
+SELECT * FROM accion a, accion_obra b WHERE a.id=b.id_accion AND a.id_usuario=5 AND b.id=45

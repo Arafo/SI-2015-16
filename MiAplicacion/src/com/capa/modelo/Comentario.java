@@ -6,22 +6,25 @@ public class Comentario {
 	
 	private int id;
 	private String nombre;
+	private String email;
 	private String comentario;
 	private int puntuacion;
 	private Date fecha;
 	
-	public Comentario(int id_comentario, String nombre, String comentario, int puntuacion, Date fecha) {
+	public Comentario(int id_comentario, String nombre, String email, String comentario, int puntuacion, Date fecha) {
 		super();
 		this.id = id_comentario;
 		this.nombre = nombre;
+		this.email = email;
 		this.comentario = comentario;
 		this.puntuacion = puntuacion;
 		this.fecha = fecha;
 	}
 	
-	public Comentario(String nombre, String comentario, int puntuacion, Date fecha) {
+	public Comentario(String nombre, String email, String comentario, int puntuacion, Date fecha) {
 		super();
 		this.nombre = nombre;
+		this.email = email;
 		this.comentario = comentario;
 		this.puntuacion = puntuacion;
 		this.fecha = fecha;
@@ -57,5 +60,11 @@ public class Comentario {
 	}
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
