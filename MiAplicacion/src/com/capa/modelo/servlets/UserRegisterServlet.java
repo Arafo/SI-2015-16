@@ -2,7 +2,6 @@ package com.capa.modelo.servlets;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
@@ -35,7 +34,6 @@ public class UserRegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String pass = request.getParameter("password");
 		String rePasswd = request.getParameter("password_confirmation");
-
 		Date birthDate = null;
 		String address = request.getParameter("address");
 		int telephone = 0;
@@ -44,11 +42,9 @@ public class UserRegisterServlet extends HttpServlet {
 		String sex = request.getParameter("sex");;
 					
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		long time = 0;
 		try {
-			if (request.getParameter("bday") != null) {
+			if (request.getParameter("bday") != null)
 				birthDate = new Date(format.parse(request.getParameter("bday")).getTime());
-			}
 		} catch (ParseException e1) {
 			errors.put("Fecha", "Formato de fecha no valido");
 		}

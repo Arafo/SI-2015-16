@@ -39,6 +39,7 @@
 						<c:choose>
 							<c:when test="${entry.key eq 'Email'}">
 								<div class="alert alert-danger">
+<<<<<<< HEAD
 									<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 									<b>Error!</b> ${entry.value}
 								</div>
@@ -91,6 +92,48 @@
 						</c:choose>
 					</c:forEach>
 					<!-- /Errores de fecha -->
+=======
+									<a href="#" class="close" data-dismiss="alert" aria-label="close"\>&times;</a>
+									<b>Error!</b> ${entry.value}
+								</div>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+					<!-- /Errores de correo electrónico -->
+
+					<!-- /Correo electrónico -->
+					<!-- Contraseñas -->
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<input type="password" name="password" class="form-control input-lg" placeholder="Contraseña"tabindex="5">
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<div class="form-group">
+								<input type="password" name="password_confirmation" class="form-control input-lg"placeholder="Confirmar contraseña" tabindex="6">
+							</div>
+						</div>
+					</div>
+					<!-- Errores de contraseña -->
+					<c:forEach var="entry" items="${errores}">
+						<c:choose>
+							<c:when test="${entry.key eq 'Clave' || entry.key eq 'ReClave'}">
+								<div class="alert alert-danger">
+									<a href="#" class="close" data-dismiss="alert" aria-label="close"\>&times;</a>
+									<b>Error!</b> ${entry.value}
+								</div>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+					<!-- /Errores de contraseña -->
+					<!-- /Contraseñas -->
+					<!-- Fecha de nacimiento -->
+					<div class="form-group">
+						<input type="date" name="bday" step="1" min="1900-01-01" max="2020-01-01" class="form-control input-lg" placeholder="Fecha de nacimiento (dd/mm/aaaa)">
+					</div>
+					<!-- /Fecha de nacimiento -->
+>>>>>>> refs/remotes/origin/master
 					<!-- Dirección -->
 					<div class="form-group">
 						<input type="text" name="address" class="form-control input-lg" placeholder="Dirección" />
