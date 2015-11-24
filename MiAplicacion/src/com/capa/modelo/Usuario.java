@@ -11,6 +11,8 @@ public class Usuario {
 	private String email;
 	private String pass;
 	private Date nacimiento;
+	private String address;
+
 	
 	public Usuario(int id, String nombre, String sexo, int telefono, String email, String pass, Date nacimiento) {
 		super();
@@ -21,6 +23,17 @@ public class Usuario {
 		this.email = email;
 		this.pass = pass;
 		this.nacimiento = nacimiento;
+	}
+	
+	public Usuario(String nombre, String sexo, int telefono, String email, String pass, Date nacimiento, String adress) {
+		super();
+		this.nombre = nombre;
+		this.sexo = sexo;
+		this.telefono = telefono;
+		this.email = email;
+		this.pass = pass;
+		this.nacimiento = nacimiento;
+		this.address = address;
 	}
 	
 	public Usuario(String nombre, String sexo, int telefono, String email, String pass, Date nacimiento,
@@ -76,6 +89,10 @@ public class Usuario {
 	public void setNacimiento(Date nacimiento) {
 		this.nacimiento = nacimiento;
 	}
-
-
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 }

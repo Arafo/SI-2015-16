@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import = "java.util.Map" %> 
 <!DOCTYPE html>
@@ -86,34 +87,34 @@
     			</div>
     			<!-- /Busqueda -->
     			
-    			<!-- Registro e inicio de sesi髇 -->
+    			<!-- Registro e inicio de sesi贸n -->
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose> 
   						<c:when test="${empty nombre}">
   							<li><a href="register.html">Registro</a></li>
-  							<!-- Inicio de sesi髇 -->
+  							<!-- Inicio de sesi贸n -->
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
-								aria-expanded="false">Iniciar sesi髇 <span class="caret"></span></a>
+								aria-expanded="false">Iniciar sesi贸n <span class="caret"></span></a>
 								<div class="dropdown-menu">
 									<form name="login" method="post" action="/MiAplicacion/LoginUsuario.do">
 										<div class="form-group">
 											<!-- TODO Cambiar input type a email -->
-											<label>Correo electr髇ico</label> <input type="text" placeholder="Correo electr髇ico" name="email" class="form-control username-input input-sm" required>
+											<label>Correo electr贸nico</label> <input type="text" placeholder="Correo electr贸nico" name="email" class="form-control username-input input-sm" required>
 										</div>
 										<div class="form-group">
-											<label>Contrase馻</label> <input type="password" placeholder="Contrase馻" name="password" class="form-control password-input input-sm" required>
+											<label>Contrase帽a</label> <input type="password" placeholder="Contrase帽a" name="password" class="form-control password-input input-sm" required>
 										</div>
 										<div class="form-group">
-											<label><input type="checkbox" id="remember" name="remember"> Recu閞dame</label>
+											<label><input type="checkbox" id="remember" name="remember"> Recu茅rdame</label>
 										</div>
 										<div class="form-group">
-											<input type="submit" value="Iniciar sesi髇" name="submit" class="btn btn-primary">
+											<input type="submit" value="Iniciar sesi贸n" name="submit" class="btn btn-primary">
 										</div>
 									</form>
 								</div>
 							</li>
-							<!-- /Inicio de sesi髇 -->
+							<!-- /Inicio de sesi贸n -->
 						</c:when>
   						<c:otherwise>
   							<li><a href="">${nombre}</a></li>
@@ -122,7 +123,7 @@
 					</c:choose>
 					
 				</ul>
-    			<!-- /Registro e inicio de sesi髇 -->
+    			<!-- /Registro e inicio de sesi贸n -->
 
 			</div>
 			<!-- /.navbar-collapse -->
@@ -134,24 +135,24 @@
 		<div class="row">
     		<div class="col-xs-10 col-sm-6 col-md-4 col-sm-offset-4 col-md-offset-4">
 				<form name="login" method="post" action="/MiAplicacion/LoginUsuario.do">
-					<h2>Iniciar sesi髇</h2>
+					<h2>Iniciar sesi贸n</h2>
 					<hr class="graph">
 					<div class="form-group">
-						<input type="text" class="form-control input-lg" placeholder="Correo electr髇ico" value="<%=loginValor%>" name="email" required autofocus>
+						<input type="text" class="form-control input-lg" placeholder="Correo electr贸nico" value="<%=loginValor%>" name="email" required autofocus>
 						<%=loginError%>
 					</div>
 					<div>
-			    		<input type="password" class="form-control input-lg" placeholder="Contrase馻" value="<%=claveValor%>" name="password" required>				
+			    		<input type="password" class="form-control input-lg" placeholder="Contrase帽a" value="<%=claveValor%>" name="password" required>				
 						<%=claveError%>
 					</div>
 					<div class="checkbox">
         				<label>
-            				<input type="checkbox" name="remember"> Recu閞dame
+            				<input type="checkbox" name="remember"> Recu茅rdame
         				</label>
         			</div>
         		
    					<hr class="graph">     		
-					<button class="btn btn-primary btn-block btn-lg" type="submit">Iniciar sesi髇</button>
+					<button class="btn btn-primary btn-block btn-lg" type="submit">Iniciar sesi贸n</button>
 					<a href="register.html" class="btn btn-success btn-block btn-lg">Registrarse</a>				
 				</form>
 			</div>
