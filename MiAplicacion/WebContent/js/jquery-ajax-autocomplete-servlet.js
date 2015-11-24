@@ -9,6 +9,7 @@ $(function() {
 		},
 		select : function(event, ui) {
 			$("#autocomplete1").val(ui.item.nombre);
+			document.getElementById("id_obra1").value = ui.item.id;
 			return false;
 		}
 	}).autocomplete("instance")._renderItem = function(ul, item) {
@@ -44,6 +45,7 @@ $(function() {
 		},
 		select : function(event, ui) {
 			$("#autocomplete2").val(ui.item.nombre);
+			document.getElementById("id_obra2").value = ui.item.id;
 			return false;
 		}
 	}).autocomplete("instance")._renderItem = function(ul, item) {

@@ -144,8 +144,10 @@
             			</div>
             			<form action="comparacion.html" method="get">
             				<div class="row">
-								<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete1" class="form-control input-lg" name="obra1" placeholder="Obra1"></div>
-								<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete2" class="form-control input-lg" name="obra2" placeholder="Obra2"></div>
+								<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete1" class="form-control input-lg" placeholder="Obra1"></div>			
+								<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete2" class="form-control input-lg" placeholder="Obra2"></div>
+								<input type="hidden" id="id_obra1" name="obra1">
+								<input type="hidden" id="id_obra2" name="obra2">
 							</div>
 							<div class="submit">
 								<input type="submit" value="COMPARAR" onclick="#" class="btn btn-primary center-block">

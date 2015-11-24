@@ -23,19 +23,19 @@ public class CompareServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String obra1 = null;
-		String obra2 = null;
+		int obra1 = 0;
+		int obra2 = 0;
 
 		if (request.getParameter("obra1") != null)
-			obra1 = request.getParameter("obra1");
+			obra1 = Integer.valueOf(request.getParameter("obra1"));
 		if (request.getParameter("obra2") != null)
-			obra2 = request.getParameter("obra2");
+			obra2 = Integer.valueOf(request.getParameter("obra2"));
 		
 		Facade f = new OracleConnector();
-		Obra datosObra1 = f.getObra(obra1, "");
-		Obra datosObra2 = f.getObra(obra2, "");
-		List<Persona> personasObra1 = f.getPersonaTrabajo(f.getIdObra(obra1, ""));
-		List<Persona> personasObra2 = f.getPersonaTrabajo(f.getIdObra(obra2, ""));
+		Obra datosObra1 = f.getObra(obra1);
+		Obra datosObra2 = f.getObra(obra2);
+		List<Persona> personasObra1 = f.getPersonaTrabajo(obra1);
+		List<Persona> personasObra2 = f.getPersonaTrabajo(obra2);
 		
 		request.setAttribute("obra1", datosObra1);
 		request.setAttribute("obra2", datosObra2);
