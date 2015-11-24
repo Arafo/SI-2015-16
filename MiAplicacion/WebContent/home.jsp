@@ -60,7 +60,7 @@
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose> 
   						<c:when test="${empty nombre}">
-  							<li><a href="register.html">Registro</a></li>
+  							<li><a href="register.jsp">Registro</a></li>
   							<!-- Inicio de sesión -->
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown" role="button" aria-haspopup="true"

@@ -66,6 +66,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 </servlet-mapping>
 
 <servlet>
+	<servlet-name>Register Servlet</servlet-name>
+    <servlet-class>com.capa.modelo.servlets.UserRegisterServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Register Servlet</servlet-name>
+    <url-pattern>/RegisterUsuario.do</url-pattern>
+</servlet-mapping>
+
+<servlet>
 	<servlet-name>Logout Servlet</servlet-name>
     <servlet-class>com.capa.modelo.servlets.UserLogoutServlet</servlet-class>
 </servlet>
@@ -109,5 +118,36 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	<servlet-name>Member Servlet</servlet-name>
     <url-pattern>/member.html</url-pattern>
 </servlet-mapping>
+
+<!-- TODO Poner los errores correctos -->
+<error-page>
+    <!-- Missing login -->
+    <error-code>401</error-code>
+    <location>/error.html</location>
+</error-page>
+<error-page>
+    <!-- Forbidden directory listing -->
+    <error-code>403</error-code>
+    <location>/error.html</location>
+</error-page>
+<error-page>
+    <!-- Missing resource -->
+    <error-code>404</error-code>
+    <location>/error.html</location>
+</error-page>
+<error-page>
+    <error-code>405</error-code>
+    <location>/error.html</location>
+</error-page>
+<error-page>
+    <!-- Uncaught exception -->
+    <error-code>500</error-code>
+    <location>/error.html</location>
+</error-page>
+<error-page>
+    <!-- Unsupported servlet method -->
+    <error-code>503</error-code>
+    <location>/error.html</location>
+</error-page>
 
 </web-app>

@@ -8,7 +8,10 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -26,57 +29,70 @@ public class UserRegisterServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Map<String, String> errors = new HashMap<String, String>();
+		String name = request.getParameter("name");
 		String email = request.getParameter("email");
-		String pass = encodeMd5(request.getParameter("")); // TODO Coger pass
-		String name = request.getParameter(""); // TODO Coger nombre
-		String surname = request.getParameter(""); // TODO Coger apellidos
-		SimpleDateFormat format = new SimpleDateFormat("dd MMMM yyyy");
-		java.sql.Date birthDate = null;
+		String pass = request.getParameter("password");
+		String rePasswd = request.getParameter("password_confirmation");
+
+		Date birthDate = null;
+		String address = request.getParameter("address");
+		int telephone = 0;
+		if (request.getParameter("tel") != null)
+			telephone = request.getParameter("tel") != "" ? Integer.valueOf(request.getParameter("tel")) : 0;
+		String sex = request.getParameter("sex");;
+					
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		long time = 0;
 		try {
-			birthDate = new java.sql.Date(format.parse(request.getParameter("")).getTime());
-		} catch (ParseException e1) {}
-		//String birthDate = request.getParameter("");
-		String address = request.getParameter(""); // TODO Coger direccion
-		int telephone = Integer.valueOf(request.getParameter("")); // TODO Coger telefono
-		String sex = request.getParameter(""); // TODO Coger sexo
-		String rePasswd = request.getParameter(""); // TODO Coger confirmacion
-
-		boolean exito = true;
-
-		if (!pass.equals(rePasswd)) {
-			System.out.println("Las contraseñas no coinciden");
-			exito = false;
-		} // TODO errores de campos vacios para todas las entradas
-
-		Facade facade = new OracleConnector(); // TODO facade
-
-		String encodedUser = URLEncoder.encode(email, "utf-8");
-		if (exito) {
-			String encodedPswd = encodeMd5(pass);
-			Usuario user = new Usuario(name, sex, telephone, email, pass, birthDate, surname, address);
-			int err = 0;
-			try {
-				err = facade.insertUser(user);
-			} catch (EmailAlreadyExistsException e) {
+			if (request.getParameter("bday") != null) {
+				birthDate = new Date(format.parse(request.getParameter("bday")).getTime());
 			}
-//			switch (err) {
-//			case 0:
-//				Cookie cus = new Cookie(CookieManager.COOKIENAME_USER, email);
-//				cus.setPath("/miAplicacion");
-//				Cookie cpa = new Cookie(CookieManager.COOKIENAME_PASS, encodedPswd);
-//				cpa.setPath("/miAplicacion");
-//				response.addCookie(cpa);
-//				response.addCookie(cus);
-//				response.sendRedirect("/miAplicacion/showRegisterStatus.jsp?user=" + urlFormat(email)); // TODO revisar nombre .jsp
-//				break;
-//			case 1:
-//				response.sendRedirect("/miAplicacion/showRegisterStatus.jsp?user=" + urlFormat(email) + "&error="
-//						+ urlFormat("Email repetido. Inserte un email no existente")); // TODO revisar nombre .jsp
-//				break;
-//			default:
-//				response.sendRedirect("/miAplicacion/showRegisterStatus.jsp?user=" + urlFormat(email) + "&error="
-//						+ urlFormat("Error de conexion con la base de datos")); // TODO revisar nombre .jsp
-//			}
+		} catch (ParseException e1) {
+			errors.put("Fecha", "Formato de fecha no valido");
+		}
+		
+		if (email == null || email == "") errors.put("Email", "Campo obligatorio - Correo electrónico");
+		if (pass == null || pass == "") errors.put("Clave", "Campo obligatorio - Contraseña");
+		else pass = encodeMd5(pass);
+		if (rePasswd == null || rePasswd == "") errors.put("ReClave", "Campo obligatorio - Confirmación de contraseña");
+		else rePasswd = encodeMd5(rePasswd);
+
+		
+		if (!errors.isEmpty()) {
+			// Forward a login.jsp con el mapa de errores
+			request.setAttribute("errores", errors);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
+			dispatcher.forward(request, response);
+		}
+		else {
+			if (!pass.equals(rePasswd)) {
+				errors.put("Clave", "Las contraseñas no coinciden"); // Forward a  Login.jsp
+				request.setAttribute("errores", errors);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
+				dispatcher.forward(request, response);
+			}
+			else {
+				Facade facade = new OracleConnector();
+				Usuario user = new Usuario(name, sex, telephone, email, pass, birthDate, address);
+				int err = 0;
+				try {
+					err = facade.insertUser(user);
+					Cookie cookieLogin = new Cookie(CookieManager.COOKIENAME_USER, user.getEmail());
+					Cookie cookieClave = new Cookie(CookieManager.COOKIENAME_PASS, user.getPass());
+					cookieLogin.setMaxAge(COOKIE_EXPIRETIME);
+					cookieClave.setMaxAge(COOKIE_EXPIRETIME);
+					response.addCookie(cookieLogin);
+					response.addCookie(cookieClave);			
+					response.sendRedirect("home.html");
+				} catch (EmailAlreadyExistsException e) {
+					errors.put("Email", "Ya existe un usuario registrado con el correo electrónico " + email); // Forward a  Login.jsp
+					request.setAttribute("errores", errors);
+					RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
+					dispatcher.forward(request, response);
+				}
+			}
 		}
 	}
 
