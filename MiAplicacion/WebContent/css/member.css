@@ -1,0 +1,23 @@
+.table-user-information>tbody>tr:first-child {
+	border-top: 0;
+}
+
+.table-user-information>tbody>tr>td {
+	border-top: 0;
+}
+
+.toppad {
+	margin-top: 20px;
+}
+
+.panel-title {
+	background-color: #F5F5F5;
+	text-decoration: none;
+	border-radius: 0px;
+	display: block;
+}
+
+.panel-heading {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}

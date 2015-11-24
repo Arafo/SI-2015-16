@@ -57,6 +57,7 @@ public class UserLoginServlet extends HttpServlet {
 				s.setAttribute("nombre", user.getEmail());
 				
 				if (remember != null && remember.equals("on")) {
+					// TODO cambiar getEmail() por getID()
 					Cookie cookieLogin = new Cookie(CookieManager.COOKIENAME_USER, user.getEmail());
 					Cookie cookieClave = new Cookie(CookieManager.COOKIENAME_PASS, user.getPass());
 					cookieLogin.setMaxAge(COOKIE_EXPIRETIME);

@@ -62,7 +62,7 @@
     			<!-- Registro e inicio de sesión -->
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose> 
-  						<c:when test="${empty nombre}">
+  						<c:when test="${cookie['loginUsuario'].value ne nombre}">
   							<li><a href="register.html">Registro</a></li>
   							<!-- Inicio de sesión -->
 							<li class="dropdown"><a href="#" class="dropdown-toggle"

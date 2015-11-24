@@ -87,7 +87,7 @@
 						</c:when>
   						<c:otherwise>
   							<!-- TODO Cambiar nombre por id (o email) -->
-  							<li><a href="member.jsp?u=${nombre}">${nombre}</a></li>
+  							<li><a href="member.html?u=${nombre}">${nombre}</a></li>
   							<li><a href="/MiAplicacion/LogoutUsuario.do">[Logout]</a></li>
  		 				</c:otherwise>
 					</c:choose>

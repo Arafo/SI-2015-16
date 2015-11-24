@@ -101,4 +101,13 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <url-pattern>/DeleteComment.do</url-pattern>
 </servlet-mapping>
 
+<servlet>
+	<servlet-name>Member Servlet</servlet-name>
+    <servlet-class>com.capa.modelo.servlets.MemberServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Member Servlet</servlet-name>
+    <url-pattern>/member.html</url-pattern>
+</servlet-mapping>
+
 </web-app>
