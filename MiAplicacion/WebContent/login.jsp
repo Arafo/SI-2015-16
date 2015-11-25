@@ -70,7 +70,7 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<!-- Enlaces -->
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="home.html">Home</a></li>
+					<li><a href="home.html">Home</a></li>
 					<li><a href="JesusBailongo.html">Sorprendeme</a></li>
 				</ul>
 				<!-- /Enlaces -->
@@ -91,9 +91,9 @@
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose> 
   						<c:when test="${empty nombre}">
-  							<li><a href="register.html">Registro</a></li>
+  							<li><a href="register.jsp">Registro</a></li>
   							<!-- Inicio de sesión -->
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
+							<li class="active dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
 								aria-expanded="false">Iniciar sesión <span class="caret"></span></a>
 								<div class="dropdown-menu">

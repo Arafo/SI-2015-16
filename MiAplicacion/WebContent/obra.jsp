@@ -42,7 +42,7 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<!-- Enlaces -->
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="home.html">Home</a></li>
+					<li><a href="home.html">Home</a></li>
 					<li><a href="JesusBailongo.html">Sorprendeme</a></li>
 				</ul>
 				<!-- /Enlaces -->
