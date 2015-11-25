@@ -32,7 +32,7 @@ public class UserLoginServlet extends HttpServlet {
 		
 		Map<String, String> errors = new HashMap<String, String>();
 		String email = request.getParameter("email");
-		String password = encodeMd5(request.getParameter("password"));
+		String password = request.getParameter("password");
 		String remember = request.getParameter("remember");
 		
 		// Los tres if's son siempre falso, los valores se comprueban en el jsp
@@ -49,7 +49,11 @@ public class UserLoginServlet extends HttpServlet {
 			// Procesamiento del proceso de autenticacion
 			Facade facade = new OracleConnector();
 			try {
-				Usuario user = facade.loginUser(email, password);
+				Usuario user = null;
+				if (isValidMD5(password)) 
+					user = facade.loginUser(email, password);
+				else
+					user = facade.loginUser(email, encodeMd5(password));
 				
 				// Crear el HttpSession
 				HttpSession s = request.getSession();
@@ -105,5 +109,14 @@ public class UserLoginServlet extends HttpServlet {
 			
 		}
 		return md5;
+	}
+	
+	/**
+	 * http://stackoverflow.com/questions/1896715/how-do-i-check-if-a-string-is-a-valid-md5-or-sha1-checksum-string
+	 * @param s
+	 * @return
+	 */
+	private boolean isValidMD5(String s) {
+	    return s.matches("[a-fA-F0-9]{32}");
 	}
 }

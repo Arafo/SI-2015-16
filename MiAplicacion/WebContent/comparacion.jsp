@@ -18,6 +18,8 @@
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/jquery-ajax-autocomplete-servlet.js"></script>
+<script type="text/javascript" src="js/metacritic.js"></script>
+
 
 </head>
 
@@ -69,8 +71,7 @@
 								<div class="dropdown-menu">
 									<form name="login" method="post" action="/MiAplicacion/LoginUsuario.do">
 										<div class="form-group">
-											<!-- TODO Cambiar input type a email -->
-											<label>Correo electrónico</label> <input type="text" placeholder="Correo electrónico" name="email" class="form-control username-input input-sm" required>
+											<label>Correo electrónico</label> <input type="email" placeholder="Correo electrónico" name="email" class="form-control username-input input-sm" required>
 										</div>
 										<div class="form-group">
 											<label>Contraseña</label> <input type="password" placeholder="Contraseña" name="password" class="form-control password-input input-sm" required>
@@ -202,10 +203,14 @@
 								<span class="imdb_score">${obra1.imdb_rating}<span class="imdb_slash">/</span><span class="imdb_base">10</span></span>
 								<img class="img-responsive img-star" src="images/imdb_star.png" alt="">													
 							</li>
-							<li class="list-group-item">
-								<img class="img-responsive img-metascore" src="images/metascore.png" alt="">
-								<label class="btn btn-success">${obra1.metascore}</label>
-							</li>
+							<c:choose>
+								<c:when test="${obra1.metascore ne -1}">
+									<li class="list-group-item">
+										<img class="img-responsive img-metascore" src="images/metascore.png" alt="">
+										<label class="btn btn-success" id="metascore1">${obra1.metascore}</label>
+									</li>
+								</c:when>
+							</c:choose>							
 						</div>
 						<!-- /Puntuaciones -->
 					</ul>
@@ -289,10 +294,14 @@
 								<span class="imdb_score">${obra2.imdb_rating}<span class="imdb_slash">/</span><span class="imdb_base">10</span></span>
 								<img class="img-responsive img-star" src="images/imdb_star.png" alt="">													
 							</li>
-							<li class="list-group-item">
-								<img class="img-responsive img-metascore" src="images/metascore.png" alt="">
-								<label class="btn btn-success">${obra2.metascore}</label>
-							</li>
+							<c:choose>
+								<c:when test="${obra2.metascore ne -1}">
+									<li class="list-group-item">
+										<img class="img-responsive img-metascore" src="images/metascore.png" alt="">
+										<label class="btn btn-success" id="metascore2">${obra2.metascore}</label>
+									</li>
+								</c:when>
+							</c:choose>
 						</div>
 						<!-- /Puntuaciones -->
 					</ul>
