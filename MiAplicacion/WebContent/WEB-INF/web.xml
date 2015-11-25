@@ -123,31 +123,31 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 <error-page>
     <!-- Missing login -->
     <error-code>401</error-code>
-    <location>/error.html</location>
+    <location>/errors/error401.html</location>
 </error-page>
 <error-page>
     <!-- Forbidden directory listing -->
     <error-code>403</error-code>
-    <location>/error.html</location>
+    <location>/errors/error403.html</location>
 </error-page>
 <error-page>
     <!-- Missing resource -->
     <error-code>404</error-code>
-    <location>/error.html</location>
+    <location>/errors/error404.html</location>
 </error-page>
 <error-page>
     <error-code>405</error-code>
-    <location>/error.html</location>
+    <location>/errors/error405.html</location>
 </error-page>
 <error-page>
     <!-- Uncaught exception -->
     <error-code>500</error-code>
-    <location>/error.html</location>
+    <location>/errors/error500.html</location>
 </error-page>
 <error-page>
     <!-- Unsupported servlet method -->
     <error-code>503</error-code>
-    <location>/error.html</location>
+    <location>/errors/error503.html</location>
 </error-page>
 
 </web-app>
