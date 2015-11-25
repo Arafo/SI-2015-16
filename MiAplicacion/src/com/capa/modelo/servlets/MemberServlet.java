@@ -31,6 +31,7 @@ public class MemberServlet extends HttpServlet {
 		
 		String nombre = null;
 		
+		// Recoger los datos de la cookie actual
 		Cookie[] cookies = request.getCookies(); 
 		for (int i = 0; i < cookies.length; i++) {
 			String  nombreCookieI = cookies[i].getName(); 
@@ -48,12 +49,14 @@ public class MemberServlet extends HttpServlet {
 				if (request.getParameter("u") != null)
 					nombre = request.getParameter("u");
 						
+				// Recoger los datos del usuario
 				Usuario u = f.getUser(user);
 				List<Accion> acciones = f.getAccionesUsuario(u.getId());
 				
 				request.setAttribute("datos", u);
 				request.setAttribute("acciones", acciones);
 				
+				// Mostrar los datos del usuario
 				RequestDispatcher view = request.getRequestDispatcher("member.jsp?u=" + nombre);
 				view.forward(request, response);
 			}

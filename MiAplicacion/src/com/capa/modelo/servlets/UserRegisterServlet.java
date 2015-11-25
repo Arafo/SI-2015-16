@@ -30,6 +30,8 @@ public class UserRegisterServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Map<String, String> errors = new HashMap<String, String>();
+		
+		// Recogida de parametros desde el formulario
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String pass = request.getParameter("password");
@@ -49,19 +51,21 @@ public class UserRegisterServlet extends HttpServlet {
 			errors.put("Fecha", "Formato de fecha no valido");
 		}
 		
+		// Comprobacion de que los datos recibidos no sean vacios
 		if (email == null || email == "") errors.put("Email", "Campo obligatorio - Correo electrónico");
 		if (pass == null || pass == "") errors.put("Clave", "Campo obligatorio - Contraseña");
 		else pass = encodeMd5(pass);
 		if (rePasswd == null || rePasswd == "") errors.put("ReClave", "Campo obligatorio - Confirmación de contraseña");
 		else rePasswd = encodeMd5(rePasswd);
 
-		
+		// Si ha habido errores se redirecciona a las respuestas para los susodichos
 		if (!errors.isEmpty()) {
 			// Forward a login.jsp con el mapa de errores
 			request.setAttribute("errores", errors);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
 			dispatcher.forward(request, response);
 		}
+		// Si no ha habido errores en los tipos de los parametros se procede al registro
 		else {
 			if (!pass.equals(rePasswd)) {
 				errors.put("Clave", "Las contraseñas no coinciden"); // Forward a  Login.jsp
@@ -69,19 +73,23 @@ public class UserRegisterServlet extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("register.jsp");
 				dispatcher.forward(request, response);
 			}
+			// Si no hay errores de ningún tipo
 			else {
 				Facade facade = new OracleConnector();
 				Usuario user = new Usuario(name, sex, telephone, email, pass, birthDate, address);
-				int err = 0;
 				try {
-					err = facade.insertUser(user);
+					// Se comprueba que se pueda introducir el usuario
+					facade.insertUser(user);
+					// Se rellena la cookie con los datos de usuario
 					Cookie cookieLogin = new Cookie(CookieManager.COOKIENAME_USER, user.getEmail());
 					Cookie cookieClave = new Cookie(CookieManager.COOKIENAME_PASS, user.getPass());
+					// Se limitan las cookies para que se anulen tras pasar el tiempo de expiracion
 					cookieLogin.setMaxAge(COOKIE_EXPIRETIME);
 					cookieClave.setMaxAge(COOKIE_EXPIRETIME);
+					// Se añaden las cookies y se redirecciona a la pagina principal
 					response.addCookie(cookieLogin);
 					response.addCookie(cookieClave);			
-					response.sendRedirect("home.html");
+					response.sendRedirect("login.jsp");
 				} catch (EmailAlreadyExistsException e) {
 					errors.put("Email", "Ya existe un usuario registrado con el correo electrónico " + email); // Forward a  Login.jsp
 					request.setAttribute("errores", errors);

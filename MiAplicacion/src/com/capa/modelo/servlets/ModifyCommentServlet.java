@@ -26,6 +26,7 @@ public class ModifyCommentServlet extends HttpServlet {
 		String obra = null;
 		String new_comment = null;
 		
+		// Recoger los datos de la cookie actual
 		Cookie[] cookies = request.getCookies(); 
 		for (int i = 0; i < cookies.length; i++) {
 			String  nombreCookieI = cookies[i].getName(); 
@@ -33,6 +34,7 @@ public class ModifyCommentServlet extends HttpServlet {
 				user = cookies[i].getValue();
 		}
 		
+		// Recoger los datos del comentario
 		if (request.getParameter("comment_id") != null)
 			id = Integer.valueOf(request.getParameter("comment_id"));
 		
@@ -44,8 +46,9 @@ public class ModifyCommentServlet extends HttpServlet {
 				
 		Facade f = new OracleConnector();
 		
+		// Si el usuario logeado es el autor del comentario, se le permite la modificacion
 		if (user != null && f.userDidComment(f.getUser(user).getId(), id)) {
-			int id_accion = f.insertAccion("modify_comentario", new Date(new java.util.Date().getTime()), f.getUser(user).getId());
+			f.insertAccion("modify_comentario", new Date(new java.util.Date().getTime()), f.getUser(user).getId());
 			f.modifyComment(id, new_comment, new Date(new java.util.Date().getTime()));
 			
 			response.sendRedirect("obra.html?id=" + obra);

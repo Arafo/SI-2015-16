@@ -27,12 +27,17 @@ public class ObraServlet extends HttpServlet {
 		Facade f = new OracleConnector();
 		
 		int id = -1;
-		if (request.getParameter("id") != null)
-			id = Integer.parseInt(request.getParameter("id"));
+		try {
+			if (request.getParameter("id") != null)
+				id = Integer.parseInt(request.getParameter("id"));
+		} catch (NumberFormatException e) {
+			response.sendRedirect("errors/error500.html");
+		}
 		
 		Obra obra = f.getObra(id);
 		if (obra != null) {
 			
+			// Recoger los datos de la obra
 			List<Comentario> comentarios = f.ObraComments(id);
 			List<Obra> mejor_puntuadas = f.getMejorPuntuadas(5);
 			List<Obra> mas_comentadas = f.getMasComentadas(5);
@@ -42,6 +47,7 @@ public class ObraServlet extends HttpServlet {
 			request.setAttribute("comentariosSize", comentarios.size());
 			request.setAttribute("date_today", new Date());
 			
+			// Mostrar los datos
 			request.setAttribute("mejor_puntuadas", mejor_puntuadas);
 			request.setAttribute("mas_comentadas", mas_comentadas);
 			
@@ -50,6 +56,7 @@ public class ObraServlet extends HttpServlet {
 		}
 		else {
 			// Error - Obra no encontrada
+			response.sendRedirect("errors/error404.html");
 		}
 	}
 }

@@ -34,7 +34,6 @@ public class UserLoginServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = encodeMd5(request.getParameter("password"));
 		String remember = request.getParameter("remember");
-		boolean exito = true;
 		
 		// Los tres if's son siempre falso, los valores se comprueban en el jsp
 		if (email == null) errors.put("Login", "Campo obligatorio");
@@ -52,11 +51,11 @@ public class UserLoginServlet extends HttpServlet {
 			try {
 				Usuario user = facade.loginUser(email, password);
 				
+				// Crear el HttpSession
 				HttpSession s = request.getSession();
-				// TODO Cambiar a getNombre()
 				s.setAttribute("nombre", user.getEmail());
 				
-				// TODO cambiar getEmail() por getID()
+				// Crear la cookie
 				Cookie cookieLogin = new Cookie(CookieManager.COOKIENAME_USER, user.getEmail());
 				Cookie cookieClave = new Cookie(CookieManager.COOKIENAME_PASS, user.getPass());
 				if (remember != null && remember.equals("on")) {
@@ -64,6 +63,8 @@ public class UserLoginServlet extends HttpServlet {
 					cookieClave.setMaxAge(COOKIE_EXPIRETIME);
 
 				}
+				
+				// Añadir los datos de login a la cookie
 				response.addCookie(cookieLogin);
 				response.addCookie(cookieClave);
 				response.sendRedirect("home.html");
@@ -79,29 +80,6 @@ public class UserLoginServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 		}
-		
-//		Usuario user = facade.getUser(email);
-//		if (user == null)
-//			exito = false;
-//		else {
-//			if (!pass.equals(user.getPass()))
-//				exito = false;
-//		}
-//
-//		String encodedUser = URLEncoder.encode(email, "UTF-8");
-//		if (exito) {
-//			Cookie cUser = new Cookie(CookieManager.COOKIENAME_USER, user.getEmail());
-//			cUser.setPath("/miAplicacion");
-//			Cookie cPass = new Cookie(CookieManager.COOKIENAME_PASS, pass);
-//			cPass.setPath("/miAplicacion");
-//			if (mantener != null && mantener.equals("m")) {
-//				cUser.setMaxAge(COOKIE_EXPIRETIME);
-//				cPass.setMaxAge(COOKIE_EXPIRETIME);
-//			}
-//			response.addCookie(cUser);
-//			response.addCookie(cPass);
-//		}
-//		response.sendRedirect("loginStatus.jsp?user=" + encodedUser + "&exito=" + exito);
 	}
 
 	/**

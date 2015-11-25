@@ -29,7 +29,8 @@ public class AddCommentServlet extends HttpServlet {
 		String obra = null;
 		int rating = 0;
 		
-		Cookie[] cookies = request.getCookies(); 
+		Cookie[] cookies = request.getCookies();
+		// Se recogen los datos de la cookie de usuario
 		for (int i = 0; i < cookies.length; i++) {
 			String  nombreCookieI = cookies[i].getName(); 
 			if (nombreCookieI.equals(CookieManager.COOKIENAME_USER))  
@@ -41,8 +42,10 @@ public class AddCommentServlet extends HttpServlet {
 		
 		Facade f = new OracleConnector();
 
+		// Si el usuario esta logeado se permite el comentario
 		try {
 			if (user != null && pass != null && f.loginUser(user, pass) != null) {
+				// Recogida de los parametros
 				if (request.getParameter("comment") != null)
 					comentario = request.getParameter("comment");
 				
@@ -52,8 +55,8 @@ public class AddCommentServlet extends HttpServlet {
 				if (request.getParameter("rating") != null)
 					rating = Integer.valueOf(request.getParameter("rating"));
 				
-				// TODO Cambiar id de usuario por el real
 				int id_accion = f.insertAccion("comentario", new Date(new java.util.Date().getTime()), f.getUser(user).getId());
+				// Creacion del comentario
 				f.insertComment(comentario, rating, Integer.valueOf(obra), id_accion);
 				
 				response.sendRedirect("obra.html?id=" + obra);
@@ -62,9 +65,9 @@ public class AddCommentServlet extends HttpServlet {
 				response.sendRedirect("obra.html?id=" + obra);
 			}
 		} catch (InvalidUserException e) {
-			e.printStackTrace();
+			response.sendRedirect("obra.html?id=" + obra);
 		} catch (InvalidPasswordException e) {
-			e.printStackTrace();
+			response.sendRedirect("obra.html?id=" + obra);
 		}
 
 	}

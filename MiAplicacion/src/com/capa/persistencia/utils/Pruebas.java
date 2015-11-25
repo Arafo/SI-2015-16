@@ -70,20 +70,20 @@ public class Pruebas {
 		 */
 		int i=0;
 		try {
-		while(true){
-			try {
-				int exito = f.insertUser(new Usuario("Rafa", "M", 976111111, "rafa_marcen"+i+"@hotmail.com", encodeMd5("pass"),
-						new Date(new java.util.Date().getTime()), "4", "Calle Tomate"));
-				System.out.println(exito);
-			} catch (EmailAlreadyExistsException e) {
-				System.err.println(e.getMessage());
-			}
-			i++;
-		}
-		}
-		catch(Exception e){
+				while (true) {
+					try {	
+						int exito = f.insertUser(new Usuario("Rafa", "M", 976111111, "rafa_marcen"+i+"@hotmail.com", encodeMd5("pass"),
+								new Date(new java.util.Date().getTime()), "4", "Calle Tomate"));
+						System.out.println(exito);
+					} catch (EmailAlreadyExistsException e) {
+						System.err.println(e.getMessage());
+					}
+					i++;
+				}
+		} catch(Exception e) {
 			e.printStackTrace();
 			System.out.println(i);
+			System.exit(0);
 		}
 		/**
 		 * Insertar una accion
@@ -128,7 +128,7 @@ public class Pruebas {
 //		for (Accion a: acciones)
 //			System.out.println(a.getNombre() + ", " + a.getFecha());
 	}
-	
+
 	public static String encodeMd5(String input) {
 		String md5 = null;
 		if (null == input)
@@ -142,7 +142,7 @@ public class Pruebas {
 			// Converts message digest value in base 16 (hex)
 			md5 = new BigInteger(1, digest.digest()).toString(16);
 		} catch (NoSuchAlgorithmException e) {
-			
+
 		}
 		return md5;
 	}

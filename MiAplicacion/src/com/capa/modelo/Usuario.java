@@ -25,7 +25,7 @@ public class Usuario {
 		this.nacimiento = nacimiento;
 	}
 	
-	public Usuario(String nombre, String sexo, int telefono, String email, String pass, Date nacimiento, String adress) {
+	public Usuario(String nombre, String sexo, int telefono, String email, String pass, Date nacimiento, String address) {
 		super();
 		this.nombre = nombre;
 		this.sexo = sexo;

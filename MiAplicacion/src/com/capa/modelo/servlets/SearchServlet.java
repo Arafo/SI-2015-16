@@ -23,14 +23,19 @@ public class SearchServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String obra = null;
+		String query = null;
 		long startTime = System.nanoTime();
 		
-		if (request.getParameter("q") != null)
+		// Recoger el parametro de busqueda
+		if (request.getParameter("q") != null) {
 			obra = request.getParameter("q");
+			query = obra.trim().replaceAll("'", "''");
+		}
 		
 		Facade f = new OracleConnector();
-		List<Obra> obrasList = f.getObrasSearch(obra);
+		List<Obra> obrasList = f.getObrasSearch(query);
 		
+		// Extraer de la BD las entradas que cumplan la busqueda
 		float endTime = (System.nanoTime() - startTime)/1e9f;
 		request.setAttribute("obrasList", obrasList);
 		request.setAttribute("obrasListSize", obrasList.size());
@@ -38,6 +43,7 @@ public class SearchServlet extends HttpServlet {
 
 		request.setAttribute("query", obra);
 
+		// Mostrar los resultados de la busqueda
 		RequestDispatcher view = request.getRequestDispatcher("search.jsp");
 		view.forward(request, response);
 	}

@@ -33,7 +33,5 @@ public class AutocompleteServlet extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		System.out.println(json);
 	}
 }

@@ -29,19 +29,14 @@ public class PaginationServlet extends HttpServlet {
 			page = Integer.parseInt(request.getParameter("page"));
 		
 		Facade oc = new OracleConnector();
+		// Se extraen de la BD las entradas necesarias
 		List<Obra> list = oc.getObras((page - 1) * recordsPerPage, recordsPerPage);
 		List<Obra> mejor_puntuadas = oc.getMejorPuntuadas(10);
 		List<Obra> mas_comentadas = oc.getMasComentadas(10);
 		int noOfRecords = oc.getNumObras();
 		int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
-		
-		// TODO AHORA SE HACE EN getObras() DE FORMA MUY EFECIENTE
-		// MUY POCO EFICIENTE!
-		//for (Obra obra : list) {
-		//	obra.setNum_comentarios(oc.ObraComments(obra.getId()).size());
-		//}
-		// MUY POCO EFICIENTE!
 
+		// Se muestran las entradas obtenidas
 		request.setAttribute("obrasList", list);
 		request.setAttribute("pages", noOfPages);
 		request.setAttribute("currentPage", page);

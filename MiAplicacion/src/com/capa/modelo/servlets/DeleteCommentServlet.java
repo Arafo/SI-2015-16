@@ -25,6 +25,7 @@ public class DeleteCommentServlet extends HttpServlet {
 		int comentario = -1;
 		String obra = null;
 		
+		// Recoger los datos de la cookie actual
 		Cookie[] cookies = request.getCookies(); 
 		for (int i = 0; i < cookies.length; i++) {
 			String  nombreCookieI = cookies[i].getName(); 
@@ -32,6 +33,7 @@ public class DeleteCommentServlet extends HttpServlet {
 				user = cookies[i].getValue();
 		}
 			
+		// Recoger los datos del comentario y su obra asociada
 		if (request.getParameter("comment_id") != null)
 			comentario = Integer.valueOf(request.getParameter("comment_id"));
 				
@@ -39,9 +41,10 @@ public class DeleteCommentServlet extends HttpServlet {
 			obra = request.getParameter("id");
 		
 		Facade f = new OracleConnector();
-				
+	
+		// Si el usuario logeado es el autor del comentario se acepta y ejecuta la peticion de borrado
 		if (user != null && f.userDidComment(f.getUser(user).getId(), comentario)) {
-			int id_accion = f.insertAccion("delete_comentario", new Date(new java.util.Date().getTime()), f.getUser(user).getId());
+			f.insertAccion("delete_comentario", new Date(new java.util.Date().getTime()), f.getUser(user).getId());
 			f.deleteComment(comentario);
 			
 			response.sendRedirect("obra.html?id=" + obra);
