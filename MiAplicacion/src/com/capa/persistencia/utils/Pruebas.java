@@ -68,14 +68,23 @@ public class Pruebas {
 		/**
 		 * Insertar un usuario
 		 */
-//		try {
-//			int exito = f.insertUser(new Usuario("Rafa", "M", 976111111, "rafa_marcen@hotmail.com", encodeMd5("pass"),
-//					new Date(new java.util.Date().getTime()), "4", "Calle Tomate"));
-//			System.out.println(exito);
-//		} catch (EmailAlreadyExistsException e) {
-//			System.err.println(e.getMessage());
-//		}
-		
+		int i=0;
+		try {
+		while(true){
+			try {
+				int exito = f.insertUser(new Usuario("Rafa", "M", 976111111, "rafa_marcen"+i+"@hotmail.com", encodeMd5("pass"),
+						new Date(new java.util.Date().getTime()), "4", "Calle Tomate"));
+				System.out.println(exito);
+			} catch (EmailAlreadyExistsException e) {
+				System.err.println(e.getMessage());
+			}
+			i++;
+		}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			System.out.println(i);
+		}
 		/**
 		 * Insertar una accion
 		 */
@@ -115,9 +124,9 @@ public class Pruebas {
 		/**
 		 * Obtener accion de un usuario
 		 */
-		List<Accion> acciones = f.getAccionesUsuario(5);
-		for (Accion a: acciones)
-			System.out.println(a.getNombre() + ", " + a.getFecha());
+//		List<Accion> acciones = f.getAccionesUsuario(5);
+//		for (Accion a: acciones)
+//			System.out.println(a.getNombre() + ", " + a.getFecha());
 	}
 	
 	public static String encodeMd5(String input) {
