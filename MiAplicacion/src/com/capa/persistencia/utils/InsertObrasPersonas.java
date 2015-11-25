@@ -75,7 +75,7 @@ public class InsertObrasPersonas {
 				int idObra = f.insertObra(name.replaceAll("\\+", " ").replaceAll("'", "''"), 
 						new java.sql.Date(date.getTime()), 
 						4, 
-						Integer.valueOf(page.Runtime.split(" ")[0]),
+						Integer.valueOf(page.Runtime.split(" ")[0]), page.Genre,
 						page.Country, 1, imagePath, page.Plot.replaceAll("'", "''"),
 						page.Awards.replaceAll("'", "''"), metascore, imdb_rating,
 						Integer.valueOf(page.imdbVotes.replaceAll(",", "")));

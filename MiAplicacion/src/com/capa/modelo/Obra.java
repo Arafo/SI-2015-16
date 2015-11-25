@@ -9,6 +9,7 @@ public class Obra {
 	private Date fecha_emision;
 	private int puntuacion;
 	private int duracion;
+	private String genero;
 	private int capitulos;
 	private String nacionalidad;
 	private String ruta_imagen;
@@ -20,7 +21,7 @@ public class Obra {
 	private String num_comentarios;
 	private String avg_puntuacion;
 	
-	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, int capitulos,
+	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, String genero, int capitulos,
 			String nacionalidad) {
 		super();
 		this.id = id;
@@ -28,12 +29,13 @@ public class Obra {
 		this.fecha_emision = fecha_emision;
 		this.puntuacion = puntuacion;
 		this.duracion = duracion;
+		this.genero = genero;
 		this.capitulos = capitulos;
 		this.nacionalidad = nacionalidad;
 		this.num_comentarios = null;
 	}
 	
-	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, int capitulos,
+	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, String genero, int capitulos,
 			String nacionalidad, String ruta_imagen) {
 		super();
 		this.id = id;
@@ -41,13 +43,14 @@ public class Obra {
 		this.fecha_emision = fecha_emision;
 		this.puntuacion = puntuacion;
 		this.duracion = duracion;
+		this.genero = genero;
 		this.capitulos = capitulos;
 		this.nacionalidad = nacionalidad;
 		this.ruta_imagen = ruta_imagen;
 		this.num_comentarios = null;
 	}
 	
-	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, int capitulos,
+	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, String genero, int capitulos,
 			String nacionalidad, String ruta_imagen, String plot, String awards, int metascore,
 			double imdb_rating, int imdb_votes) {
 		super();
@@ -56,6 +59,7 @@ public class Obra {
 		this.fecha_emision = fecha_emision;
 		this.puntuacion = puntuacion;
 		this.duracion = duracion;
+		this.genero = genero;
 		this.capitulos = capitulos;
 		this.nacionalidad = nacionalidad;
 		this.ruta_imagen = ruta_imagen;
@@ -66,7 +70,7 @@ public class Obra {
 		this.imdb_votes = imdb_votes;
 	}
 	
-	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, int capitulos,
+	public Obra(int id, String nombre, Date fecha_emision, int puntuacion, int duracion, String genero, int capitulos,
 			String nacionalidad, String ruta_imagen, String plot, String awards, int metascore,
 			double imdb_rating, int imdb_votes, String num_comentarios, String avg_puntuacion) {
 		super();
@@ -75,6 +79,7 @@ public class Obra {
 		this.fecha_emision = fecha_emision;
 		this.puntuacion = puntuacion;
 		this.duracion = duracion;
+		this.genero = genero;
 		this.capitulos = capitulos;
 		this.nacionalidad = nacionalidad;
 		this.ruta_imagen = ruta_imagen;

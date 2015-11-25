@@ -113,14 +113,14 @@ public class OracleConnector implements Facade {
 	 * Metodo para cerrar la conexion JDBC con la BD
 	 */
 	private void disconnect() {
-		try {
-			if (connection != null) {
-				connection.close();
-			}
-			connection = null;
-		} catch (SQLException sqlE) {
-			connection = null;
-		}
+//		try {
+//			if (connection != null) {
+//				connection.close();
+//			}
+//			connection = null;
+//		} catch (SQLException sqlE) {
+//			connection = null;
+//		}
 	}
 
 	private ResultSet executeQuery(String sql) {
@@ -348,14 +348,14 @@ public class OracleConnector implements Facade {
 		return user;
 	}
 		
-	public int insertObra(String nombre, Date fecha, int puntuacion, int duracion, 
+	public int insertObra(String nombre, Date fecha, int puntuacion, int duracion, String genero,
 			String nacionalidad, int capitulos, String ruta_imagen, String plot, 
 			String awards, int metascore, double imdb_rating, int imdb_votes) {
 		String sql = String.format("INSERT INTO Obra"
-				+ "(nombre, fecha_emision, puntuacion, duracion, nacionalidad, capitulos, ruta_imagen,"
+				+ "(nombre, fecha_emision, puntuacion, duracion, genero, nacionalidad, capitulos, ruta_imagen,"
 				+ "plot, awards, metascore, imdb_rating, imdb_votes) VALUES"
-				+ "('%s', TO_DATE('%s', 'YYYY-MM-DD'),'%d', '%d', '%s', '%d', '%s', '%s', '%s', '%d', '%.1f', '%d')",
-				nombre, fecha, puntuacion, duracion, nacionalidad, capitulos, ruta_imagen,
+				+ "('%s', TO_DATE('%s', 'YYYY-MM-DD'),'%d', '%d', '%d', '%s', '%d', '%s', '%s', '%s', '%d', '%.1f', '%d')",
+				nombre, fecha, puntuacion, duracion, genero, nacionalidad, capitulos, ruta_imagen,
 				plot, awards, metascore, imdb_rating, imdb_votes);
 		ResultSet rs = null;
 		int obra_id = -1;
@@ -390,6 +390,7 @@ public class OracleConnector implements Facade {
 		        			  //getUserAveragePuntuaciones(rs.getInt("id")),
 		        			  rs.getInt("puntuacion"),
 		        			  rs.getInt("duracion"), 
+		        			  rs.getString("genero"),
 		        			  rs.getInt("capitulos"), 
 		        			  rs.getString("nacionalidad"),
 		        			  rs.getString("ruta_imagen"),
@@ -447,6 +448,7 @@ public class OracleConnector implements Facade {
         			   rs.getDate("fecha_emision"), 
         			   rs.getInt("puntuacion"),
         			   rs.getInt("duracion"), 
+	        		rs.getString("genero"),
         			   rs.getInt("capitulos"), 
         			   rs.getString("nacionalidad"),
         			   rs.getString("ruta_imagen"),
@@ -481,6 +483,7 @@ public class OracleConnector implements Facade {
 						rs.getDate("fecha_emision"), 
 						rs.getInt("puntuacion"),
 						rs.getInt("duracion"), 
+	        			rs.getString("genero"),
 						rs.getInt("capitulos"), 
 						rs.getString("nacionalidad"),
 						rs.getString("ruta_imagen"),
@@ -532,6 +535,7 @@ public class OracleConnector implements Facade {
 	        			rs.getDate("fecha_emision"), 
 	        			rs.getInt("puntuacion"),
 	        			rs.getInt("duracion"), 
+	        			rs.getString("genero"),
 	        			rs.getInt("capitulos"), 
 	        			rs.getString("nacionalidad"),
 	        			rs.getString("ruta_imagen"),
@@ -567,6 +571,7 @@ public class OracleConnector implements Facade {
 	        			rs.getDate("fecha_emision"), 
 	        			rs.getInt("puntuacion"),
 	        			rs.getInt("duracion"), 
+	        			rs.getString("genero"),
 	        			rs.getInt("capitulos"), 
 	        			rs.getString("nacionalidad"),
 	        			rs.getString("ruta_imagen"),
@@ -721,6 +726,7 @@ public class OracleConnector implements Facade {
 						rs.getDate("fecha_emision"),
 						rs.getInt("puntuacion"),
 						rs.getInt("duracion"),
+	        			rs.getString("genero"),
 						rs.getInt("capitulos"),
 						rs.getString("nacionalidad"),
 						rs.getString("ruta_imagen"),

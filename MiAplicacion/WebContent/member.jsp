@@ -66,8 +66,7 @@
 								<div class="dropdown-menu">
 									<form name="login" method="post" action="/MiAplicacion/LoginUsuario.do">
 										<div class="form-group">
-											<!-- TODO Cambiar input type a email -->
-											<label>Correo electrónico</label> <input type="text" placeholder="Correo electrónico" name="email" class="form-control username-input input-sm" required>
+											<label>Correo electrónico</label> <input type="email" placeholder="Correo electrónico" name="email" class="form-control username-input input-sm" required>
 										</div>
 										<div class="form-group">
 											<label>Contraseña</label> <input type="password" placeholder="Contraseña" name="password" class="form-control password-input input-sm" required>
@@ -171,7 +170,17 @@
 										</tr>
 										<tr>
 											<td>Género</td>
-											<td>${datos.sexo}</td>
+											<c:choose>
+  												<c:when test="${datos.sexo eq 'H'}">
+  													<td>Hombre</td>									
+  												</c:when>
+  												<c:when test="${datos.sexo eq 'M'}">
+  													<td>Mujer</td>									
+  												</c:when>
+  												<c:otherwise>
+  													<td>Indefinido</td>									  													
+  												</c:otherwise>
+  											</c:choose>
 										</tr>
 										<tr>
 											<td>Dirección</td>

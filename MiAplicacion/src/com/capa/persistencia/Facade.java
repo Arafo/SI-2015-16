@@ -23,7 +23,7 @@ public interface Facade {
 	// puntuacion es "puntuacion", duracion es "duracion", nacionalidad es "nacionalidad"
 	// capitulos es "capitulos" y ruta de la imagen es "ruta_imagen"
 	// Devuelve un identificador id correspondiente a la Obra insertada
-	public int insertObra(String nombre, Date fecha, int puntuacion, int duracion, 
+	public int insertObra(String nombre, Date fecha, int puntuacion, int duracion, String genero,
 			String nacionalidad, int capitulos, String ruta_imagen, String plot, 
 			String awards, int metascore, double imdb_rating, int imdb_votes);
 	// Devuelve la Obra cuyo cuyo id es igual a "ObraId"
