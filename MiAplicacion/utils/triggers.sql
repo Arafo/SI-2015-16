@@ -77,10 +77,16 @@ BEGIN
 END;
 
 -------------------
-
+DROP TABLE accion_obra;
+DROP TABLE accion;
+DROP TABLE trabaja;
+DROP TABLE obra;
+DROP TABLE persona;
+DROP TABLE usuario;
 DROP SEQUENCE obra_seq;
 DROP SEQUENCE persona_seq;
 DROP SEQUENCE trabaja_seq;
+DROP SEQUENCE user_seq;
 DROP SEQUENCE accion_seq;
 DROP SEQUENCE accion_obra_seq;
 DROP TRIGGER obra_autoincrement;
@@ -101,6 +107,7 @@ alter table obra MODIFY nombre VARCHAR2(100);
 alter table obra add ruta_imagen VARCHAR2(100);
 alter table obra MODIFY plot VARCHAR2(2000);
 alter table obra MODIFY imdb_votes NUMBER(16);
+alter table obra MODIFY genero VARCHAR2(100);
 
 
 SELECT * FROM Persona WHERE id IN (SELECT nombre_persona FROM Trabaja WHERE nombre_obra='59')
@@ -169,6 +176,12 @@ SELECT * FROM obra
 SELECT DISTINCT id_obra, AVG(puntuacion) FROM accion_obra WHERE puntuacion!=0 GROUP BY id_obra
 SELECT DISTINCT * FROM Accion_obra
 
+SELECT DISTINCT genero FROM obra;
+
+SELECT * FROM obra WHERE genero='Comedy';
+
 SELECT * FROM usuario
 
 SELECT * FROM accion a, accion_obra b WHERE a.id=b.id_accion AND a.id_usuario=5 AND b.id=45
+
+SELECT * FROM Persona a, (SELECT nombre_persona, rol FROM Trabaja WHERE nombre_obra='4') b WHERE a.id=b.nombre_persona

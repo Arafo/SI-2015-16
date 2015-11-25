@@ -62,8 +62,8 @@
     			<!-- Registro e inicio de sesión -->
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose> 
-  						<c:when test="${cookie['loginUsuario'].value ne nombre}">
-  							<li><a href="register.html">Registro</a></li>
+  						<c:when test="${empty cookie['loginUsuario'].value}">
+  							<li><a href="register.jsp">Registro</a></li>
   							<!-- Inicio de sesión -->
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -71,8 +71,7 @@
 								<div class="dropdown-menu">
 									<form name="login" method="post" action="/MiAplicacion/LoginUsuario.do">
 										<div class="form-group">
-											<!-- TODO Cambiar input type a email -->
-											<label>Correo electrónico</label> <input type="text" placeholder="Correo electrónico" name="email" class="form-control username-input input-sm" required>
+											<label>Correo electrónico</label> <input type="email" placeholder="Correo electrónico" name="email" class="form-control username-input input-sm" required>
 										</div>
 										<div class="form-group">
 											<label>Contraseña</label> <input type="password" placeholder="Contraseña" name="password" class="form-control password-input input-sm" required>
@@ -174,10 +173,15 @@
                         <div class="title">
                         	<h3><a href="#">${obra.nombre}</a></h3><hr>
                         </div>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nisl lacus, dictum ut odio et, auctor mattis neque. Vivamus malesuada hendrerit libero sollicitudin fermentum</p>
-                       	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nisl lacus, dictum ut odio et, auctor mattis neque. Vivamus malesuada hendrerit libero sollicitudin fermentum</p> 
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+						<p>
+							<strong>Estreno:</strong> 
+							<fmt:formatDate pattern="dd MMMM, yyyy" value="${obra.fecha_emision}"/>
+						</p>
+						<p><strong>Duración:</strong> ${obra.duracion} min</p>
+						<p><strong>Pais:</strong> ${obra.nacionalidad}</p>
+						<p><strong>Género:</strong> ${obra.genero}</p>
+						<p><strong>Sinopsis:</strong> ${obra.plot}</p>				
+						<p><strong>Premios:</strong> ${obra.awards}</p>
                     </div>
                     <div class="ratings">
                         <p class="pull-right">${comentariosSize} comentarios</p>

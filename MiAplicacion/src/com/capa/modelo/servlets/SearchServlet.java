@@ -24,6 +24,7 @@ public class SearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String obra = null;
 		String query = null;
+		String genre = null;
 		long startTime = System.nanoTime();
 		
 		// Recoger el parametro de busqueda
@@ -32,8 +33,17 @@ public class SearchServlet extends HttpServlet {
 			query = obra.trim().replaceAll("'", "''");
 		}
 		
+		if (request.getParameter("genre") != null)
+			genre = request.getParameter("genre");
+				
 		Facade f = new OracleConnector();
-		List<Obra> obrasList = f.getObrasSearch(query);
+		List<Obra> obrasList;
+		if (obra != null) 
+			obrasList = f.getObrasSearch(query);
+		else {
+			obrasList = f.getObrasByGenero(genre);
+			obra = "Genero: " + genre;
+		}
 		List<Obra> mejor_puntuadas = f.getMejorPuntuadas(5);
 		List<Obra> mas_comentadas = f.getMasComentadas(5);
 		

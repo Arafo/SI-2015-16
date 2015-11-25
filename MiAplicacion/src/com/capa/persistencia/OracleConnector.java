@@ -113,14 +113,14 @@ public class OracleConnector implements Facade {
 	 * Metodo para cerrar la conexion JDBC con la BD
 	 */
 	private void disconnect() {
-//		try {
-//			if (connection != null) {
-//				connection.close();
-//			}
-//			connection = null;
-//		} catch (SQLException sqlE) {
-//			connection = null;
-//		}
+		try {
+			if (connection != null) {
+				connection.close();
+			}
+			connection = null;
+		} catch (SQLException sqlE) {
+			connection = null;
+		}
 	}
 
 	private ResultSet executeQuery(String sql) {
@@ -354,7 +354,7 @@ public class OracleConnector implements Facade {
 		String sql = String.format("INSERT INTO Obra"
 				+ "(nombre, fecha_emision, puntuacion, duracion, genero, nacionalidad, capitulos, ruta_imagen,"
 				+ "plot, awards, metascore, imdb_rating, imdb_votes) VALUES"
-				+ "('%s', TO_DATE('%s', 'YYYY-MM-DD'),'%d', '%d', '%d', '%s', '%d', '%s', '%s', '%s', '%d', '%.1f', '%d')",
+				+ "('%s', TO_DATE('%s', 'YYYY-MM-DD'),'%d', '%d', '%s', '%s', '%d', '%s', '%s', '%s', '%d', '%.1f', '%d')",
 				nombre, fecha, puntuacion, duracion, genero, nacionalidad, capitulos, ruta_imagen,
 				plot, awards, metascore, imdb_rating, imdb_votes);
 		ResultSet rs = null;
@@ -520,6 +520,58 @@ public class OracleConnector implements Facade {
 		
 		return count;
 	}
+	
+	public List<String> getGeneros(int num) {
+		String sql = "SELECT * FROM (SELECT DISTINCT genero FROM obra) WHERE ROWNUM <=" + num;
+		List<String> data = new ArrayList<String>();
+
+		ResultSet rs = executeQuery(sql);
+		
+		try {
+			while (rs.next()) {
+				data.add(rs.getString("genero"));
+			}
+			rs.close();
+			disconnect();
+		} catch (Exception e) {
+			e.printStackTrace();	
+		} 
+		
+		return data;
+	}
+	
+	public List<Obra> getObrasByGenero(String genero) {
+		String sql = "SELECT * FROM obra WHERE genero='" + genero + "'";
+		List<Obra> data = new ArrayList<Obra>();
+
+		ResultSet rs = executeQuery(sql);
+		
+		try {
+			while (rs.next()) {
+				data.add(new Obra(rs.getInt("id"),
+						rs.getString("nombre"),
+						rs.getDate("fecha_emision"), 
+						rs.getInt("puntuacion"),
+						rs.getInt("duracion"), 
+	        			rs.getString("genero"),
+						rs.getInt("capitulos"), 
+						rs.getString("nacionalidad"),
+						rs.getString("ruta_imagen"),
+						rs.getString("plot"),
+						rs.getString("awards"),
+						rs.getInt("metascore"),
+						rs.getDouble("imdb_rating"),
+						rs.getInt("imdb_votes")));
+			}
+			rs.close();
+			disconnect();
+		} catch (Exception e) {
+			e.printStackTrace();	
+		} 
+		
+		return data;
+	}
+
 
 	@Override
 	public Obra getObra(int ObraId) {
@@ -646,7 +698,7 @@ public class OracleConnector implements Facade {
 	
 	public List<Persona> getPersonas(String nombreObra) {
 		String sql = String.format("SELECT * FROM Persona WHERE id IN "
-				+ "(SELECT nombre_persona FROM Trabaja WHERE nombre_obra IN "
+				+ "(SELECT nombre_persona, rol FROM Trabaja WHERE nombre_obra IN "
 				+ "(SELECT id FROM Obra WHERE nombre='%s'))", nombreObra);
 		List<Persona> personas = new ArrayList<Persona>();
 		ResultSet rs = null;
@@ -658,7 +710,8 @@ public class OracleConnector implements Facade {
 						rs.getString("nombre"),
 						rs.getString("sexo"),
 						rs.getDate("fecha_nacimiento"),
-						rs.getString("nacionalidad")));
+						rs.getString("nacionalidad"),
+						rs.getString("rol")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -745,8 +798,9 @@ public class OracleConnector implements Facade {
 
 	@Override
 	public List<Persona> getPersonaTrabajo(int idObra) {
-		String sql = String.format("SELECT * FROM Persona WHERE id IN "
-				+ "(SELECT nombre_persona FROM Trabaja WHERE nombre_obra='%d')", idObra);
+		String sql = String.format("SELECT * FROM Persona a, "
+				+ "(SELECT nombre_persona, rol FROM Trabaja WHERE nombre_obra='%d') b "
+				+ "WHERE a.id=b.nombre_persona", idObra);
 		List<Persona> personas = new ArrayList<Persona>();
 		ResultSet rs = null;
 		
@@ -757,7 +811,9 @@ public class OracleConnector implements Facade {
 						rs.getString("nombre"),
 						rs.getString("sexo"),
 						rs.getDate("fecha_nacimiento"),
-						rs.getString("nacionalidad")));
+						rs.getString("nacionalidad"),
+						rs.getString("rol")));
+							
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

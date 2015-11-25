@@ -19,6 +19,8 @@ public class UserLogoutServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		
 		if (session != null) {
+			CookieManager cm = new CookieManager(request, response);
+			cm.deleteCookies(response);
 		    session.invalidate();
 		}
 		

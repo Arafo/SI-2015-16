@@ -55,7 +55,7 @@
     			<!-- Registro e inicio de sesión -->
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose> 
-  						<c:when test="${empty nombre}">
+  						<c:when test="${empty cookie['loginUsuario'].value}">
   							<li class="active"><a href="register.jsp">Registro</a></li>
   							<!-- Inicio de sesión -->
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -64,8 +64,7 @@
 								<div class="dropdown-menu">
 									<form name="login" method="post" action="/MiAplicacion/LoginUsuario.do">
 										<div class="form-group">
-											<!-- TODO Cambiar input type a email -->
-											<label>Correo electrónico</label> <input type="text" placeholder="Correo electrónico" name="email" class="form-control username-input input-sm" required>
+											<label>Correo electrónico</label> <input type="email" placeholder="Correo electrónico" name="email" class="form-control username-input input-sm" required>
 										</div>
 										<div class="form-group">
 											<label>Contraseña</label> <input type="password" placeholder="Contraseña" name="password" class="form-control password-input input-sm" required>

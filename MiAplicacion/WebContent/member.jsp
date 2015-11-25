@@ -57,7 +57,7 @@
     			<!-- Registro e inicio de sesión -->
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose> 
-  						<c:when test="${empty nombre}">
+  						<c:when test="${empty cookie['loginUsuario'].value}">
   							<li><a href="register.jsp">Registro</a></li>
   							<!-- Inicio de sesión -->
 							<li class="dropdown"><a href="#" class="dropdown-toggle"

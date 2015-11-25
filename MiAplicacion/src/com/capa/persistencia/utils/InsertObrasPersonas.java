@@ -80,6 +80,7 @@ public class InsertObrasPersonas {
 						page.Awards.replaceAll("'", "''"), metascore, imdb_rating,
 						Integer.valueOf(page.imdbVotes.replaceAll(",", "")));
 				insertActors(name, year, idObra, f);
+				insertDirector(page.Director, idObra, f);
 				
 			} 
 			else {
@@ -94,6 +95,11 @@ public class InsertObrasPersonas {
 		}
 	}
 	
+	private static void insertDirector(String director, int idObra, Facade f) {
+		int idPersona = f.insertPersona(director, new java.sql.Date(0), "", "");
+		insertRelacionObraPersona(idPersona, idObra, "Director", f);
+	}
+
 	private static void insertActors(String name, String year, int idObra, Facade f) {
 		String url = String.format("http://www.myapifilms.com/imdb?"
 				+ "title=%s&format=JSON&aka=0&business=0&seasons=0&seasonYear=0&technical=0&filter=N&exactFilter=0&limit=1&"
@@ -133,7 +139,7 @@ public class InsertObrasPersonas {
 				// Insertar actor
 				int idPersona = oc.insertPersona(i.actorName, new java.sql.Date(dateFormat.getTime()), sex, country);
 				// Insertar relacion Actor-Trabaja-Obra
-				insertRelacionObraActor(idPersona, idObra, "Actor", oc);
+				insertRelacionObraPersona(idPersona, idObra, "Actor", oc);
 			}
 		} catch (IOException e) {
 			System.err.println("Error al descargar el archivo JSON de la obra " + name);
@@ -142,7 +148,7 @@ public class InsertObrasPersonas {
 		}
 	}
 	
-	private static void insertRelacionObraActor(int idPersona, int idObra, String rol, Facade f) {
+	private static void insertRelacionObraPersona(int idPersona, int idObra, String rol, Facade f) {
 		f.insertTrabaja(idPersona, idObra, rol);
 	}
 

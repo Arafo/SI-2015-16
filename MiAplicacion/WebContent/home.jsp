@@ -59,7 +59,7 @@
     			<!-- Registro e inicio de sesión -->
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose> 
-  						<c:when test="${empty nombre}">
+  						<c:when test="${empty cookie['loginUsuario'].value}">
   							<li><a href="register.jsp">Registro</a></li>
   							<!-- Inicio de sesión -->
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -108,11 +108,9 @@
 			<div class="col-md-3">
 				<p class="lead">Género</p>
 				<div class="list-group">
-					<a href="#" class="list-group-item">Categoria 1</a> 
-					<a href="#" class="list-group-item">Categoria 2</a> 
-					<a href="#" class="list-group-item">Categoria 3</a>
-					<a href="#" class="list-group-item">Categoria 4</a>
-					<a href="#" class="list-group-item">Categoria 5</a>
+					<c:forEach var="genero" items="${generos}">
+						<a href="search.html?genre=${genero}" class="list-group-item">${genero}</a> 
+					</c:forEach>
 				</div>
 				<!-- Obras mejor puntuadas -->
 				<p class="lead">Mejor puntuación</p>

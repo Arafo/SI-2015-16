@@ -62,7 +62,7 @@
     			<!-- Registro e inicio de sesión -->
 				<ul class="nav navbar-nav navbar-right">
 					<c:choose> 
-  						<c:when test="${empty nombre}">
+  						<c:when test="${empty cookie['loginUsuario'].value}">
   							<li><a href="register.jsp">Registro</a></li>
   							<!-- Inicio de sesión -->
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -163,16 +163,22 @@
 						<a href="#collapseActors" class="list-group-item panel-title collapsed " data-toggle="collapse" ><b>Reparto</b></a>
 						<div id="collapseActors" class="panel-collapse collapse in">
 							<c:forEach var="persona" items="${personasObra1}">
-								<a href="#collapse01${persona.id}" class="list-group-item text-left accordion-toggle collapsed" data-toggle="collapse" >${persona.nombre}</a>
-								<div id="collapse01${persona.id}" class="panel-collapse collapse text-left">
-      								<ul class="list-group">
-    					  				<li class="list-group-item"><b>Fecha de nacimiento:</b> 
-    					   					<fmt:formatDate pattern="yyyy" value="${persona.nacimiento}"/>
-    					   				</li>
-       									<li class="list-group-item"><b>Sexo:</b> ${persona.sexo}</li>
-       									<li class="list-group-item"><b>Nacionalidad:</b> ${persona.nacionalidad}</li>       							
-      								</ul>
-    							</div>
+								<c:choose>
+									<c:when test="${persona.rol eq 'Actor'}">
+										<a href="#collapse01${persona.id}" class="list-group-item text-left accordion-toggle collapsed" data-toggle="collapse" >${persona.nombre}</a>
+										<div id="collapse01${persona.id}" class="panel-collapse collapse text-left">
+      										<ul class="list-group">
+    					  						<li class="list-group-item"><b>Fecha de nacimiento:</b> 
+    					   							<fmt:formatDate pattern="yyyy" value="${persona.nacimiento}"/>
+    					   						</li>
+       											<li class="list-group-item"><b>Sexo:</b> ${persona.sexo}</li>
+       											<li class="list-group-item"><b>Nacionalidad:</b> ${persona.nacionalidad}</li>       							
+      										</ul>
+    									</div>
+									</c:when>
+								</c:choose>
+			
+
 							</c:forEach>
 						</div>
 						<!-- /Actores -->
@@ -184,9 +190,14 @@
 					<ul class="list-group text-center">									
 						<!-- Directores -->	
 						<a href="#collapseDirector" class="list-group-item panel-title collapsed " data-toggle="collapse" ><b>Director</b></a>
-						<div id="collapseDirector" class="panel-collapse collapse in">					
-							<li class="list-group-item text-left">Director1</li>
-							<li class="list-group-item text-left">Director2</li>							
+						<div id="collapseDirector" class="panel-collapse collapse in">	
+							<c:forEach var="persona" items="${personasObra1}">		
+								<c:choose>
+									<c:when test="${persona.rol eq 'Director'}">
+										<li class="list-group-item text-left">${persona.nombre}</li>
+									</c:when>
+								</c:choose>	
+							</c:forEach>			
 						</div>
 						<!-- /Directores -->
 					</ul>
@@ -254,16 +265,20 @@
 						<a href="#collapseActors2" class="list-group-item panel-title collapsed " data-toggle="collapse" ><b>Reparto</b></a>
 						<div id="collapseActors2" class="panel-collapse collapse in">
 							<c:forEach var="persona" items="${personasObra2}">
-								<a href="#collapse02${persona.id}" class="list-group-item text-left accordion-toggle collapsed" data-toggle="collapse" >${persona.nombre}</a>
-								<div id="collapse02${persona.id}" class="panel-collapse collapse text-left">
-      								<ul class="list-group">
-    					  				<li class="list-group-item"><b>Fecha de nacimiento:</b> 
-    					   					<fmt:formatDate pattern="yyyy" value="${persona.nacimiento}"/>
-    					   				</li>
-       									<li class="list-group-item"><b>Sexo:</b> ${persona.sexo}</li>
-       									<li class="list-group-item"><b>Nacionalidad:</b> ${persona.nacionalidad}</li>       							
-      								</ul>
-    							</div>
+								<c:choose>
+									<c:when test="${persona.rol eq 'Actor'}">
+										<a href="#collapse02${persona.id}" class="list-group-item text-left accordion-toggle collapsed" data-toggle="collapse" >${persona.nombre}</a>
+										<div id="collapse02${persona.id}" class="panel-collapse collapse text-left">
+      										<ul class="list-group">
+    					  						<li class="list-group-item"><b>Fecha de nacimiento:</b> 
+    					   							<fmt:formatDate pattern="yyyy" value="${persona.nacimiento}"/>
+    					   						</li>
+       											<li class="list-group-item"><b>Sexo:</b> ${persona.sexo}</li>
+       											<li class="list-group-item"><b>Nacionalidad:</b> ${persona.nacionalidad}</li>       							
+      										</ul>
+    									</div>
+    								</c:when>
+    							</c:choose>
 							</c:forEach>
 						</div>
 						<!-- /Actores -->
@@ -276,8 +291,13 @@
 						<!-- Directores -->	
 						<a href="#collapseDirector2" class="list-group-item panel-title collapsed " data-toggle="collapse" ><b>Director</b></a>
 						<div id="collapseDirector2" class="panel-collapse collapse in">					
-							<li class="list-group-item text-left">Director1</li>
-							<li class="list-group-item text-left">Director2</li>							
+							<c:forEach var="persona" items="${personasObra2}">		
+								<c:choose>
+									<c:when test="${persona.rol eq 'Director'}">
+										<li class="list-group-item text-left">${persona.nombre}</li>
+									</c:when>
+								</c:choose>	
+							</c:forEach>								
 						</div>
 						<!-- /Directores -->
 					</ul>

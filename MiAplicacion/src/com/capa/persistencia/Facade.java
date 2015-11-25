@@ -39,6 +39,8 @@ public interface Facade {
 	public List<Obra> getObrasSearch(String nombre);
 	// Devuelve el numero de Obras existentes
 	public int getNumObras();
+	public List<String> getGeneros(int num);
+	public List<Obra> getObrasByGenero(String genero);
 	
 	/////////////////////////////////////////////////////////////
 	// TABLA PERSONA (ACABADA)

@@ -16,6 +16,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.capa.modelo.Usuario;
 import com.capa.persistencia.Facade;
@@ -80,6 +81,9 @@ public class UserRegisterServlet extends HttpServlet {
 				try {
 					// Se comprueba que se pueda introducir el usuario
 					facade.insertUser(user);
+					// Crear el HttpSession
+					HttpSession s = request.getSession();
+					s.setAttribute("nombre", user.getEmail());
 					// Se rellena la cookie con los datos de usuario
 					Cookie cookieLogin = new Cookie(CookieManager.COOKIENAME_USER, user.getEmail());
 					Cookie cookieClave = new Cookie(CookieManager.COOKIENAME_PASS, user.getPass());
@@ -89,7 +93,7 @@ public class UserRegisterServlet extends HttpServlet {
 					// Se añaden las cookies y se redirecciona a la pagina principal
 					response.addCookie(cookieLogin);
 					response.addCookie(cookieClave);			
-					response.sendRedirect("login.jsp");
+					response.sendRedirect("home.html");
 				} catch (EmailAlreadyExistsException e) {
 					errors.put("Email", "Ya existe un usuario registrado con el correo electrónico " + email); // Forward a  Login.jsp
 					request.setAttribute("errores", errors);

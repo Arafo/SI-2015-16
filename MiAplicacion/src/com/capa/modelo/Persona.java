@@ -9,22 +9,25 @@ public class Persona {
 	private String sexo;
 	private Date nacimiento;
 	private String nacionalidad;
+	private String rol;
 	
-	public Persona(int id, String nombre, String sexo, Date nacimiento, String nacionalidad) {
+	public Persona(int id, String nombre, String sexo, Date nacimiento, String nacionalidad, String rol) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.sexo = sexo;
 		this.nacimiento = nacimiento;
 		this.nacionalidad = nacionalidad;
+		this.rol = rol;
 	}
 	
-	public Persona(String nombre, String sexo, Date nacimiento, String nacionalidad) {
+	public Persona(String nombre, String sexo, Date nacimiento, String nacionalidad, String rol) {
 		super();
 		this.nombre = nombre;
 		this.sexo = sexo;
 		this.nacimiento = nacimiento;
 		this.nacionalidad = nacionalidad;
+		this.rol = rol;
 	}
 	
 	public int getId() {
@@ -57,7 +60,10 @@ public class Persona {
 	public void setNacionalidad(String nacionalidad) {
 		this.nacionalidad = nacionalidad;
 	}
-	
-	
-
+	public String getRol() {
+		return rol;
+	}
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
 }

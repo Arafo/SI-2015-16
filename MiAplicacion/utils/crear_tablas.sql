@@ -6,7 +6,7 @@ CREATE TABLE Obra
 	fecha_emision	DATE,
 	puntuacion 		NUMBER(3),
 	duracion 		NUMBER(6),
-	genero			VARCHAR2(40),
+	genero			VARCHAR2(100),
 	nacionalidad 	VARCHAR2(40),
 	capitulos 		NUMBER(4),
 	ruta_imagen 	VARCHAR2(100),

@@ -40,20 +40,21 @@ public class AddCommentServlet extends HttpServlet {
 			}
 		}
 		
+		// Recogida de los parametros
+		if (request.getParameter("id") != null)
+			obra = request.getParameter("id");
+		
+		if (request.getParameter("comment") != null)
+			comentario = request.getParameter("comment");
+		
+		if (request.getParameter("rating") != null)
+			rating = Integer.valueOf(request.getParameter("rating"));
+		
 		Facade f = new OracleConnector();
 
 		// Si el usuario esta logeado se permite el comentario
 		try {
 			if (user != null && pass != null && f.loginUser(user, pass) != null) {
-				// Recogida de los parametros
-				if (request.getParameter("comment") != null)
-					comentario = request.getParameter("comment");
-				
-				if (request.getParameter("id") != null)
-					obra = request.getParameter("id");
-				
-				if (request.getParameter("rating") != null)
-					rating = Integer.valueOf(request.getParameter("rating"));
 				
 				int id_accion = f.insertAccion("comentario", new Date(new java.util.Date().getTime()), f.getUser(user).getId());
 				// Creacion del comentario

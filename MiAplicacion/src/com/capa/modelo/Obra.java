@@ -134,6 +134,15 @@ public class Obra {
 	public void setDuracion(int duracion) {
 		this.duracion = duracion;
 	}
+	
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
 	public int getCapitulos() {
 		return capitulos;
 	}
