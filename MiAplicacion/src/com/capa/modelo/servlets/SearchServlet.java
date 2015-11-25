@@ -34,13 +34,16 @@ public class SearchServlet extends HttpServlet {
 		
 		Facade f = new OracleConnector();
 		List<Obra> obrasList = f.getObrasSearch(query);
+		List<Obra> mejor_puntuadas = f.getMejorPuntuadas(5);
+		List<Obra> mas_comentadas = f.getMasComentadas(5);
 		
 		// Extraer de la BD las entradas que cumplan la busqueda
 		float endTime = (System.nanoTime() - startTime)/1e9f;
 		request.setAttribute("obrasList", obrasList);
 		request.setAttribute("obrasListSize", obrasList.size());
 		request.setAttribute("time", endTime);
-
+		request.setAttribute("mejor_puntuadas", mejor_puntuadas);
+		request.setAttribute("mas_comentadas", mas_comentadas);
 		request.setAttribute("query", obra);
 
 		// Mostrar los resultados de la busqueda

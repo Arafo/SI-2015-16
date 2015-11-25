@@ -65,8 +65,10 @@ public class MemberServlet extends HttpServlet {
 				response.sendRedirect("LogoutUsuario.do");
 			}
 		} catch (InvalidUserException e) {
+			response.sendRedirect("home.html");
 			e.printStackTrace();
 		} catch (InvalidPasswordException e) {
+			response.sendRedirect("home.html");
 			e.printStackTrace();
 		}
 	}

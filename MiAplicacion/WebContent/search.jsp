@@ -146,23 +146,24 @@
 			</div>
 			<!-- /Resultados -->			
 			
-			
 			<!-- Columna izquierda -->
 			<div class="col-md-3 col-md-pull-9">
-				<p class="lead">MiAplicacion</p>
+				<!-- Obras mejor puntuadas -->
+				<p class="lead">Mejor puntuación</p>
 				<div class="list-group">
-					<a href="#" class="list-group-item">Categoria 1</a> 
-					<a href="#" class="list-group-item">Categoria 2</a> 
-					<a href="#" class="list-group-item">Categoria 3</a>
-					<a href="#" class="list-group-item">Categoria 4</a>
-					<a href="#" class="list-group-item">Categoria 5</a>
+					<c:forEach var="obra" items="${mejor_puntuadas}">
+						<a href="obra.html?id=${obra.id}" class="list-group-item">${obra.nombre} (${obra.avg_puntuacion})</a> 
+					</c:forEach>
 				</div>
-				<p class="lead">MasMiAplicacion</p>
+				<!-- /Obras mejor puntuadas -->		
+				<!-- Obras mas comentadas -->		
+				<p class="lead">Más comentadas</p>
 				<div class="list-group">
-					<a href="#" class="list-group-item">Mas categoria 1</a> 
-					<a href="#" class="list-group-item">Mas Categoria 2</a> 
-					<a href="#" class="list-group-item">Mas Categoria 3</a>
+					<c:forEach var="obra" items="${mas_comentadas}">
+						<a href="obra.html?id=${obra.id}" class="list-group-item">${obra.nombre} (${obra.num_comentarios})</a> 
+					</c:forEach>
 				</div>
+				<!-- /Obras mas comentadas -->	
 			</div>
 			<!-- /Columna izquierda -->
 		</div>

@@ -110,15 +110,6 @@
         <div class="row">
 
             <div class="col-md-3">
-                <p class="lead">Mi Aplicacion</p>
-                <div class="list-group">
-                    <a href="#" class="list-group-item active">Categoria1</a>
-                    <a href="#" class="list-group-item">Categoria2 </a>
-                    <a href="#" class="list-group-item">Categoria2</a>
-                </div>
-                
-                <hr>
-                          
                 <!-- Comparacion -->
                 <form action="comparacion.html" method="get">                
                 <div class="row">
