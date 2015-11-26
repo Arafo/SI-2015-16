@@ -20,7 +20,6 @@
 <script type="text/javascript" src="js/jquery-ajax-autocomplete-servlet.js"></script>
 <script type="text/javascript" src="js/metacritic.js"></script>
 
-
 </head>
 
 <body>
@@ -114,8 +113,8 @@
             	<div class="row">
 					<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete1" class="form-control input-lg" value="${obra1.nombre}"></div>
 					<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete2" class="form-control input-lg" value="${obra2.nombre}"></div>
-					<input type="hidden" id="id_obra1" name="obra1" value="${param.obra1}">
-					<input type="hidden" id="id_obra2" name="obra2" value="${param.obra2}">
+					<input type="hidden" id="id_obra1" name="obra1" value="${param.obra1}" maxlength="100">
+					<input type="hidden" id="id_obra2" name="obra2" value="${param.obra2}" maxlength="100">
 				</div>
 				<div class="submit">
 					<input type="submit" value="COMPARAR" onclick="#" class="btn btn-primary center-block">

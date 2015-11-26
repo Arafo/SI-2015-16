@@ -6,6 +6,19 @@ body {
 	background: #eee;
 }
 
+/* Menu de inicio de sesion */
+.dropdown-menu {
+    border-left: 1px solid #e1e8ef;
+    left: -200%;
+    margin: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    position: absolute;
+    width: 280px;
+    background-color: white;
+}
+
 /* Pie de pagina */
 footer {
 	margin: 50px 0;

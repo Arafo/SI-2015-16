@@ -39,6 +39,10 @@ input[type="radio"] {
   margin-left: 20px;
 }
 
+.col-xs-12 .col-md-6 {
+	padding-bottom: 10px;
+}
+
 /* Menu de inicio de sesion */
 .dropdown-menu {
     border-left: 1px solid #e1e8ef;

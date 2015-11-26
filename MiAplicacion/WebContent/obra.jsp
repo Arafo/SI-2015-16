@@ -107,65 +107,8 @@
     <div class="container">
 
         <div class="row">
-
-            <div class="col-md-3">
-                <!-- Comparacion -->
-                <form action="comparacion.html" method="get">                
-                <div class="row">
-            		<div class="col-centered center-block">
-            			<p class="lead">Comparar</p>
-            			<div class="row">
-							<div class="form-group col-xs-12 col-md-12"><input type="text" id="autocomplete1" class="form-control input-lg" value="${obra.nombre}"></div>
-						</div>
-						<div class="row">
-							<div class="form-group col-xs-12 col-md-12"><input type="text" id="autocomplete2" class="form-control input-lg" placeholder="Obra2"></div>
-						</div>
-						<input type="hidden" id="id_obra1" name="obra1" value="${param.id}">
-						<input type="hidden" id="id_obra2" name="obra2">
-						<div class="submit">
-							<input type="submit" value="COMPARAR" onclick="#" class="btn btn-primary center-block">
-						</div>
-                	</div>
-            	</div>
-               	</form>          	
-            	<!-- /Comparacion -->
-            	
-            	<hr>
-            	
-            	<!-- Obras mejor puntuadas -->
-				<p class="lead">Mejor puntuación</p>
-				<div class="list-group">
-					<c:forEach var="mejor" items="${mejor_puntuadas}">
-						<c:choose>
-  							<c:when test="${obra.id eq mejor.id}">
-  								<a href="obra.html?id=${mejor.id}" class="list-group-item"><b>${mejor.nombre} (${mejor.avg_puntuacion})</b></a> 	
-  							</c:when>
-  							<c:otherwise>
-  								<a href="obra.html?id=${mejor.id}" class="list-group-item">${mejor.nombre} (${mejor.avg_puntuacion})</a> 
-  							</c:otherwise>
-  						</c:choose>
-					</c:forEach>
-				</div>
-				<!-- /Obras mejor puntuadas -->		
-				<!-- Obras mas comentadas -->		
-				<p class="lead">Más comentadas</p>
-				<div class="list-group">
-					<c:forEach var="mas" items="${mas_comentadas}">
-						<c:choose>
-  							<c:when test="${mas.id eq obra.id}">
-								<a href="obra.html?id=${mas.id}" class="list-group-item"><b>${mas.nombre} (${mas.num_comentarios})</b></a> 
-  							</c:when>
-  							<c:otherwise>
-								<a href="obra.html?id=${mas.id}" class="list-group-item">${mas.nombre} (${mas.num_comentarios})</a> 	
-  							</c:otherwise>
-  						</c:choose>
-					</c:forEach>
-				</div>
-				<!-- /Obras mas comentadas -->	
-                
-            </div>
-
-            <div class="col-md-9">
+			<!-- Columna derecha -->
+            <div class="col-md-9 col-md-push-3">
 
                 <div class="thumbnail">                
                     <img class="img-responsive" src="${obra.ruta_imagen}" alt="">
@@ -280,6 +223,65 @@
 				<!-- /Zona de comentarios -->
 
             </div>
+            <!-- /Columna derecha -->
+			<!-- Columna izquierda -->
+            <div class="col-md-3 col-md-pull-9">
+                <!-- Comparacion -->
+                <form action="comparacion.html" method="get">                
+                <div class="row">
+            		<div class="col-centered center-block">
+            			<p class="lead">Comparar</p>
+            			<div class="row">
+							<div class="form-group col-xs-12 col-md-12"><input type="text" id="autocomplete1" class="form-control input-lg" value="${obra.nombre}" maxlength="100"></div>
+						</div>
+						<div class="row">
+							<div class="form-group col-xs-12 col-md-12"><input type="text" id="autocomplete2" class="form-control input-lg" placeholder="Obra2" maxlength="100"></div>
+						</div>
+						<input type="hidden" id="id_obra1" name="obra1" value="${param.id}">
+						<input type="hidden" id="id_obra2" name="obra2">
+						<div class="submit">
+							<input type="submit" value="COMPARAR" onclick="#" class="btn btn-primary center-block">
+						</div>
+                	</div>
+            	</div>
+               	</form>          	
+            	<!-- /Comparacion -->
+            	
+            	<hr>
+            	
+            	<!-- Obras mejor puntuadas -->
+				<p class="lead">Mejor puntuación</p>
+				<div class="list-group">
+					<c:forEach var="mejor" items="${mejor_puntuadas}">
+						<c:choose>
+  							<c:when test="${obra.id eq mejor.id}">
+  								<a href="obra.html?id=${mejor.id}" class="list-group-item"><b>${mejor.nombre} (${mejor.avg_puntuacion})</b></a> 	
+  							</c:when>
+  							<c:otherwise>
+  								<a href="obra.html?id=${mejor.id}" class="list-group-item">${mejor.nombre} (${mejor.avg_puntuacion})</a> 
+  							</c:otherwise>
+  						</c:choose>
+					</c:forEach>
+				</div>
+				<!-- /Obras mejor puntuadas -->		
+				<!-- Obras mas comentadas -->		
+				<p class="lead">Más comentadas</p>
+				<div class="list-group">
+					<c:forEach var="mas" items="${mas_comentadas}">
+						<c:choose>
+  							<c:when test="${mas.id eq obra.id}">
+								<a href="obra.html?id=${mas.id}" class="list-group-item"><b>${mas.nombre} (${mas.num_comentarios})</b></a> 
+  							</c:when>
+  							<c:otherwise>
+								<a href="obra.html?id=${mas.id}" class="list-group-item">${mas.nombre} (${mas.num_comentarios})</a> 	
+  							</c:otherwise>
+  						</c:choose>
+					</c:forEach>
+				</div>
+				<!-- /Obras mas comentadas -->	
+            </div>
+            <!-- /Columna izquierda -->            
+            
         </div>
     </div>
     <!-- /.container -->

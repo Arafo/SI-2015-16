@@ -12,6 +12,9 @@
 <link href="css/miaplicacion_base.css" rel="stylesheet" type="text/css" />
 <link href="css/search.css" rel="stylesheet" type="text/css" />
 
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 
 <title>Busqueda</title>
 </head>

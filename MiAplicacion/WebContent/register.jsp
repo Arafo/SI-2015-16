@@ -100,7 +100,7 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3 well well-sm">
 				<form name="register" method="post" action="/MiAplicacion/RegisterUsuario.do">
-					<h2>Registro <small>Alguna cosa></small></h2>
+					<h2>Registro <small>Alguna cosa</small></h2>
 					<hr class="graph">
 
 					<!-- Nombre -->

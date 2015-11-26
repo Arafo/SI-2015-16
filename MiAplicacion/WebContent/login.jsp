@@ -132,7 +132,7 @@
 
 	<div class="container">
 		<div class="row">
-    		<div class="col-xs-10 col-sm-6 col-md-4 col-sm-offset-4 col-md-offset-4">
+    		<div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
 				<form name="login" method="post" action="/MiAplicacion/LoginUsuario.do">
 					<h2>Iniciar sesión</h2>
 					<hr class="graph">

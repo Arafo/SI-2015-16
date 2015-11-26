@@ -103,36 +103,9 @@
 
 	<div class="container">
 		<div class="row">
-		
-			<!-- Columna izquierda -->
-			<div class="col-md-3">
-				<p class="lead">Género</p>
-				<div class="list-group">
-					<c:forEach var="genero" items="${generos}">
-						<a href="search.html?genre=${genero}" class="list-group-item">${genero}</a> 
-					</c:forEach>
-				</div>
-				<!-- Obras mejor puntuadas -->
-				<p class="lead">Mejor puntuación</p>
-				<div class="list-group">
-					<c:forEach var="obra" items="${mejor_puntuadas}">
-						<a href="obra.html?id=${obra.id}" class="list-group-item">${obra.nombre} (${obra.avg_puntuacion})</a> 
-					</c:forEach>
-				</div>
-				<!-- /Obras mejor puntuadas -->		
-				<!-- Obras mas comentadas -->		
-				<p class="lead">Más comentadas</p>
-				<div class="list-group">
-					<c:forEach var="obra" items="${mas_comentadas}">
-						<a href="obra.html?id=${obra.id}" class="list-group-item">${obra.nombre} (${obra.num_comentarios})</a> 
-					</c:forEach>
-				</div>
-				<!-- /Obras mas comentadas -->		
-
-			</div>
-			<!-- /Columna izquierda -->
-
-			<div class="col-md-9">
+			
+			<!-- Columna derecha -->
+			<div class="col-md-9 col-md-push-3">
 				<!-- Zona de la comparacion -->
 				<div class="row well">
             		<div class="col-xs-12 col-sm-8 col-md-8 col-centered center-block">
@@ -142,8 +115,8 @@
             			</div>
             			<form action="comparacion.html" method="get">
             				<div class="row">
-								<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete1" class="form-control input-lg" placeholder="Obra1"></div>			
-								<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete2" class="form-control input-lg" placeholder="Obra2"></div>
+								<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete1" class="form-control input-lg" placeholder="Obra1" maxlength="100"></div>			
+								<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete2" class="form-control input-lg" placeholder="Obra2" maxlength="100"></div>
 								<input type="hidden" id="id_obra1" name="obra1">
 								<input type="hidden" id="id_obra2" name="obra2">
 							</div>
@@ -243,6 +216,35 @@
 				<!-- /Indices de la paginacion -->
         		
 			</div>
+			<!-- /Columna derecha -->
+			
+			<!-- Columna izquierda -->
+			<div class="col-md-3 col-md-pull-9">
+				<p class="lead">Género</p>
+				<div class="list-group">
+					<c:forEach var="genero" items="${generos}">
+						<a href="search.html?genre=${genero}" class="list-group-item">${genero}</a> 
+					</c:forEach>
+				</div>
+				<!-- Obras mejor puntuadas -->
+				<p class="lead">Mejor puntuación</p>
+				<div class="list-group">
+					<c:forEach var="obra" items="${mejor_puntuadas}">
+						<a href="obra.html?id=${obra.id}" class="list-group-item">${obra.nombre} (${obra.avg_puntuacion})</a> 
+					</c:forEach>
+				</div>
+				<!-- /Obras mejor puntuadas -->		
+				<!-- Obras mas comentadas -->		
+				<p class="lead">Más comentadas</p>
+				<div class="list-group">
+					<c:forEach var="obra" items="${mas_comentadas}">
+						<a href="obra.html?id=${obra.id}" class="list-group-item">${obra.nombre} (${obra.num_comentarios})</a> 
+					</c:forEach>
+				</div>
+				<!-- /Obras mas comentadas -->		
+
+			</div>
+			<!-- /Columna izquierda -->			
 		</div>
 	</div>
 
