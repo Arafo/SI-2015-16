@@ -106,8 +106,8 @@
 	<div class="row">
     	<div class="col-centered col-xs-12 col-sm-8 col-md-6 center-block">
             <div class="title text-center">
-            	<h2>Comparar obras</h2>
-            	<h6>Alguna frase de explicacion por aqui</h6>
+            	<h2>Comparador de películas</h2>
+            	<h6>Compara películas, cara a cara</h6>
             </div>
             <form action="comparacion.html" method="get">
             	<div class="row">

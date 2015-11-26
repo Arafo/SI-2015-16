@@ -110,13 +110,13 @@
 				<div class="row well">
             		<div class="col-xs-12 col-sm-8 col-md-8 col-centered center-block">
             			<div class="title text-center">
-            				<h2>Comparar obras</h2>
-            				<h6>Alguna frase de explicacion por aqui</h6>
+            				<h2>Comparador de películas</h2>
+            				<h6>Compara películas, cara a cara</h6>
             			</div>
             			<form action="comparacion.html" method="get">
             				<div class="row">
-								<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete1" class="form-control input-lg" placeholder="Obra1" maxlength="100"></div>			
-								<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete2" class="form-control input-lg" placeholder="Obra2" maxlength="100"></div>
+								<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete1" class="form-control input-lg" placeholder="Película Uno" maxlength="100"></div>			
+								<div class="form-group col-xs-12 col-md-6"><input type="text" id="autocomplete2" class="form-control input-lg" placeholder="Película Dos" maxlength="100"></div>
 								<input type="hidden" id="id_obra1" name="obra1">
 								<input type="hidden" id="id_obra2" name="obra2">
 							</div>

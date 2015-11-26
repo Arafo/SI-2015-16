@@ -150,10 +150,10 @@ public class OracleConnector implements Facade {
 			if (!rs.next()) {
 				exito = 1;
 				sql = String.format("INSERT INTO USUARIO"
-						+ "(nombre, sexo, telefono, email, pass, nacimiento) "
-						+ "VALUES ('%s', '%s', '%d', '%s', '%s', TO_DATE('%s', 'YYYY-MM-DD'))",
+						+ "(nombre, sexo, telefono, email, pass, nacimiento, nacionalidad) "
+						+ "VALUES ('%s', '%s', '%d', '%s', '%s', TO_DATE('%s', 'YYYY-MM-DD'), '%s')",
 						user.getNombre(), user.getSexo(), user.getTelefono(),
-						user.getEmail(), user.getPass(), user.getNacimiento());	
+						user.getEmail(), user.getPass(), user.getNacimiento(), user.getAddress());	
 				executeQuery(sql);
 			} else {
 				throw new EmailAlreadyExistsException("Error al insertar usuario,"
@@ -337,7 +337,8 @@ public class OracleConnector implements Facade {
 						rs.getInt("telefono"),
 						rs.getString("email"),
 						rs.getString("pass"),
-						rs.getDate("nacimiento"));	
+						rs.getDate("nacimiento"),
+						rs.getString("nacionalidad"));	
 			}
 			
 		} catch (SQLException e) {

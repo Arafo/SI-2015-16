@@ -185,3 +185,5 @@ SELECT * FROM usuario
 SELECT * FROM accion a, accion_obra b WHERE a.id=b.id_accion AND a.id_usuario=5 AND b.id=45
 
 SELECT * FROM Persona a, (SELECT nombre_persona, rol FROM Trabaja WHERE nombre_obra='4') b WHERE a.id=b.nombre_persona
+
+SELECT * FROM usuario

@@ -105,7 +105,7 @@
 			<div class="col-md-9 col-md-push-3">
 				<!-- Grupo encabezado -->
 				<hgroup>				
-					<h1>Search Results</h1>
+					<h1>Resultados de la búsqueda</h1>
 					<!-- Formato tiempo de ejecución -->
 					<fmt:formatNumber var="time" value="${time}" maxFractionDigits="2" />					<!-- Formato tiempo de ejecución -->
 					<!-- /Formato tiempo de ejecución -->
@@ -144,6 +144,7 @@
 						<span class="clearfix borda"></span>
 					</div>
 					<!-- /Resultado -->
+					<hr>
 				</c:forEach>
 			</div>
 			<!-- /Resultados -->			

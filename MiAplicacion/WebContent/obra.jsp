@@ -230,12 +230,12 @@
                 <form action="comparacion.html" method="get">                
                 <div class="row">
             		<div class="col-centered center-block">
-            			<p class="lead">Comparar</p>
+            			<p class="lead">Comparar películas</p>
             			<div class="row">
 							<div class="form-group col-xs-12 col-md-12"><input type="text" id="autocomplete1" class="form-control input-lg" value="${obra.nombre}" maxlength="100"></div>
 						</div>
 						<div class="row">
-							<div class="form-group col-xs-12 col-md-12"><input type="text" id="autocomplete2" class="form-control input-lg" placeholder="Obra2" maxlength="100"></div>
+							<div class="form-group col-xs-12 col-md-12"><input type="text" id="autocomplete2" class="form-control input-lg" placeholder="Película Dos" maxlength="100"></div>
 						</div>
 						<input type="hidden" id="id_obra1" name="obra1" value="${param.id}">
 						<input type="hidden" id="id_obra2" name="obra2">
