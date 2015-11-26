@@ -2,7 +2,7 @@
 CREATE TABLE Obra
 (
 	id 				NUMBER(8) NOT NULL,
-	nombre 			VARCHAR2(40) NOT NULL,
+	nombre 			VARCHAR2(100) NOT NULL,
 	fecha_emision	DATE,
 	puntuacion 		NUMBER(3),
 	duracion 		NUMBER(6),

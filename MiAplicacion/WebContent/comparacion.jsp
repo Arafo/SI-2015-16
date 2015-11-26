@@ -221,7 +221,16 @@
 										<label class="btn btn-success" id="metascore1">${obra1.metascore}</label>
 									</li>
 								</c:when>
-							</c:choose>							
+							</c:choose>
+							<li class="list-group-item">
+								<span>Puntuación de los usuarios: </span>
+                       			<c:forEach var="rating" begin="1" end="${avg_obra1}" >
+                       				<span class="glyphicon glyphicon-star"></span>
+                       			</c:forEach>
+                       			<c:forEach var="rating" begin="${avg_obra1 + 1}" end="5" >
+                            		<span class="glyphicon glyphicon-star-empty"></span>
+                       			</c:forEach>
+							</li>							
 						</div>
 						<!-- /Puntuaciones -->
 					</ul>
@@ -322,6 +331,15 @@
 									</li>
 								</c:when>
 							</c:choose>
+							<li class="list-group-item">
+								<span>Puntuación de los usuarios: </span>
+                       			<c:forEach var="rating" begin="1" end="${avg_obra2}" >
+                       				<span class="glyphicon glyphicon-star"></span>
+                       			</c:forEach>
+                       			<c:forEach var="rating" begin="${avg_obra2 + 1}" end="5" >
+                            		<span class="glyphicon glyphicon-star-empty"></span>
+                       			</c:forEach>
+							</li>							
 						</div>
 						<!-- /Puntuaciones -->
 					</ul>

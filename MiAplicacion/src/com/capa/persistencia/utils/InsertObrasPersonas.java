@@ -59,7 +59,7 @@ public class InsertObrasPersonas {
 			if (!page.Response.equals("False") && !page.Poster.equals("N/A")) {
 				String imagePath = "images/" + 
 						page.Title.replaceAll("[\\s\\:\\'\\,\\.\\·\\?]", "") + "_" + 
-						page.Year + ".jpg";
+						year + ".jpg";
 				saveImagefromUrl(page.Poster, "WebContent/" + imagePath);
 				resizeImage(214, 320, "WebContent/" + imagePath);
 				
@@ -74,7 +74,7 @@ public class InsertObrasPersonas {
 				
 				int idObra = f.insertObra(name.replaceAll("\\+", " ").replaceAll("'", "''"), 
 						new java.sql.Date(date.getTime()), 
-						4, 
+						0, 
 						Integer.valueOf(page.Runtime.split(" ")[0]), page.Genre,
 						page.Country, 1, imagePath, page.Plot.replaceAll("'", "''"),
 						page.Awards.replaceAll("'", "''"), metascore, imdb_rating,
@@ -134,12 +134,12 @@ public class InsertObrasPersonas {
 				if (i.biography.actorActress != null) {
 					sex = i.biography.actorActress.equals("Actor") ? "H" : "M";
 				}
-				Facade oc = new OracleConnector();
+				//Facade oc = new OracleConnector();
 				System.out.println(i.actorName + ", " + date + ", " + sex + ", " + country);
 				// Insertar actor
-				int idPersona = oc.insertPersona(i.actorName, new java.sql.Date(dateFormat.getTime()), sex, country);
+				int idPersona = f.insertPersona(i.actorName.replaceAll("'", "''"), new java.sql.Date(dateFormat.getTime()), sex, country);
 				// Insertar relacion Actor-Trabaja-Obra
-				insertRelacionObraPersona(idPersona, idObra, "Actor", oc);
+				insertRelacionObraPersona(idPersona, idObra, "Actor", f);
 			}
 		} catch (IOException e) {
 			System.err.println("Error al descargar el archivo JSON de la obra " + name);

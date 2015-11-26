@@ -36,16 +36,23 @@ public class CompareServlet extends HttpServlet {
 		// Recoger los datos de las obras de la base de datos
 		Obra datosObra1 = f.getObra(obra1);
 		Obra datosObra2 = f.getObra(obra2);
+
 		// Recoger los datos de las personas involucradas con las obras
 		if (datosObra1 != null && datosObra2 != null) {
 			List<Persona> personasObra1 = f.getPersonaTrabajo(obra1);
 			List<Persona> personasObra2 = f.getPersonaTrabajo(obra2);
+			
+			int avg_obra1 = f.getUserAveragePuntuaciones(obra1);
+			int avg_obra2 = f.getUserAveragePuntuaciones(obra2);
 			
 			// Preparar los datos recogidos
 			request.setAttribute("obra1", datosObra1);
 			request.setAttribute("obra2", datosObra2);
 			request.setAttribute("personasObra1", personasObra1);
 			request.setAttribute("personasObra2", personasObra2);
+			request.setAttribute("avg_obra1", avg_obra1);
+			request.setAttribute("avg_obra2", avg_obra2);
+
 			
 			// Mostrar los datos
 			RequestDispatcher view = request.getRequestDispatcher("comparacion.jsp");
