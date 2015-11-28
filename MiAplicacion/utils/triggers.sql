@@ -186,4 +186,14 @@ SELECT * FROM accion a, accion_obra b WHERE a.id=b.id_accion AND a.id_usuario=5 
 
 SELECT * FROM Persona a, (SELECT nombre_persona, rol FROM Trabaja WHERE nombre_obra='4') b WHERE a.id=b.nombre_persona
 
-SELECT * FROM usuario
+SELECT * FROM accion where id_usuario=1 AND ID>1;
+SELECT * FROM accion_obra where id_obra=38;
+
+DELETE FROM accion where id_usuario=1 AND ID>1;
+DELETE FROM accion_obra where id_obra=38;
+
+SELECT * FROM accion_obra WHERE id_accion IN (SELECT id FROM accion WHERE id_usuario=6)
+
+SELECT * FROM accion WHERE id_usuario=6
+
+SELECT * FROM usuario where id=6

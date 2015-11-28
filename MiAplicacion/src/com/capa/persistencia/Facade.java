@@ -71,6 +71,8 @@ public interface Facade {
 	/////////////////////////////////////////////////////////////
 	
 	public int insertUser(Usuario user) throws EmailAlreadyExistsException;
+	public int modifyUser(Usuario user, int id_user) throws EmailAlreadyExistsException;
+	public void deleteUser(int id, String email);
 	public Usuario loginUser(String email, String password) throws InvalidUserException, InvalidPasswordException;
 	public Usuario getUser(String email);
 	

@@ -68,25 +68,25 @@ public class Pruebas {
 		/**
 		 * Insertar un usuario
 		 */
-		int i=0;
-		try {
-				while (true) {
-					try {	
-						int exito = f.insertUser(new Usuario("Rafa", "M", 976111111, "rafa_marcen"+i+"@hotmail.com", encodeMd5("pass"),
-								new Date(new java.util.Date().getTime()), "4", "Calle Tomate"));
-						System.out.println(exito);
-					} catch (EmailAlreadyExistsException e) {
-						System.err.println(e.getMessage());
-					}
-					i++;
-				}
-		} catch(Exception e) {
-			e.printStackTrace();
-			System.out.println(i);
-			System.exit(0);
-		}
+//		int i=0;
+//		try {
+//				while (true) {
+//					try {	
+//						int exito = f.insertUser(new Usuario("Rafa", "M", 976111111, "rafa_marcen"+i+"@hotmail.com", encodeMd5("pass"),
+//								new Date(new java.util.Date().getTime()), "4", "Calle Tomate"));
+//						System.out.println(exito);
+//					} catch (EmailAlreadyExistsException e) {
+//						System.err.println(e.getMessage());
+//					}
+//					i++;
+//				}
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//			System.out.println(i);
+//			System.exit(0);
+//		}
 		/**
-		 * Insertar una accion
+		 * Insertar una accion y un comentario
 		 */
 //		int accion = f.insertAccion("comentario", new Date(new java.util.Date().getTime()), f.getUser("Fallout1").getId());
 //		int accion_obra = f.insertComment("Esta pelicula iba de monos locos?", 0, f.getIdObra("Ali G Indahouse", "2002"), accion);
@@ -127,6 +127,32 @@ public class Pruebas {
 //		List<Accion> acciones = f.getAccionesUsuario(5);
 //		for (Accion a: acciones)
 //			System.out.println(a.getNombre() + ", " + a.getFecha());
+		
+		
+		/**
+		 * Prueba de sobrecarga
+		 */
+		int i = 0;
+		Date date = new Date(new java.util.Date().getTime());
+		while (true) {
+			try {
+				int accion = f.insertAccion("comentario", date, 1);
+				int accion_obra = f.insertComment("Comment"+i, 0, 38, accion);
+				System.out.println(i);
+				i++;
+				
+			} catch (NullPointerException e) {
+				try {
+					Thread.sleep(30000);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		
+		/**
+		 * Prueba de volumen
+		 */
 	}
 
 	public static String encodeMd5(String input) {

@@ -168,6 +168,46 @@ public class OracleConnector implements Facade {
 		
 		return exito;
 	}
+	
+	public int modifyUser(Usuario user, int id_user) throws EmailAlreadyExistsException {
+		String sql = String.format("SELECT * FROM USUARIO WHERE EMAIL='%s'", user.getEmail());
+		int exito = 0;
+		ResultSet rs = executeQuery(sql);
+		try {
+			if (!rs.next()) {
+				exito = 1;
+				sql = String.format("UPDATE usuario SET nombre = '%s', sexo = '%s', telefono = '%s', "
+						+ "email = '%s', nacimiento = TO_DATE('%s', 'YYYY-MM-DD'), nacionalidad = '%s' "
+						+ "WHERE id='%d'", user.getNombre(), user.getSexo(), user.getTelefono(), 
+						user.getEmail(), user.getNacimiento(), user.getAddress(), id_user);	
+				executeQuery(sql);
+			} else {
+				throw new EmailAlreadyExistsException("Error al insertar usuario,"
+						+ " email '" + user.getEmail() + 
+						"' ya existe en la base de datos.");
+			}
+			rs.close();
+			disconnect();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return exito;
+
+	}
+	
+	@Override
+	public void deleteUser(int id, String email) {
+		String sql = String.format("DELETE FROM accion_obra WHERE id_accion IN "
+				+ "(SELECT id FROM accion WHERE id_usuario='%d')", id);
+		executeQuery(sql);
+		sql = String.format("DELETE FROM accion WHERE id_usuario='%d'", id);
+		executeQuery(sql);
+		sql = String.format("DELETE FROM usuario where id='%d'", id);
+		executeQuery(sql);
+		disconnect();
+
+	}
 
 	@Override
 	public Usuario loginUser(String email, String password) throws InvalidUserException, InvalidPasswordException {
@@ -270,6 +310,8 @@ public class OracleConnector implements Facade {
 			if (rs.next()) {
 				id_comment = rs.getInt("id");
 			}
+			rs.close();
+			disconnect();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -449,7 +491,7 @@ public class OracleConnector implements Facade {
         			   rs.getDate("fecha_emision"), 
         			   rs.getInt("puntuacion"),
         			   rs.getInt("duracion"), 
-	        		rs.getString("genero"),
+        			   rs.getString("genero"),
         			   rs.getInt("capitulos"), 
         			   rs.getString("nacionalidad"),
         			   rs.getString("ruta_imagen"),

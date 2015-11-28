@@ -93,6 +93,24 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 </servlet-mapping>
 
 <servlet>
+	<servlet-name>ModifyUserData Servlet</servlet-name>
+    <servlet-class>com.capa.modelo.servlets.ModifyUserDataServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>ModifyUserData Servlet</servlet-name>
+    <url-pattern>/ModifyUserData.do</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>DeleteUserData Servlet</servlet-name>
+    <servlet-class>com.capa.modelo.servlets.DeleteUserDataServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>DeleteUserData Servlet</servlet-name>
+    <url-pattern>/DeleteUserData.do</url-pattern>
+</servlet-mapping>
+
+<servlet>
 	<servlet-name>ModifyComment Servlet</servlet-name>
     <servlet-class>com.capa.modelo.servlets.ModifyCommentServlet</servlet-class>
 </servlet>

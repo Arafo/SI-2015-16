@@ -11,10 +11,15 @@
 <!-- <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" /> -->
 <link href="css/miaplicacion_base.css" rel="stylesheet" type="text/css" />
 <link href="css/member.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="css/sortable-theme-bootstrap.css" />
 
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/grid.js"></script>
+<script type="text/javascript" src="js/modify-user-data.js"></script>
+<script type="text/javascript" src="js/sortable.min.js"></script>
+
 
 <title>Mi casa</title>
 </head>
@@ -113,7 +118,7 @@
 					<div id="collapse" class="panel-body panel-collapse collapse in">
 						<div class="table-responsive">
 							<!-- Tabla de acciones del usuario -->
-							<table class="table">
+							<table class="table sortable-theme-bootstrap" data-sortable>
 								<!-- Encabezado de la tabla -->
 								<thead>
 									<tr>
@@ -153,46 +158,134 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12 col-lg-12">
+								<form name="modify-user-data" method="post" action="/MiAplicacion/ModifyUserData.do">
 								<!-- Tabla de informacion de usuario -->
 								<table class="table table-user-information">
 									<tbody>
 										<tr>
 											<td>Nombre de usuario</td>
-											<td>${datos.nombre}</td>
+											<td><input class="form-control" type="text" id="name" name="name" value="${datos.nombre}" disabled></td>
 										</tr>
 										<tr>
 											<td>Email</td>
-											<td><a href="mailto:${datos.email}">${datos.email}</a></td>
+											<td><a href="mailto:${datos.email}"><input class="form-control" type="email" id="email" name="email" value="${datos.email}" disabled></a>
+											<!-- Errores de correo electrónico -->
+											<c:forEach var="entry" items="${errores}">
+												<c:choose>
+													<c:when test="${entry.key eq 'Email'}">
+														<div class="alert alert-danger">
+															<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+															<b>Error!</b> ${entry.value}
+														</div>
+													</c:when>
+												</c:choose>
+											</c:forEach>
+											<!-- /Errores de correo electrónico -->		
+											</td>									
 										</tr>
 										<tr>
 											<td>Fecha de nacimiento</td>
-											<td>${datos.nacimiento}</td>
+											<td><input class="form-control" type="text" id="bday" name="bday" value="${datos.nacimiento}" disabled>
+											<!-- Errores de fecha -->
+											<c:forEach var="entry" items="${errores}">
+												<c:choose>
+													<c:when test="${entry.key eq 'Fecha'}">
+														<div class="alert alert-danger">
+															<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+															<b>Error!</b> ${entry.value}
+														</div>
+													</c:when>
+												</c:choose>
+											</c:forEach>
+											<!-- /Errores de fecha -->		
+											</td>
 										</tr>
 										<tr>
 											<td>Género</td>
 											<c:choose>
   												<c:when test="${datos.sexo eq 'H'}">
-  													<td>Hombre</td>									
+  													<td><input class="form-control" type="text" id="sex" name="sex" value="Hombre" disabled>
+  														<!-- Errores de genero -->
+														<c:forEach var="entry" items="${errores}">
+															<c:choose>
+																<c:when test="${entry.key eq 'Sexo'}">
+																	<div class="alert alert-danger">
+																		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+																		<b>Error!</b> ${entry.value}
+																	</div>
+																</c:when>
+															</c:choose>
+														</c:forEach>
+														<!-- /Errores de genero -->		
+  													</td>									
   												</c:when>
   												<c:when test="${datos.sexo eq 'M'}">
-  													<td>Mujer</td>									
+  													<td><input class="form-control" type="text" id="sex" name="sex" value="Mujer" disabled>
+  													  	<!-- Errores de genero -->
+														<c:forEach var="entry" items="${errores}">
+															<c:choose>
+																<c:when test="${entry.key eq 'Sexo'}">
+																	<div class="alert alert-danger">
+																		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+																		<b>Error!</b> ${entry.value}
+																	</div>
+																</c:when>
+															</c:choose>
+														</c:forEach>
+														<!-- /Errores de genero -->	
+  													</td>									
   												</c:when>
   												<c:otherwise>
-  													<td>Indefinido</td>									  													
+  													<td><input class="form-control" type="text" id="sex" name="sex" value="Indefinido" disabled>
+  													  	<!-- Errores de genero -->
+														<c:forEach var="entry" items="${errores}">
+															<c:choose>
+																<c:when test="${entry.key eq 'Sexo'}">
+																	<div class="alert alert-danger">
+																		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+																		<b>Error!</b> ${entry.value}
+																	</div>
+																</c:when>
+															</c:choose>
+														</c:forEach>
+														<!-- /Errores de genero -->	
+  													</td>									  													
   												</c:otherwise>
   											</c:choose>
 										</tr>
 										<tr>
 											<td>Dirección</td>
-											<td>${datos.address}</td>
+											<td><input class="form-control" type="text" id="address" name="address" value="${datos.address}" disabled></td>
 										</tr>
 										<tr>
 											<td>Teléfono</td>
-											<td>${datos.telefono}</td>
+											<td><input class="form-control" type="text" id="phone" name="phone" value="${datos.telefono}" disabled>
+											<!-- Errores de correo electrónico -->
+											<c:forEach var="entry" items="${errores}">
+												<c:choose>
+													<c:when test="${entry.key eq 'Telefono'}">
+														<div class="alert alert-danger">
+															<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+															<b>Error!</b> ${entry.value}
+														</div>
+													</c:when>
+												</c:choose>
+											</c:forEach>
+											<!-- /Errores de correo electrónico -->	
+											</td>
 										</tr>
 									</tbody>
 								</table>
 								<!-- /Tabla de informacion de usuario -->
+								<input type="hidden" name="old_email" value="${param.u}">
+								<input class="btn btn-primary" id="send_button" type="hidden" value="Enviar">
+								<input class="btn btn-success" id="edit_button" type="button" value="Editar">
+								</form>
+								<form name="delete-user-data" method="post" action="/MiAplicacion/DeleteUserData.do">
+										<input type="hidden" name="email" value="${param.u}">
+										<input type="hidden" name="id" value="${datos.id}">
+										<input class="btn btn-danger" id="delete_button" type="submit" value="Borrar cuenta">
+								</form>
 							</div>
 						</div>
 					</div>

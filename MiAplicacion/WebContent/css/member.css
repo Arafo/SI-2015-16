@@ -10,6 +10,23 @@
 	margin-top: 20px;
 }
 
+form {
+    display: inline;
+}
+
+.form-control {
+	border: none;
+	background-color: #fff;
+	box-shadow: none;
+}
+
+.form-control[disabled] {
+	background-color: #fff;
+	cursor: default;
+	padding: 0px 12px;
+	height: 20px;
+}
+
 .panel-title {
 	background-color: #F5F5F5;
 	text-decoration: none;
