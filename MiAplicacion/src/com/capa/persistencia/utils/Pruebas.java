@@ -134,25 +134,38 @@ public class Pruebas {
 		 */
 		int i = 0;
 		Date date = new Date(new java.util.Date().getTime());
-		while (true) {
-			try {
+		try {
+			while (true) {
 				int accion = f.insertAccion("comentario", date, 1);
 				int accion_obra = f.insertComment("Comment"+i, 0, 38, accion);
 				System.out.println(i);
-				i++;
-				
-			} catch (NullPointerException e) {
-				try {
-					Thread.sleep(30000);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
+				i++;	
 			}
+		} catch (Exception e) {
 		}
 		
 		/**
 		 * Prueba de volumen
 		 */
+		try {
+			createComments(f);
+		} catch (Exception e) {
+		}
+	}
+	
+	private static void createComments(Facade f) throws Exception {
+		String texto = "A";
+		Date date = new Date(new java.util.Date().getTime());
+
+		for (int i = 0; createComment(texto, date, f) != -1; i++) {
+			System.out.printf("Comment" + i , String.valueOf(texto.length()));
+			texto += texto;
+		}
+	}
+	
+	public static long createComment(String comment, Date date, Facade f) throws Exception {
+		int accion = f.insertAccion("comentario", date, 1);
+		return f.insertComment(comment, 0, 38, accion);
 	}
 
 	public static String encodeMd5(String input) {
