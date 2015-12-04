@@ -544,6 +544,35 @@ public class OracleConnector implements Facade {
 		
 		return data;
 	}
+	
+	public List<Obra> getAllObras() {
+		String sql = "SELECT * FROM obra";
+		List<Obra> data = new ArrayList<Obra>();
+		ResultSet rs = executeQuery(sql);
+		try {
+			while (rs.next()) {
+				data.add(new Obra(rs.getInt("id"),
+						rs.getString("nombre"),
+						rs.getDate("fecha_emision"), 
+						rs.getInt("puntuacion"),
+						rs.getInt("duracion"), 
+	        			rs.getString("genero"),
+						rs.getInt("capitulos"), 
+						rs.getString("nacionalidad"),
+						rs.getString("ruta_imagen"),
+						rs.getString("plot"),
+						rs.getString("awards"),
+						rs.getInt("metascore"),
+						rs.getDouble("imdb_rating"),
+						rs.getInt("imdb_votes"))); 	
+			}
+			rs.close();
+			disconnect();
+		} catch (Exception e) {
+			e.printStackTrace();	
+		} 
+		return data;
+	}
 
 	public int getNumObras() {
 		String sql = "select count(id) AS rowcount from obra";
@@ -783,6 +812,29 @@ public class OracleConnector implements Facade {
 		}
 		return persona_id;
 	}
+	
+	@Override
+	public List<Persona> getAllPersonas() {
+		String sql = "SELECT t.nombre_obra, p.*, t.rol FROM persona p, trabaja t WHERE p.id=t.nombre_persona";
+		List<Persona> personas = new ArrayList<Persona>();
+		ResultSet rs = null;
+		try {		
+			rs = executeQuery(sql);
+			while (rs.next()) {
+				personas.add(new Persona(rs.getInt("nombre_obra"),
+						rs.getString("nombre"),
+						rs.getString("sexo"),
+						rs.getDate("fecha_nacimiento"),
+						rs.getString("nacionalidad"),
+						rs.getString("rol")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return personas;
+	}
+
 
 	@Override
 	public int insertTrabaja(int idPersona, int idObra, String rol) {
