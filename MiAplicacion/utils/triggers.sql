@@ -197,3 +197,5 @@ SELECT * FROM accion_obra WHERE id_accion IN (SELECT id FROM accion WHERE id_usu
 SELECT * FROM accion WHERE id_usuario=6
 
 SELECT * FROM usuario where id=6
+
+SELECT t.nombre_obra, p.* FROM persona p, trabaja t WHERE p.id=t.nombre_persona

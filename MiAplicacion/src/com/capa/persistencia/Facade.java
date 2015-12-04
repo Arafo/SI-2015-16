@@ -37,6 +37,7 @@ public interface Facade {
 	// Devuelve una lista de Obras con tamaño igual a noOfRecords a partir de offset
 	public List<Obra> getObras(int offset, int noOfRecords);
 	public List<Obra> getObrasSearch(String nombre);
+	public List<Obra> getAllObras();
 	// Devuelve el numero de Obras existentes
 	public int getNumObras();
 	public List<String> getGeneros(int num);
@@ -55,7 +56,8 @@ public interface Facade {
 	public List<Persona> getPersonas(String nombreObra);
 	// Devuelve la id de la persona cuyo nombre es "nombre"
 	public int getIdPersona(String nombre);
-	
+	public List<Persona> getAllPersonas();
+
 	/////////////////////////////////////////////////////////////
 	// TABLA TRABAJA (ACABADA)
 	/////////////////////////////////////////////////////////////
