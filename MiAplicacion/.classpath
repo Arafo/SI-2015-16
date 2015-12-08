@@ -17,5 +17,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/Users/Rafa/Desktop/apache-tomcat-7.0.64/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/lucene-analyzers-common-5.3.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/lucene-core-5.3.1.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/lucene-queryparser-5.3.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

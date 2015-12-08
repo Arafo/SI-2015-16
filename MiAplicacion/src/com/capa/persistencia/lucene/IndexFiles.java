@@ -130,7 +130,6 @@ public class IndexFiles {
 						 doc.add(new TextField("persona_nacionalidad", p.getNacionalidad(), Field.Store.YES));
 					 if (p.getRol() != null)
 						 doc.add(new TextField("persona_rol", p.getRol(), Field.Store.YES));
-
 				}
 			}
 			
