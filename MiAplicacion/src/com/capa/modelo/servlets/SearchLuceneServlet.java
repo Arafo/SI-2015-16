@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.es.SpanishAnalyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
@@ -40,7 +40,6 @@ public class SearchLuceneServlet extends HttpServlet {
 		String obra = null;
 		String query = null;
 		String genre = null;
-		long startTime = System.nanoTime();
 		
 		// Recoger el parametro de busqueda
 		if (request.getParameter("q") != null) {
@@ -65,12 +64,13 @@ public class SearchLuceneServlet extends HttpServlet {
 		IndexSearcher searcher = new IndexSearcher(reader);
 		searcher.setSimilarity(new BM25Similarity());
 
-		Analyzer analyzer = new SpanishAnalyzer();  
+		Analyzer analyzer = new StandardAnalyzer();  
 		
 		MultiFieldQueryParser parser = new MultiFieldQueryParser(fields, analyzer);		
 		System.out.println("Searching for: " + query.toString());
 
 		TopDocs results = null;
+		long startTime = System.nanoTime();
 		try {
 			results = searcher.search(parser.parse(query), reader.maxDoc());
 			ScoreDoc[] hits = results.scoreDocs;
@@ -106,7 +106,6 @@ public class SearchLuceneServlet extends HttpServlet {
 			List<Obra> mejor_puntuadas = f.getMejorPuntuadas(5);
 			List<Obra> mas_comentadas = f.getMasComentadas(5);
 			
-			// Extraer de la BD las entradas que cumplan la busqueda
 			float endTime = (System.nanoTime() - startTime)/1e9f;
 			request.setAttribute("obrasList", obrasList);
 			request.setAttribute("obrasListSize", obrasList.size());

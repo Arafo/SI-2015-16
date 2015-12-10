@@ -1,7 +1,7 @@
 package com.capa.persistencia.lucene;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.es.SpanishAnalyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.DoubleField;
 import org.apache.lucene.document.Field;
@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Aplicación de linea de comando para indexar todos los ficheros de texto en un
+ * Aplicación de linea de comandoa para indexar todos los ficheros de texto en un
  * directorio. 
  * Uso: java IndexFiles -index indexPath -docs docsPath [-update]
  */
@@ -61,7 +61,7 @@ public class IndexFiles {
 			System.out.println("Indexing to directory '" + indexPath + "'...");
 
 			Directory dir = FSDirectory.open(Paths.get(indexPath));
-			Analyzer analyzer = new SpanishAnalyzer();
+			Analyzer analyzer = new StandardAnalyzer();
 			IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
 
 			if (create) {
@@ -117,7 +117,6 @@ public class IndexFiles {
 			doc.add(new DoubleField("imdb_rating", obra.getImdb_rating(), Field.Store.YES));
 			doc.add(new IntField("imdb_votes", obra.getImdb_votes(), Field.Store.YES));
 			
-			// POCO EFICIENTE
 			for (Persona p : personas) {
 				if (obra.getId() == p.getId()) {
 					 //System.out.println("\t" + p.getNombre());
@@ -134,16 +133,9 @@ public class IndexFiles {
 			}
 			
 			if (writer.getConfig().getOpenMode() == OpenMode.CREATE) {
-				// New index, so we just add the document (no old document can be
-				// there):
 				System.out.println("adding " + obra.getNombre());
 				writer.addDocument(doc);
 			} else {
-				// Existing index (an old copy of this document may have been
-				// indexed) so
-				// we use updateDocument instead to replace the old one matching the
-				// exact
-				// path, if present:
 				System.out.println("updating " + obra.getNombre());
 				writer.updateDocument(new Term("nombre", obra.getNombre()), doc);
 			}
